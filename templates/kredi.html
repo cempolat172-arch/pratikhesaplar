@@ -10,6 +10,38 @@
     <div class="result-item"><h3>Aylık Taksit</h3><span id="resAylikTaksit">0,00 TL</span></div>
     <div class="result-item"><h3>Toplam Ödeme</h3><span id="resToplamOdeme">0,00 TL</span></div>
 </div>
+
+<!-- SEO İçerik Alanı -->
+<div class="seo-content">
+    <h2>Kredi Hesaplama Nasıl Yapılır?</h2>
+    <p>Kredi hesaplama, bankalardan çekeceğiniz <strong>ihtiyaç, taşıt veya konut kredisi</strong> için aylık ödemeniz gereken taksit tutarını ve vade sonunda bankaya geri ödeyeceğiniz toplam rakamı önceden görmenizi sağlayan kritik bir adımdır. Bankalar kredi faizlerini genellikle bileşik faiz veya basit faiz yöntemleriyle, anapara üzerinden aylık bazda ücretlendirir.</p>
+    <p>Aracımızı kullanarak kredi tutarınızı, size sunulan güncel faiz oranını ve ödeme yapmayı planladığınız vadeyi (ay sayısını) girerek saniyeler içinde net sonuçlara ulaşabilirsiniz. Doğru bir ödeme planı çıkarmak, bütçenizi korumak ve aşırı faiz yükünden kurtulmak için kredi çekmeden önce mutlaka piyasadaki farklı bankaların oranlarını hesaplayarak karşılaştırmanız önerilir.</p>
+
+    <div class="faq-section">
+        <h3>Sıkça Sorulan Sorular (SSS)</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Kredi faiz oranı aylık mı, yıllık mı hesaplanır?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Bankaların bireysel tüketicilere (ihtiyaç, taşıt, konut) sunduğu faiz oranları genellikle <strong>aylık</strong> bazda ifade edilir. Örneğin "%3.89 faiz oranı" aylık işleyen oranı belirtir. Aracımız da bu piyasa standartlarına uygun olarak aylık faiz üzerinden hesaplama yapmaktadır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">İhtiyaç kredisi en fazla kaç ay vade ile çekilebilir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">BDDK güncel kurallarına göre ihtiyaç kredisi vadeleri çekilecek tutara göre değişmektedir. Genellikle 50.000 TL'ye kadar olan kredilerde maksimum <strong>36 ay</strong>, 50.000 TL - 100.000 TL arası için <strong>24 ay</strong>, 100.000 TL üzerindeki tutarlar için ise maksimum <strong>12 ay</strong> vade uygulanmaktadır. Konut kredilerinde bu süre 120 aya kadar çıkabilmektedir.</div></div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Erken ödeme yaparsam faiz indirimi olur mu?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Evet. Kredinizi vadesinden önce toplu bir şekilde (erken kapama) kapatırsanız, bankanız kalan anapara üzerinden henüz işlememiş olan gelecek ayların faizini düşmek (indirmek) zorundadır. Erken kapama tutarı, bankanızın sisteminde kalan net anapara üzerinden hesaplanır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">KKDF ve BSMV hesaplamaya dahil mi?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">İhtiyaç ve taşıt kredilerinde devlet tarafından kesilen KKDF (Kaynak Kullanımını Destekleme Fonu) ve BSMV (Banka ve Sigorta Muameleleri Vergisi) maliyetleri, bankaların size sunduğu "Brüt Faiz" oranının içine veya taksit formülüne yedirilir. Bu nedenle çıkan aylık taksit tutarınız vergiler dahil edilmiş nihai tutardır. (Konut kredilerinde KKDF ve BSMV muafiyeti vardır.)</div></div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 {% block extra_js %}
 function hesaplaKredi() {
@@ -20,5 +52,11 @@ function hesaplaKredi() {
     document.getElementById('resAylikTaksit').innerText = taksit.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
     document.getElementById('resToplamOdeme').innerText = (taksit * v).toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
 }
+
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 window.onload = hesaplaKredi;
 {% endblock %}
