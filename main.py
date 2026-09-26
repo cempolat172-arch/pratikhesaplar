@@ -12,6 +12,17 @@ async def home(request: Request):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Hesaplar - Türkiye'nin En Kapsamlı Dijital Araç ve Servis Portalı</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag.js?id=G-DGFQY89T80"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-DGFQY89T80');
+    </script>
+
     <style>
         :root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
         body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
@@ -19,26 +30,26 @@ async def home(request: Request):
         header { text-align: center; margin-bottom: 25px; }
         header h1 { color: var(--primary); margin-bottom: 5px; font-size: 2.2rem; }
         header p { color: #64748b; font-size: 1.1rem; }
-        
+         
         /* Sekmeler (Tabs) */
         .tabs { display: flex; justify-content: center; gap: 6px; margin-bottom: 25px; flex-wrap: wrap; }
         .tab-btn { background: #e2e8f0; border: none; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
         .tab-btn.active { background: var(--primary); color: white; }
-        
+         
         /* Kart Yapısı */
         .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); display: none; }
         .card.active { display: block; }
         .card h2 { margin-top: 0; color: var(--text); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        
+         
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
         input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
-        
+         
         .results { margin-top: 25px; background: #f1f5f9; padding: 20px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; }
         .result-item h3 { margin: 0 0 5px 0; font-size: 0.85rem; color: #64748b; }
         .result-item span { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-        
+         
         /* Haftalık Hava Durumu Tasarımı */
         .weather-box { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 20px; border-radius: 12px; text-align: center; margin-top: 20px; }
         .weather-location { font-size: 0.95rem; opacity: 0.85; margin-bottom: 10px; }
@@ -249,13 +260,13 @@ async def home(request: Request):
             let il = document.getElementById('ilSec').value;
             let ilce = document.getElementById('ilceSec').value;
             document.getElementById('wKonumBilgi').innerText = `${il} / ${ilce || 'Merkez'}`;
-            
+             
             let gunler = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma"];
             let durumlar = ["Güneşli", "Parçalı Bulutlu", "Açık", "Hafif Yağmurlu", "Güneşli"];
             let container = document.getElementById('haftalikTahminContainer');
             container.innerHTML = "";
             let baseTemp = 20 + (ilce ? ilce.length % 5 : 0);
-            
+             
             for(let i = 0; i < 5; i++) {
                 let temp = baseTemp + (i % 3) - 1;
                 container.innerHTML += `
