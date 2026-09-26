@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI(title="Pratik Hesaplar - pratikhesaplar.com", version="3.4.0")
+app = FastAPI(title="Pratik Hesaplar - pratikhesaplar.com", version="3.5.0")
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/", response_class=HTMLResponse)
@@ -44,3 +44,7 @@ async def vki(request: Request):
 @app.get("/hata-kodlari", response_class=HTMLResponse)
 async def ariza_kodlari(request: Request):
     return templates.TemplateResponse(request=request, name="hata-kodlari.html")
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def sitemap():
+    return FileResponse("sitemap.xml", media_type="application/xml")
