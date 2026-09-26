@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Kredi Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}İhtiyaç, taşıt ve konut kredisi hesaplama aracı. Aylık taksit ve toplam geri ödeme tutarınızı anında hesaplayın.{% endblock %}
+{% block content %}
+<h2>Kredi Hesaplama</h2>
+<div class="form-group"><label>Tutar (TL):</label><input type="number" id="krediTutar" value="250000" oninput="hesaplaKredi()"></div>
+<div class="form-group"><label>Faiz Oranı (%):</label><input type="number" step="0.01" id="krediFaiz" value="3.89" oninput="hesaplaKredi()"></div>
+<div class="form-group"><label>Vade (Ay):</label><select id="krediVade" onchange="hesaplaKredi()"><option value="12">12 Ay</option><option value="24" selected>24 Ay</option><option value="36">36 Ay</option><option value="48">48 Ay</option><option value="60">60 Ay</option><option value="120">120 Ay</option></select></div>
+<div class="results">
+    <div class="result-item"><h3>Aylık Taksit</h3><span id="resAylikTaksit">0,00 TL</span></div>
+    <div class="result-item"><h3>Toplam Ödeme</h3><span id="resToplamOdeme">0,00 TL</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaKredi() {
+    let p = parseFloat(document.getElementById('krediTutar').value) || 0;
+    let f = (parseFloat(document.getElementById('krediFaiz').value) || 0) / 100;
+    let v = parseInt(document.getElementById('krediVade').value) || 1;
+    let taksit = f > 0 ? (p * f * Math.pow(1+f, v)) / (Math.pow(1+f, v) - 1) : p / v;
+    document.getElementById('resAylikTaksit').innerText = taksit.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resToplamOdeme').innerText = (taksit * v).toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaKredi;
+{% endblock %}

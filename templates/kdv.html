@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}KDV Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}KDV dahil ve KDV hariç tutar hesaplama. %1, %10, %20 oranları ile pratik ve hızlı KDV hesaplama aracı.{% endblock %}
+{% block content %}
+<h2>KDV Hesaplama</h2>
+<div class="form-group"><label>Tutar (TL):</label><input type="number" id="kdvTutar" placeholder="1000" value="1000" oninput="hesaplaKDV()"></div>
+<div class="form-group"><label>Oran:</label><select id="kdvOrani" onchange="hesaplaKDV()"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></div>
+<div class="form-group"><label>Hesaplama Türü:</label><select id="kdvTip" onchange="hesaplaKDV()"><option value="haric">KDV Hariç Tutar -> KDV Dahil</option><option value="dahil">KDV Dahil Tutar -> KDV Hariç</option></select></div>
+<div class="results">
+    <div class="result-item"><h3>KDV Tutarı</h3><span id="resKDVTutari">0,00 TL</span></div>
+    <div class="result-item"><h3>Toplam Tutar</h3><span id="resKDVToplam">0,00 TL</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaKDV() {
+    let t = parseFloat(document.getElementById('kdvTutar').value) || 0;
+    let o = parseFloat(document.getElementById('kdvOrani').value) / 100;
+    let tip = document.getElementById('kdvTip').value;
+    let kdv = tip === 'haric' ? t * o : t - (t / (1 + o));
+    let toplam = tip === 'haric' ? t + kdv : t - kdv;
+    
+    if (tip === 'dahil') { toplam = t; } else { toplam = t + kdv; }
+
+    document.getElementById('resKDVTutari').innerText = kdv.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resKDVToplam').innerText = toplam.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaKDV;
+{% endblock %}

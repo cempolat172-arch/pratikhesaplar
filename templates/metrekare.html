@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Metrekare (m²) Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Oda, arsa, duvar veya yüzey alanı için metrekare (m²) hesaplama aracı. En ve boy ölçülerini girerek toplam alanı bulun.{% endblock %}
+{% block content %}
+<h2>Metrekare (m²) Hesaplama</h2>
+<div class="form-group"><label>En (metre):</label><input type="number" step="0.01" id="enMetre" placeholder="Örn: 4.5" value="4" oninput="hesaplaAlan()"></div>
+<div class="form-group"><label>Boy (metre):</label><input type="number" step="0.01" id="boyMetre" placeholder="Örn: 5" value="5" oninput="hesaplaAlan()"></div>
+<div class="results" style="grid-template-columns: 1fr;">
+    <div class="result-item"><h3>Toplam Alan</h3><span id="resToplamAlan">0,00 m²</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaAlan() {
+    let e = parseFloat(document.getElementById('enMetre').value) || 0;
+    let b = parseFloat(document.getElementById('boyMetre').value) || 0;
+    document.getElementById('resToplamAlan').innerText = (e * b).toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' m²';
+}
+window.onload = hesaplaAlan;
+{% endblock %}

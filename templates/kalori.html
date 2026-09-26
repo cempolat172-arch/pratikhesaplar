@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Günlük Kalori İhtiyacı Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Günlük almanız gereken kalori miktarını (BMR) cinsiyet, kilo, boy ve yaşa göre hesaplayan araç.{% endblock %}
+{% block content %}
+<h2>Günlük Kalori İhtiyacı Hesaplama</h2>
+<div class="form-group"><label>Cinsiyet:</label><select id="kaloriCinsiyet" onchange="hesaplaKalori()"><option value="erkek">Erkek</option><option value="kadin">Kadın</option></select></div>
+<div class="form-group"><label>Kilo (kg):</label><input type="number" id="kaloriKilo" value="75" oninput="hesaplaKalori()"></div>
+<div class="form-group"><label>Boy (cm):</label><input type="number" id="kaloriBoy" value="175" oninput="hesaplaKalori()"></div>
+<div class="form-group"><label>Yaş:</label><input type="number" id="kaloriYas" value="30" oninput="hesaplaKalori()"></div>
+<div class="results" style="grid-template-columns: 1fr;">
+    <div class="result-item"><h3>Günlük Kalori İhtiyacı</h3><span id="resKalori">0 kcal</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaKalori() {
+    let cinsiyet = document.getElementById('kaloriCinsiyet').value;
+    let kilo = parseFloat(document.getElementById('kaloriKilo').value) || 0;
+    let boy = parseFloat(document.getElementById('kaloriBoy').value) || 0;
+    let yas = parseFloat(document.getElementById('kaloriYas').value) || 0;
+    
+    // BMR Mifflin-St Jeor
+    let bmr = cinsiyet === 'erkek' ? (10 * kilo) + (6.25 * boy) - (5 * yas) + 5 : (10 * kilo) + (6.25 * boy) - (5 * yas) - 161;
+    // Günlük ortalama hareket için * 1.2
+    document.getElementById('resKalori').innerText = Math.round(bmr * 1.2) + ' kcal';
+}
+window.onload = hesaplaKalori;
+{% endblock %}

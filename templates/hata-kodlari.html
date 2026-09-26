@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Kombi, Klima ve Beyaz Eşya Arıza Kodları - Pratik Hesaplar{% endblock %}
+{% block description %}Vaillant, Demirdöküm, Bosch kombi; Arçelik, Beko çamaşır ve bulaşık makinesi ile klima ve buzdolabı arıza kodları sözlüğü.{% endblock %}
+{% block content %}
+<h2>Genişletilmiş Cihaz Arıza ve Hata Kodları Arşivi</h2>
+<div class="form-group">
+    <label>Cihaz / Marka Grubu:</label>
+    <select id="cihazSecim" onchange="filtreleAriza()">
+        <option value="kombi">🔥 Kombi Arıza Kodları (Tüm Markalar)</option>
+        <option value="camasir">👕 Çamaşır Makinesi Arıza Kodları</option>
+        <option value="bulasik">🍽️ Bulaşık Makinesi Arıza Kodları</option>
+        <option value="klima">❄️ Klima Arıza Kodları</option>
+        <option value="Buzdolabi">🧊 Buzdolabı Arıza Kodları</option>
+    </select>
+</div>
+<div class="form-group"><label>Kod veya Açıklama Ara:</label><input type="text" id="arizaAra" placeholder="Örn: F01, E3, Su akıtma, sensör..." oninput="filtreleAriza()"></div>
+<div style="overflow-x: auto; max-height: 500px; overflow-y: auto;">
+    <table>
+        <thead><tr><th>Kod</th><th>Cihaz</th><th>Tanım / Anlamı</th><th>Olası Çözüm</th></tr></thead>
+        <tbody id="arizaTabloBody"></tbody>
+    </table>
+</div>
+{% endblock %}
+{% block extra_js %}
+const arizaVerileri = {
+    kombi: [
+        { kod: "F01 / F04", cihaz: "Kombi (Genel)", tanim: "Ateşleme Başarısızlığı (Gaz Yok)", cozum: "Gaz vanalarını kontrol edin, kombiyi resetleyin." },
+        { kod: "F02 / F05", cihaz: "Kombi (Genel)", tanim: "Hava Basınç / Prosostat Hatası", cozum: "Atık gaz baca bağlantısını ve fanı kontrol edin." },
+        { kod: "F03 / F10", cihaz: "Kombi (Genel)", tanim: "Su Basıncı Düşük (< 1 Bar)", cozum: "Doldurma musluğu ile basıncı 1.5 bar seviyesine getirin." },
+        { kod: "F06 / F20", cihaz: "Kombi (Genel)", tanim: "Aşırı Isınma (Limit Termostat)", cozum: "Petek vanalarının açık olduğundan emin olun." },
+        { kod: "F37", cihaz: "Vaillant / Protherm", tanim: "Düşük Su Basıncı", cozum: "Su basıncını 1.5 bara çıkarın ve resetleyin." },
+        { kod: "F28", cihaz: "Vaillant", tanim: "Ateşleme Bloke (Gaz Gelmiyor)", cozum: "Sayaç vanasını ve bina gazını kontrol edin." },
+        { kod: "C1 / C3", cihaz: "Demirdöküm", tanim: "Hava Prosostatı Hatası", cozum: "Baca yerinden çıkmış olabilir, kontrol edin." },
+        { kod: "E01", cihaz: "Baymak / ECA", tanim: "Ateşleme Kilitlemesi", cozum: "Gaz kesintisi olabilir, reset tuşuna 3 saniye basılı tutun." },
+        { kod: "E02", cihaz: "Baymak", tanim: "Emniyet Termostatı Arızası", cozum: "Kombi aşırı ısınmış, su sirkülasyonunu kontrol edin." },
+        { kod: "A01", cihaz: "Bosch / Buderus", tanim: "Ateşleme Arızası", cozum: "Gaz vanasını kontrol edin, cihazı resetleyin." },
+        { kod: "A03", cihaz: "Bosch / Buderus", tanim: "Sınır Termostatı Devrede", cozum: "Aşırı sıcaklık nedeniyle güvenlik kilidi." }
+    ],
+    camasir: [
+        { kod: "E01 / F01", cihaz: "Çamaşır Makinesi", tanim: "Kapı Emniyet Kilidi Arızası", cozum: "Kapağın tam kapalı olduğundan ve dilden emin olun." },
+        { kod: "E02 / F02", cihaz: "Çamaşır Makinesi", tanim: "Su Alım / Akış Hatası", cozum: "Musluğun açık ve giriş filtresinin temiz olduğunu kontrol edin." },
+        { kod: "E03 / F03", cihaz: "Çamaşır Makinesi", tanim: "Su Boşaltma Hatası", cozum: "Alt kısımdaki pompa filtresini açıp bozuk para/pislik temizleyin." },
+        { kod: "E04 / F04", cihaz: "Çamaşır Makinesi", tanim: "Aşırı Su Seviyesi / Taşma", cozum: "Su giriş valfi takılı kalmış olabilir, musluğu kapatın." },
+        { kod: "OE", cihaz: "LG / Samsung", tanim: "Gider Tıkanıklığı / Su Boşaltmıyor", cozum: "Atık su hortumunu ve pompa filtresini kontrol edin." },
+        { kod: "LE / UE", cihaz: "LG", tanim: "Dengesiz Yük Hatası", cozum: "Çamaşırları makine içinde düzenli dağıtın." },
+        { kod: "F05", cihaz: "Arçelik / Beko", tanim: "Pompa Arızası / Su Boşaltmama", cozum: "Filtrede tıkanıklık var mi bakın." }
+    ],
+    bulasik: [
+        { kod: "E01", cihaz: "Bulaşık Makinesi", tanim: "Su Sızıntısı (AquaStop Devrede)", cozum: "Alt tabpaya su kaçmış olabilir, makineyi hafifçe öne eğin." },
+        { kod: "E02", cihaz: "Bulaşık Makinesi", tanim: "Isıtıcı Rezistans Arızası", cozum: "Suyu ısıtmıyor, termostat veya rezistans kontrol edilmeli." },
+        { kod: "E03", cihaz: "Bulaşık Makinesi", tanim: "Su Almıyor", cozum: "Su giriş hortumu bükülmüş veya musluk kapalı olabilir." },
+        { kod: "i30 / i40", cihaz: "Electrolux / AEG", tanim: "Su Sızıntısı / Taşma Koruması", cozum: "Tabanda su birikintisi sensörü tetiklenmiş." }
+    ],
+    klima: [
+        { kod: "E1 / CH01", cihaz: "Klima (Inverter)", tanim: "İç Ünite Oda Sensörü Arızası", cozum: "Sıcaklık sensörü soketini kontrol edin." },
+        { kod: "E5 / CH05", cihaz: "Klima", tanim: "İç ve Dış Ünite Haberleşme Hatası", cozum: "Ara kablo bağlantılarını ve klemensleri kontrol edin." },
+        { kod: "P4 / CH35", cihaz: "Klima", tanim: "Kompresör Aşırı Isınma / Akım Koruması", cozum: "Filtreleri temizleyin, dış ünite önünün açık olduğundan emin olun." },
+        { kod: "F3", cihaz: "Daikin", tanim: "Dış Ünite Boru Sıcaklık Sensörü", cozum: "Servis tarafından sensör değişimi gerekebilir." }
+    ],
+    Buzdolabi: [
+        { kod: "E0 / E1", cihaz: "Buzdolabı", tanim: "Soğutucu / Dondurucu Sensör Arızası", cozum: "Termistör bağlantısını kontrol edin." },
+        { kod: "DF / Defrost", cihaz: "Buzdolabı", tanim: "Defrost (Buz Çözme) Isıtıcı Hatası", cozum: "Kanallarda buzlanma olabilir, fişi çekip 24 saat kapı açık dinlendirin." },
+        { kod: "FF / Fan", cihaz: "Buzdolabı", tanim: "İç Fan Motoru Arızası", cozum: "Fan pervanesine buz sıkışmış olabilir." }
+    ]
+};
+
+function filtreleAriza() {
+    let cihaz = document.getElementById('cihazSecim').value;
+    let aranan = document.getElementById('arizaAra').value.toLowerCase();
+    let liste = arizaVerileri[cihaz] || [];
+    let tbody = document.getElementById('arizaTabloBody');
+    tbody.innerHTML = '';
+    let filtrelenmis = liste.filter(item => item.kod.toLowerCase().includes(aranan) || item.tanim.toLowerCase().includes(aranan) || item.cozum.toLowerCase().includes(aranan));
+    if(filtrelenmis.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#64748b;">Aranan kriterlere uygun arıza kodu bulunamadı.</td></tr>`;
+        return;
+    }
+    filtrelenmis.forEach(item => {
+        tbody.innerHTML += `<tr><td><span class="code-badge">${item.kod}</span></td><td>${item.cihaz}</td><td><strong>${item.tanim}</strong></td><td>${item.cozum}</td></tr>`;
+    });
+}
+window.onload = filtreleAriza;
+{% endblock %}

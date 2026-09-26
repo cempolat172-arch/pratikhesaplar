@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Vücut Kitle İndeksi (VKİ) Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Boy ve kilo bilgilerinizi girerek vücut kitle endeksinizi (VKİ) ve ideal kilonuzu hesaplayın.{% endblock %}
+{% block content %}
+<h2>Vücut Kitle İndeksi (VKİ) ve İdeal Kilo</h2>
+<div class="form-group"><label>Cinsiyet:</label><select id="vkiCinsiyet" onchange="hesaplaVKI()"><option value="erkek">Erkek</option><option value="kadin">Kadın</option></select></div>
+<div class="form-group"><label>Kilo (kg):</label><input type="number" id="vkiKilo" value="75" oninput="hesaplaVKI()"></div>
+<div class="form-group"><label>Boy (cm):</label><input type="number" id="vkiBoy" value="175" oninput="hesaplaVKI()"></div>
+<div class="results">
+    <div class="result-item"><h3>Vücut Kitle İndeksi (VKİ)</h3><span id="resVKI">0</span></div>
+    <div class="result-item"><h3>Durum</h3><span id="resDurum">-</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3>İdeal Kilonuz</h3><span id="resIdealKilo">0 kg</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaVKI() {
+    let cinsiyet = document.getElementById('vkiCinsiyet').value;
+    let kilo = parseFloat(document.getElementById('vkiKilo').value) || 0;
+    let boy = parseFloat(document.getElementById('vkiBoy').value) || 0;
+    
+    if (boy > 0 && kilo > 0) {
+        let boyMetre = boy / 100;
+        let vki = kilo / (boyMetre * boyMetre);
+        let durum = "";
+        
+        if (vki < 18.5) durum = "Zayıf";
+        else if (vki < 24.9) durum = "Normal Kilolu";
+        else if (vki < 29.9) durum = "Fazla Kilolu";
+        else if (vki < 34.9) durum = "1. Derece Obezite";
+        else if (vki < 39.9) durum = "2. Derece Obezite";
+        else durum = "3. Derece Obezite / Morbid Obez";
+
+        let ideal = cinsiyet === 'erkek' ? 50 + 0.91 * (boy - 152.4) : 45.5 + 0.91 * (boy - 152.4);
+
+        document.getElementById('resVKI').innerText = vki.toFixed(2);
+        document.getElementById('resDurum').innerText = durum;
+        document.getElementById('resIdealKilo').innerText = ideal.toFixed(1) + ' kg';
+    }
+}
+window.onload = hesaplaVKI;
+{% endblock %}

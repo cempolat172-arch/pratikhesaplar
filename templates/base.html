@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pratik Hesaplar{% endblock %}</title>
+    <meta name="description" content="{% block description %}Pratikhesaplar.com ile tüm hesaplamalarınızı kolayca yapın.{% endblock %}">
+    <style>
+        :root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { width: 100%; max-width: 950px; }
+        header { text-align: center; margin-bottom: 25px; }
+        header h1 { color: var(--primary); margin-bottom: 5px; font-size: 2.2rem; }
+        header a { text-decoration: none; color: inherit; }
+        header p { color: #64748b; font-size: 1.1rem; }
+        
+        .nav-links { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .nav-links a { background: #e2e8f0; color: #1e293b; text-decoration: none; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; transition: all 0.2s; }
+        .nav-links a:hover { background: #cbd5e1; }
+        .nav-links a.active { background: var(--primary); color: white; }
+        
+        .card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .card h2 { margin-top: 0; color: var(--text); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        
+        .results { margin-top: 25px; background: #f1f5f9; padding: 20px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; }
+        .result-item h3 { margin: 0 0 5px 0; font-size: 0.85rem; color: #64748b; }
+        .result-item span { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        th { background: #f1f5f9; color: #475569; font-weight: 700; }
+        tr:hover { background: #f8fafc; }
+        .code-badge { background: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-family: monospace; }
+        
+        @media (max-width: 600px) { .results { grid-template-columns: 1fr; } }
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/"><h1>Pratik Hesaplar</h1></a>
+            <p>pratikhesaplar.com - Türkiye'nin En Kapsamlı Dijital Araç ve Servis Portalı</p>
+        </header>
+
+        <div class="nav-links">
+            <a href="/ariza-kodlari" class="{% if request.url.path == '/ariza-kodlari' %}active{% endif %}">🛠️ Arıza Kodları</a>
+            <a href="/kredi" class="{% if request.url.path == '/kredi' %}active{% endif %}">💰 Kredi</a>
+            <a href="/kdv" class="{% if request.url.path == '/kdv' %}active{% endif %}">KDV</a>
+            <a href="/maas" class="{% if request.url.path == '/maas' %}active{% endif %}">💼 Maaş</a>
+            <a href="/kidem" class="{% if request.url.path == '/kidem' %}active{% endif %}">⚖️ Kıdem</a>
+            <a href="/metrekare" class="{% if request.url.path == '/metrekare' %}active{% endif %}">m² Alan</a>
+            <a href="/yakit" class="{% if request.url.path == '/yakit' %}active{% endif %}">⛽ Yol/Yakıt</a>
+            <a href="/kalori" class="{% if request.url.path == '/kalori' %}active{% endif %}">🥗 Kalori</a>
+            <a href="/vki" class="{% if request.url.path == '/vki' %}active{% endif %}">⚖️ Vücut Kitle Indeksi</a>
+        </div>
+
+        <div class="card">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <script>
+        {% block extra_js %}{% endblock %}
+    </script>
+</body>
+</html>

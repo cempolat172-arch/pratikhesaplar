@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Kıdem Tazminatı Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Güncel kıdem tazminatı hesaplama aracı. Giydirilmiş brüt ücret üzerinden damga vergisi kesintili net kıdem tazminatınızı öğrenin.{% endblock %}
+{% block content %}
+<h2>Kıdem ve İhbar Tazminatı Hesaplama</h2>
+<div class="form-group"><label>Giydirilmiş Brüt Ücret (TL):</label><input type="number" id="kidemBrut" value="35000" oninput="hesaplaKidem()"></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+    <div class="form-group"><label>Çalışılan Yıl:</label><input type="number" id="kidemYil" value="3" oninput="hesaplaKidem()"></div>
+    <div class="form-group"><label>Ay:</label><input type="number" id="kidemAy" value="4" oninput="hesaplaKidem()"></div>
+    <div class="form-group"><label>Gün:</label><input type="number" id="kidemGun" value="10" oninput="hesaplaKidem()"></div>
+</div>
+<div class="results">
+    <div class="result-item"><h3>Brüt Kıdem Tazminatı</h3><span id="resKidem">0,00 TL</span></div>
+    <div class="result-item"><h3>Net Kıdem (Damga V. Kesintili)</h3><span id="resKidemNet">0,00 TL</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaKidem() {
+    let brut = parseFloat(document.getElementById('kidemBrut').value) || 0;
+    let yil = parseFloat(document.getElementById('kidemYil').value) || 0;
+    let ay = parseFloat(document.getElementById('kidemAy').value) || 0;
+    let gun = parseFloat(document.getElementById('kidemGun').value) || 0;
+    let toplamGun = (yil * 365) + (ay * 30) + gun;
+    let brütKidem = (brut / 365) * toplamGun;
+    let damgaVergisi = brütKidem * 0.00759;
+    let netKidem = brütKidem - damgaVergisi;
+
+    document.getElementById('resKidem').innerText = brütKidem.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resKidemNet').innerText = netKidem.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaKidem;
+{% endblock %}

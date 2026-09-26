@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Yol ve Yakıt Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Seyahatleriniz için yol ve yakıt maliyeti hesaplama aracı. Gideceğiniz mesafe ve yakıt tüketimine göre toplam masrafı hesaplayın.{% endblock %}
+{% block content %}
+<h2>Yol / Yakıt Maliyeti Hesaplama</h2>
+<div class="form-group"><label>Mesafe (km):</label><input type="number" id="yolKm" value="500" oninput="hesaplaYakit()"></div>
+<div class="form-group"><label>Aracın 100 km Tüketimi (Litre):</label><input type="number" step="0.1" id="yolTuketim" value="7.5" oninput="hesaplaYakit()"></div>
+<div class="form-group"><label>Yakıt Litre Fiyatı (TL):</label><input type="number" step="0.01" id="yolLitreFiyat" value="43.50" oninput="hesaplaYakit()"></div>
+<div class="results">
+    <div class="result-item"><h3>Toplam Harcanacak Yakıt</h3><span id="resToplamLitre">0,00 Lt</span></div>
+    <div class="result-item"><h3>Toplam Maliyet</h3><span id="resToplamMaliyet">0,00 TL</span></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaYakit() {
+    let km = parseFloat(document.getElementById('yolKm').value) || 0;
+    let tuketim = parseFloat(document.getElementById('yolTuketim').value) || 0;
+    let fiyat = parseFloat(document.getElementById('yolLitreFiyat').value) || 0;
+    let toplamLt = (km / 100) * tuketim;
+    let toplamMaliyet = toplamLt * fiyat;
+    document.getElementById('resToplamLitre').innerText = toplamLt.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' Lt';
+    document.getElementById('resToplamMaliyet').innerText = toplamMaliyet.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaYakit;
+{% endblock %}
