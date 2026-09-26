@@ -8,8 +8,33 @@
 <div class="results" style="grid-template-columns: 1fr;">
     <div class="result-item"><h3>Toplam Alan</h3><span id="resToplamAlan">0,00 m²</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Odanın ya da Evin Gerçek Metrekaresini Hesaplamak Neden Önemli?</h2>
+    <p>Ev tadilatı yaparken, boya badana hesaplarken ya da halı/parke alırken en sık yapılan hata oda ölçülerini göz kararı tahmin etmektir. Birkaç santimetrelik yanılmalar bile malzeme alımında masrafın artmasına ya da malzemenin eksik kalmasına yol açabilir.</p>
+    <p>En ve boy ölçülerini pratik bir şekilde çarparak net alanı bulmak, bütçeni ve alacağın malzeme miktarını tam tutturmanı sağlar. Bu araç sayesinde karmaşık formüllerle uğraşmadan saniyeler içinde net metrekareye ulaşabilirsin.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Metrekare Hesaplama SSS</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Düzgün olmayan (L tipi) odaların metrekaresi nasıl hesaplanır?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Oda kendi içinde kare veya dikdörtgen parçalara bölünerek ayrı ayrı hesaplanır ve çıkan sonuçlar birbiriyle toplanır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Net metrekare ile brüt metrekare arasındaki fark nedir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Brüt alan evin dış duvarlarını ve ortak kullanım paylarını kapsarken; net alan, duvarlar arasında içinde özgürce yürüdüğün kullanılabilir, süpürülebilir alandır.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaAlan() {
     let e = parseFloat(document.getElementById('enMetre').value) || 0;
     let b = parseFloat(document.getElementById('boyMetre').value) || 0;

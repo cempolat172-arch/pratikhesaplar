@@ -10,8 +10,33 @@
     <div class="result-item"><h3>Toplam Harcanacak Yakıt</h3><span id="resToplamLitre">0,00 Lt</span></div>
     <div class="result-item"><h3>Toplam Maliyet</h3><span id="resToplamMaliyet">0,00 TL</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Yolculuğa Çıkmadan Önce Yakıt Maliyetini Önceden Hesapla</h2>
+    <p>Özellikle uzun yola çıkarken veya günlük işe gidip gelirken aracın ne kadar benzin veya mazot yakacağını bilmek bütçe planlaması için çok önemlidir. Benzin ve motorin fiyatları sürekli değişirken, gideceğin kilometreye göre cebinden çıkacak net tutarı önceden görmek sürpriz yaşatmaz.</p>
+    <p>Aracının 100 kilometrede yaktığı ortalama tüketim miktarını ve güncel yakıt litre fiyatını girerek bu seyahatin sana tam olarak ne kadara mal olacağını zahmetsizce hesaplayabilirsin.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Yakıt Maliyeti SSS</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Aracın gerçek yakıt tüketimi fabrika verilerinden neden farklı olur?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Fabrika verileri laboratuvar ortamında ölçülür; ancak yolun eğimi, aracın yükü, klima kullanımı ve trafik yoğunluğu gerçek tüketimi doğrudan artırır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Şehir içi ile şehir dışı yakıt tüketimi neden değişir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Şehir içinde sürekli dur-kalk yapmak ve düşük viteslerde gitmek motoru daha çok yorduğu için yakıt tüketimi her zaman şehir dışına göre daha yüksek olur.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaYakit() {
     let km = parseFloat(document.getElementById('yolKm').value) || 0;
     let tuketim = parseFloat(document.getElementById('yolTuketim').value) || 0;

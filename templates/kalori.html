@@ -10,8 +10,33 @@
 <div class="results" style="grid-template-columns: 1fr;">
     <div class="result-item"><h3>Günlük Kalori İhtiyacı</h3><span id="resKalori">0 kcal</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Günlük Alman Gereken Kalori Miktarını Nasıl Belirlersin?</h2>
+    <p>Kilo vermek, kilo almak veya mevcut formunu korumak istiyorsan vücudunun günlük olarak harcadığı enerji miktarını bilmek işin temelidir. Ne kadar yediğini ve ne kadar yaktığını bilmeden yapılan diyetler genelde ya sonuç vermez ya da sağlığı olumsuz etkiler.</p>
+    <p>Yaşın, boyun, kilon ve günlük hareketlilik seviyen (masa başı çalışan mı yoksa aktif hareket eden biri mi olduğun) baz alınarak hesaplanan bu değer, hedefine ulaşırken senin en büyük rehberindir.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Kalori Hesaplama SSS</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Bazal metabolizma hızı (BMH) tam olarak nedir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Vücudun hiçbir şey yapmadan, sadece nefes almak, kalbin atması ve organların çalışması gibi hayati fonksiyonları sürdürmek için dinlenme halindeyken harcadığı minimum kalori miktarıdır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Kalori açığı oluşturmadan kilo vermek mümkün müdür?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Fiziksel olarak hayır; kilo verebilmek için vücudun günlük yaktığı kaloriden bir miktar daha az kalori almak (kalori açığı) bilimsel bir zorunluluktur.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaKalori() {
     let cinsiyet = document.getElementById('kaloriCinsiyet').value;
     let kilo = parseFloat(document.getElementById('kaloriKilo').value) || 0;
