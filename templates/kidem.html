@@ -13,8 +13,33 @@
     <div class="result-item"><h3>Brüt Kıdem Tazminatı</h3><span id="resKidem">0,00 TL</span></div>
     <div class="result-item"><h3>Net Kıdem (Damga V. Kesintili)</h3><span id="resKidemNet">0,00 TL</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Kıdem Tazminatı Hakkını ve Tutarını Nasıl Hesaplarsın?</h2>
+    <p>Çalışma hayatının en önemli güvencelerinden biri olan kıdem tazminatı, yılların emek karşılığında işçiye ödenen toplu bir tutardır. Ancak bu hesap yapılırken sadece son brüt maaşa bakılmaz; şirkette çalışılan tam yıl ve kalan aylık süreler, ayrıca tavan tutarı da hesaba katılır.</p>
+    <p>İşten ayrılma durumunda eline geçecek yasal haklarını net olarak bilmek, geleceğini planlarken en büyük yardımcındır. Buradaki hesaplama aracıyla brüt giydirilmiş kazancını girerek alacağın tahmini tazminatı hemen öğrenebilirsin.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Kıdem Tazminatı SSS</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Kıdem tazminatı tavanı ne anlama gelir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Devlet tarafından her yıl belirlenen bir üst sınır vardır. Maaşın bu tavan rakamın üzerindeyse, hesaplama tavan tutarı üzerinden yapılır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Kıdem tazminatı almak için en az kaç yıl çalışmak gerekir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Aynı iş yerinde en az 1 yıl çalışmış olmak ve kanunda belirtilen fesih şartlarını (haklı fesih, emeklilik, istifa durumundaki özel istisnalar vb.) sağlamak gereklidir.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaKidem() {
     let brut = parseFloat(document.getElementById('kidemBrut').value) || 0;
     let yil = parseFloat(document.getElementById('kidemYil').value) || 0;

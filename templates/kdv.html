@@ -10,8 +10,33 @@
     <div class="result-item"><h3>KDV Tutarı</h3><span id="resKDVTutari">0,00 TL</span></div>
     <div class="result-item"><h3>Toplam Tutar</h3><span id="resKDVToplam">0,00 TL</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">KDV Hariç ve Dahil Hesaplamalarında Neden Karıştırıyoruz?</h2>
+    <p>Alışveriş yaparken veya fatura keserken yüzde 1, yüzde 10 ya da yüzde 20’lik Katma Değer Vergisi hesapları bazen kafa karıştırıcı olabilir. Özellikle ticari hesaplarda tutarın KDV'li mi yoksa KDV'siz mi olduğunu karıştırmak ufak çaplı hesap hatalarına yol açabilir.</p>
+    <p>Bu araç, tutarın üzerine KDV eklemek ya da toplam tutardan KDV'yi arındırıp matrahı bulmak istediğinde saniyenin altında net sonuca ulaşman için tasarlandı. Yanlış vergi hesaplarıyla vakit kaybetmeden tek tuşla işini görebilirsin.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">KDV Hakkında Pratik Bilgiler (SSS)</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">KDV matrahı tam olarak nedir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Vergi hesaplanmadan önceki mal veya hizmetin ham bedelidir.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Her üründe KDV oranı aynı mıdır?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Hayır; temel gıda, tekstil, hizmet veya lüks tüketim ürünlerine göre devlet tarafından belirlenen oranlar (%1, %10, %20 gibi) değişiklik gösterir.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaKDV() {
     let t = parseFloat(document.getElementById('kdvTutar').value) || 0;
     let o = parseFloat(document.getElementById('kdvOrani').value) / 100;

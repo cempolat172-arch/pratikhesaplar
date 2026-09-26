@@ -13,8 +13,33 @@
     <div class="result-item" style="grid-column: span 2;"><h3 style="color: #0369a1;">Toplam Kesinti</h3><span id="resToplamKesinti" style="color: #0369a1;">0,00 TL</span></div>
     <div class="result-item" style="grid-column: span 2;"><h3 style="color: #1d4ed8; font-size: 1rem;">Net Ele Geçen Maaş</h3><span id="resNetMaas" style="font-size: 1.5rem;">0,00 TL</span></div>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Brüt Maaşın Ne Kadarını Cebine Alırsın?</h2>
+    <p>İş görüşmelerinde ya da yıl sonu zam dönemlerinde konuşulan brüt rakamlar insanı genelde yanıltır. "Acaba elime net ne geçecek?" sorusu her çalışan için en kritik konudur. SGK kesintileri, gelir vergisi dilimleri ve damga vergisi düştükten sonra banka hesabına yansıyacak net tutarı önceden görmek bütçe yapmayı çok kolaylaştırır.</p>
+    <p>Yıl içinde gelir vergisi dilimleri değiştikçe net maaşlarda yaşanan o ufak oynamaları da hesaba katarak en doğru tahmini bu ekrandan rahatça yapabilirsin.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Maaş Hesaplama Detayları (SSS)</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Brüt maaş ile net maaş arasındaki fark nereden kaynaklanır?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Brüt tutardan kesilen SGK işçi payı, işsizlik sigortası, gelir vergisi ve damga vergisi kesildikten sonra kalan miktar net maaşı oluşturur.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Yıl sonuna doğru maaşlar neden biraz düşebilir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Gelir vergisi matrahı kümülatif olarak arttığı için yılın son aylarına doğru üst vergi dilimine girilir ve kesinti oranı bir miktar artabilir.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 function hesaplaMaas() {
     let brut = parseFloat(document.getElementById('brutMaas').value) || 0;
     let sgkKesinti = brut * 0.14;
