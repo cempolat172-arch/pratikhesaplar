@@ -20,8 +20,33 @@
         <tbody id="arizaTabloBody"></tbody>
     </table>
 </div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Kombi, Klima ve Beyaz Eşya Arıza Kodlarını Çözmek Neden Bu Kadar Önemli?</h2>
+    <p>Evdeki kombi, klima veya çamaşır makinesi birdenbire ekranda yabancı bir harf ve sayı kombinasyonu (örneğin E01, F3 veya hata kodları) gösterip durduğunda insan ne yapacağını şaşırıyor. Servis çağırmadan önce cihazın tam olarak ne anlama geldiğini anlamak, bazen sadece ufak bir reset atarak ya da su basıncını ayarlayarak sorunu kendi başına çözmeni sağlar.</p>
+    <p>Bu arıza kodları rehberi, cihazının ekrandaki o sinir bozucu hata mesajının neyi tetiklediğini hızlıca bulman ve gereksiz servis masraflarının önüne geçmen için pratik bir başvuru kaynağı olarak hazırlandı.</p>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Arıza Kodları Hakkında Pratik Bilgiler (SSS)</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Ekranda çıkan arıza kodu her zaman parçanın bozulduğu anlamına mı gelir?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Kesinlikle hayır. Çoğu hata kodu düşük su basıncı, geçici voltaj dalgalanması veya sensör temasslığı gibi basit dış etkenlerden kaynaklanır.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Kombim veya klimam arıza kodu verdiğinde ilk ne yapmalıyım?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Panik yapmadan cihazı kapatıp açmak (resetlemek) çoğu geçici hatayı ortadan kaldırır. Sorun devam ederse kılavuzdaki kod anlamına bakarak hareket etmek en doğrusudur.</div></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+
 const arizaVerileri = {
     kombi: [
         { kod: "F01 / F04", cihaz: "Kombi (Genel)", tanim: "Ateşleme Başarısızlığı (Gaz Yok)", cozum: "Gaz vanalarını kontrol edin, kombiyi resetleyin." },
