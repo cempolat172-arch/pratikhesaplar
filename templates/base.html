@@ -53,6 +53,15 @@
         @media (max-width: 600px) { .results { grid-template-columns: 1fr; } }
         {% block extra_css %}{% endblock %}
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB47NEEKRM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CB47NEEKRM');
+    </script>
 </head>
 <body>
     <div class="container">
