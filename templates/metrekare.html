@@ -33,6 +33,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Metrekare (m²) Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Brüt metrekare ile net metrekare arasındaki fark nedir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Net metrekare, evin içinde ayak basabildiğiniz, süpürülebilir gerçek kullanım alanıdır (duvar içleri, odalar). Brüt metrekare ise; evin dış duvarları, merdiven boşlukları, asansör ve otopark gibi ortak alanlardan dairenize düşen payın eklendiği toplam alandır. Konut alırken mutlaka net metrekareyi sormalısınız."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Dikdörtgen olmayan odaların metrekaresi nasıl hesaplanır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L şeklinde veya düzensiz odaları hayali çizgilerle iki farklı dikdörtgene bölüp, her birinin en ve boyunu ayrı ayrı çarpıp topladığınızda net metrekareyi bulursunuz."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {

@@ -39,6 +39,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gebelik (Hamilelik) Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Hamilelik hesaplamasında tüp bebek (IVF) gebeliklerinin farkı var mıdır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet, tüp bebek tedavilerinde son adet tarihi değil, embriyo transfer tarihi baz alınır. Bu hesaplamalarda embriyonun kaç günlük olduğu (3. gün veya 5. gün blastosist) hesaba katılarak özel bir takvim çıkarılır. Standart aracımız doğal gebelikler (SAT bazlı) için uygundur."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bebekler her zaman tam 40. haftada mı doğar?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hayır, bebeklerin sadece %4'ü tam tahmini doğum tarihinde dünyaya gelir. Tıbben 37. hafta ile 42. hafta arasında gerçekleşen doğumlar \"zamanında (term)\" doğum olarak kabul edilir."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function getBurc(gun, ay) {

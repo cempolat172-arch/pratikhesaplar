@@ -40,6 +40,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Kıdem ve İhbar Tazminatı Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Kendi isteğimle işten çıkarsam (istifa edersem) kıdem tazminatı alabilir miyim?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kural olarak istifa eden işçi tazminat alamaz. Ancak erkekler için zorunlu askerlik görevi, kadınlar için evlilik tarihinden itibaren 1 yıl içinde çıkış, veya emeklilik için yaş dışındaki prim gün sayısının doldurulması gibi istisnai durumlarda tazminat hakkı doğar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "İhbar tazminatı nedir, süreleri ne kadardır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "İşveren sizi işten çıkarmadan önce çalışma sürenize göre size haber vermek zorundadır (Örn: 6 aydan az çalışan için 2 hafta, 3 yıldan fazla çalışan için 8 hafta). Bu süreyi bekletmeden hemen işten çıkarırsa, o sürelerin ücretini size \"ihbar tazminatı\" olarak ödemek zorundadır."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {

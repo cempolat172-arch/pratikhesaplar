@@ -35,6 +35,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Günlük Kalori İhtiyacı Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Sadece kalori saymak kilo vermek için yeterli midir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Kilo vermek için temel şart kalori açığı olsa da, alınan kalorinin kalitesi (protein, yağ, karbonhidrat dengesi) vücut kompozisyonunuzu ve kas kaybını önlemeyi doğrudan etkiler. Yani sadece kalori saymak değil, dengeli beslenmek gerekir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Emziren anneler kalori hesaplamasını nasıl yapmalı?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Emzirme süreci, vücudun fazladan enerji (ortalama 300-500 kalori) harcadığı bir dönemdir. Emziren annelerin standart kalori hesaplamasının üzerine bu ekstra enerji payını eklemesi ve mutlaka bir diyetisyene danışması gerekir."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {

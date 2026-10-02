@@ -50,6 +50,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "KDV Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "KDV matrahı tam olarak nedir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vergi hesaplanmadan önceki mal veya hizmetin ham bedelidir."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Her üründe KDV oranı aynı mıdır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hayır; temel gıda, tekstil, hizmet veya lüks tüketim ürünlerine göre devlet tarafından belirlenen oranlar (%1, %10, %20 gibi) değişiklik gösterir."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {

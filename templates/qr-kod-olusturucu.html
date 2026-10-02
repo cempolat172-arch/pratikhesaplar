@@ -57,6 +57,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Kod (Karekod) Oluşturucu",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "QR kod oluşturmak tamamen ücretsiz mi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet, sitemiz üzerinden üyelik gerektirmeden dilediğiniz kadar standart metin ve URL tabanlı <strong>QR kod oluşturma</strong> işlemini tamamen ücretsiz olarak gerçekleştirebilirsiniz."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Oluşturduğum QR kodların süresi dolar mı?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standart olarak oluşturduğunuz statik QR kodlar kalıcıdır; herhangi bir süre kısıtlaması olmadan çıktısını alabilir veya dijital mecralarda süresiz olarak kullanabilirsiniz."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function generateQR() {

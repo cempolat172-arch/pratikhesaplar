@@ -35,6 +35,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Yol / Yakıt Maliyeti Hesaplama",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Aracımın fabrika yakıt verisi ile gerçek tüketimi neden farklı?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fabrika verileri, rüzgar direncinin olmadığı laboratuvar koşullarında ve optimum hızlarda ölçülür. Trafik yoğunluğu, klima kullanımı, yokuşlar ve agresif sürüş tarzı, gerçek tüketimi her zaman fabrika verisinden %15-20 daha yüksek çıkarır."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Klima kullanmak yakıt tüketimini ne kadar artırır?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Aracın motor gücüne ve klimanın çalışma seviyesine göre değişmekle birlikte, açık klima ortalama olarak yakıt tüketimini %5 ile %10 arasında artırır. Ancak cam açık yüksek hızda seyahat etmek, aerodinamik sürtünmeyi artıracağı için klimadan daha fazla yaktırabilir."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {

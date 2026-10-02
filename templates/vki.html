@@ -40,6 +40,45 @@
         </div>
     </div>
 </div>
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Vücut Kitle İndeksi (VKİ) ve İdeal Kilo",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TRY"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Yaş faktörü vücut kitle indeksini etkiler mi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet, metabolizma hızı yaşa bağlı olarak değiştiği için ideal VKİ referans aralıkları ilerleyen yaşlarda (örneğin 50 yaş üstü) hafifçe yükselebilir. Aracımız yaş faktörünü de dikkate alarak analiz yapar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "VKİ hesaplaması kas kütlesini ölçer mi?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Hayır, VKİ formülü sadece boy ve kilo oranı bazlıdır. Profesyonel sporcularda veya yoğun kas kütlesine sahip kişilerde ağırlık yüksek çıksa da yağ oranı düşük olduğu için sonuç yanıltıcı olabilir. Bu durumlarda vücut yağ oranı analizleri eklenmelidir."
+        }
+      }
+    ]
+  }
+]
+</script>
 {% endblock %}
 {% block extra_js %}
 function toggleFAQ(btn) {
