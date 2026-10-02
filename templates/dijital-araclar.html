@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}Dijital ve Teknik Araçlar - Pratik Hesaplar{% endblock %}
+{% block description %}Güçlü şifre oluşturucu, QR kod (karekod) yapıcı ve detaylı metin/kelime sayacı araçlarımızla dijital işlemlerinizi tek ekranda hızlandırın.{% endblock %}
+{% block content %}
+<h2>Dijital ve Teknik Araçlar</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+    <!-- Şifre Oluşturucu -->
+    <div class="card" style="background: #1e293b; color: white; padding: 20px; border-radius: 12px; border: 1px solid #334155;">
+        <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.2rem;">🔐 Şifre Oluşturucu</h3>
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label style="color: #cbd5e1;">Uzunluk: <span id="pwdLenLabel" style="color: white; font-weight: bold;">12</span></label>
+            <input type="range" id="pwdLen" min="6" max="32" value="12" style="width: 100%; cursor: pointer;" oninput="document.getElementById('pwdLenLabel').innerText = this.value">
+        </div>
+        <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; font-size: 0.9rem; color: #cbd5e1;">
+            <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="checkbox" id="pwdUpper" checked> A-Z</label>
+            <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="checkbox" id="pwdLower" checked> a-z</label>
+            <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="checkbox" id="pwdNum" checked> 0-9</label>
+            <label style="display:flex; align-items:center; gap:4px; cursor:pointer;"><input type="checkbox" id="pwdSym" checked> @#$</label>
+        </div>
+        <button style="background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;" onclick="generatePassword()">Şifre Üret</button>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="pwdResult" readonly style="flex: 1; font-family: monospace; font-size: 1.1rem; text-align: center; background: #0f172a; color: #10b981; border: 1px solid #475569; padding: 10px; border-radius: 6px;">
+            <button style="background: #64748b; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer;" onclick="copyPassword()">Kopyala</button>
+        </div>
+    </div>
+
+    <!-- QR Kod Oluşturucu -->
+    <div class="card" style="background: #1e293b; color: white; padding: 20px; border-radius: 12px; display: flex; flex-direction: column; border: 1px solid #334155;">
+        <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.2rem;">🔳 QR Kod Oluşturucu</h3>
+        <div class="form-group" style="flex: 1; margin-bottom: 15px;">
+            <label style="color: #cbd5e1; margin-bottom: 8px; display: block;">Bağlantı veya Metin:</label>
+            <input type="text" id="qrText" placeholder="Örn: https://pratikhesaplar.com" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white;">
+        </div>
+        <button style="background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;" onclick="generateQR()">Karekod Üret</button>
+        <div style="text-align: center; background: #ffffff; padding: 15px; border-radius: 8px; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+            <img id="qrImage" src="" alt="QR Kod" style="display: none; max-width: 100%; border-radius: 4px;">
+            <span id="qrPlaceholder" style="color: #64748b; font-size: 0.9rem;">Oluşturulan karekod burada görünecek</span>
+        </div>
+    </div>
+
+    <!-- Metin ve Kelime Sayacı -->
+    <div class="card" style="background: #1e293b; color: white; padding: 20px; border-radius: 12px; grid-column: 1 / -1; border: 1px solid #334155;">
+        <h3 style="margin-top: 0; color: #38bdf8; font-size: 1.2rem;">📝 Metin ve Kelime Sayacı</h3>
+        <textarea id="textInput" rows="5" style="width: 100%; background: #0f172a; color: white; border: 1px solid #475569; padding: 15px; border-radius: 8px; font-family: inherit; font-size: 1rem; resize: vertical;" placeholder="Metninizi buraya yapıştırın veya yazın..." oninput="analyzeText()"></textarea>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; margin-top: 20px; text-align: center;">
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statWords">0</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Kelime</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statChars">0</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Karakter</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statCharsNoSpace">0</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Boşluksuz</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statSentences">0</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Cümle</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Dijital ve Teknik Hesaplama Araçları ile Pratik Çözümler</h2>
+
+    <p>Günümüzde dijital dünyada işleri hızlandırmak, güvenliği artırmak veya içerik yönetimini kolaylaştırmak için çeşitli pratik araçlara ihtiyaç duyuyoruz. <strong>Pratikhesaplar.com</strong> üzerinde yer alan <strong>dijital araçlar</strong> ve teknik hesaplama modülleri sayesinde, internet üzerindeki günlük işlerinizi ek programlar indirmeden saniyeler içinde çözebilirsiniz. Güçlü şifreler oluşturmaktan hızlıca karekod üretmeye ve metin analizi yapmaya kadar en çok kullanılan araçlar tek bir ekranda sizlerle buluşuyor.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Güvenli Hesap Yönetimi İçin Şifre Oluşturucu (Password Generator)</h3>
+
+    <p>İnternet güvenliğinin en kritik adımı güçlü ve tahmin edilemez parolalar kullanmaktır. Basit ve kişisel bilgilerle oluşturulan şifreler saniyeler içinde kırılabilirken, <strong>güvenli şifre oluşturucu</strong> araçları bu riski tamamen ortadan kaldırır. Büyük harf, küçük harf, rakam ve özel karakter kombinasyonlarıyla rastgele parolalar üretebilir, hesaplarınızı güven altına alabilirsiniz.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Özelleştirilebilir Kriterler:</strong> Şifre uzunluğunu dilediğiniz gibi belirleyebilir, istenmeyen karakterleri filtreleyebilirsiniz.</li>
+        <li><strong>Maksimum Güvenlik:</strong> Saniyeler içinde kırılması imkansız karmaşık dijital anahtarlar üretebilirsiniz.</li>
+        <li><strong>Kolay Kullanım:</strong> Tek tıkla kopyalama özelliği sayesinde anında hesaplarınızda kullanabilirsiniz.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Hızlı Erişim İçin QR Kod Oluşturucu (Karekod)</h3>
+
+    <p>Geleneksel bağlantı paylaşım yöntemlerinin yerini alan karekodlar, günümüzde pazarlamadan kişisel kartvizitlere kadar her alanda kullanılıyor. Sitedeki <strong>QR kod oluşturucu</strong> aracı sayesinde herhangi bir web sitesi adresini (URL), metni veya iletişim bilgisini anında taranabilir bir koda dönüştürebilirsiniz. Bu tür interaktif araçlar, kullanıcıların sitede kalma süresini (dwell time) ciddi oranda artırarak SEO performansına doğrudan katkı sağlar.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">İçerik Yönetimi İçin Metin ve Kelime Sayacı</h3>
+
+    <p>Öğrenciler, blog yazarları, SEO uzmanları ve dijital içerik üreticileri için bir yazının uzunluğu büyük önem taşır. <strong>Kelime ve karakter sayacı</strong> aracı; makalelerinizin, ödevlerinizin veya sosyal medya metinlerinizin uzunluğunu anlık olarak analiz eder. Sadece kelime sayısını değil, boşluklu/boşluksuz karakter sayısını, cümle adedini ve ortalama okuma süresini de raporlar.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Anlık Analiz:</strong> Siz yazdıkça veya metni yapıştırdıkça arkada çalışan hızlı algoritma sonuçları günceller.</li>
+        <li><strong>SEO ve Sınır Uyumu:</strong> Sosyal medya karakter sınırlarına veya makale uzunluk kriterlerine kolayca uyum sağlayın.</li>
+    </ul>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Sık Sorulan Sorular</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Güvenli şifre oluşturucu ile üretilen parolalar kaydediliyor mu?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Hayır, üretilen tüm şifreler tamamen tarayıcınızın (istemci tarafında) belleğinde anlık olarak üretilir ve hiçbir şekilde sunucularımızda saklanmaz.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">QR kodlar süresiz olarak kullanılabilir mi?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Evet, oluşturduğunuz QR kodlar statik veya dinamik yapılarına bağlı olarak kalıcıdır, dilediğiniz zaman çıktısını alabilir veya dijital ortamda paylaşabilirsiniz.</div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+// Şifre Oluşturucu
+function generatePassword() {
+    const length = document.getElementById('pwdLen').value;
+    const hasUpper = document.getElementById('pwdUpper').checked;
+    const hasLower = document.getElementById('pwdLower').checked;
+    const hasNum = document.getElementById('pwdNum').checked;
+    const hasSym = document.getElementById('pwdSym').checked;
+
+    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lower = 'abcdefghijklmnopqrstuvwxyz';
+    const num = '0123456789';
+    const sym = '@#$%&*_-+=';
+
+    let charSet = '';
+    if (hasUpper) charSet += upper;
+    if (hasLower) charSet += lower;
+    if (hasNum) charSet += num;
+    if (hasSym) charSet += sym;
+
+    if (charSet === '') {
+        alert('Lütfen en az bir karakter türü seçin!');
+        return;
+    }
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charSet.length);
+        password += charSet[randomIndex];
+    }
+    document.getElementById('pwdResult').value = password;
+}
+
+function copyPassword() {
+    const pwd = document.getElementById('pwdResult');
+    if (!pwd.value) return;
+    pwd.select();
+    document.execCommand('copy');
+    alert('Şifre panoya kopyalandı!');
+}
+
+window.addEventListener('DOMContentLoaded', generatePassword);
+
+// QR Kod Oluşturucu
+function generateQR() {
+    const text = document.getElementById('qrText').value.trim();
+    const img = document.getElementById('qrImage');
+    const placeholder = document.getElementById('qrPlaceholder');
+
+    if (!text) {
+        alert('Lütfen QR kod oluşturmak için bir metin veya bağlantı girin.');
+        return;
+    }
+
+    // Google Chart API (Deprecated but works) or QRServer API
+    const url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`;
+    img.src = url;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+}
+
+// Metin Analiz Aracı
+function analyzeText() {
+    const text = document.getElementById('textInput').value;
+    
+    // Karakter
+    const chars = text.length;
+    // Boşluksuz Karakter
+    const charsNoSpace = text.replace(/\s+/g, '').length;
+    // Kelime
+    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+    // Cümle (Basit regex ile . ! ? karakterlerine göre)
+    const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+
+    document.getElementById('statWords').innerText = words;
+    document.getElementById('statChars').innerText = chars;
+    document.getElementById('statCharsNoSpace').innerText = charsNoSpace;
+    document.getElementById('statSentences').innerText = sentences;
+}
+
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+{% endblock %}
