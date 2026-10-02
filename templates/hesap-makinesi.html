@@ -2,56 +2,148 @@
 {% block title %}Gelişmiş Online Hesap Makinesi - Pratik Hesaplar{% endblock %}
 {% block description %}Ücretsiz gelişmiş online hesap makinesi ile dört işlem, yüzde, karekök, üslü sayı ve trigonometrik hesaplamalarınızı anında yapın.{% endblock %}
 {% block extra_css %}
-.calc-container { max-width: 400px; margin: 0 auto; background: #1e293b; padding: 20px; border-radius: 16px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); color: white; }
-.calc-display { background: #0f172a; border-radius: 8px; padding: 20px; margin-bottom: 20px; text-align: right; overflow: hidden; word-wrap: break-word; }
-.calc-display .history { font-size: 0.9rem; color: #94a3b8; min-height: 20px; margin-bottom: 5px; }
-.calc-display .current { font-size: 2.5rem; font-weight: 700; color: #f8fafc; }
-.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.calc-btn { background: #334155; border: none; color: white; font-size: 1.2rem; font-weight: 600; padding: 15px 0; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
-.calc-btn:hover { background: #475569; }
-.calc-btn.op { background: #2563eb; color: white; }
-.calc-btn.op:hover { background: #1d4ed8; }
-.calc-btn.special { background: #64748b; }
-.calc-btn.special:hover { background: #94a3b8; }
-.calc-btn.equals { background: #10b981; grid-column: span 2; }
-.calc-btn.equals:hover { background: #059669; }
+.calculator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.calculator {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 380px;
+}
+.display {
+    background: #0f172a;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: right;
+    min-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.history {
+    color: #64748b;
+    font-size: 14px;
+    min-height: 20px;
+    overflow-x: auto;
+}
+.result {
+    color: #f8fafc;
+    font-size: 28px;
+    font-weight: 600;
+    overflow-x: auto;
+}
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+.btn {
+    padding: 12px 0;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn:active {
+    transform: scale(0.95);
+}
+.btn.num {
+    background: #334155;
+    color: #f8fafc;
+}
+.btn.num:hover { background: #475569; }
+
+.btn.op {
+    background: #3b82f6;
+    color: white;
+}
+.btn.op:hover { background: #2563eb; }
+
+.btn.fn {
+    background: #475569;
+    color: #cbd5e1;
+}
+.btn.fn:hover { background: #64748b; }
+
+.btn.sci {
+    background: #475569;
+    color: #38bdf8;
+}
+.btn.sci:hover { background: #64748b; }
+
+.btn.equals {
+    background: #10b981;
+    color: white;
+    grid-row: span 2;
+    height: 100%;
+}
+.btn.equals:hover { background: #059669; }
+
+.btn.zero {
+    grid-column: span 2;
+}
 {% endblock %}
 {% block content %}
 <h2>Gelişmiş Hesap Makinesi</h2>
 
-<div class="calc-container">
-    <div class="calc-display">
-        <div class="history" id="calcHistory"></div>
-        <div class="current" id="calcCurrent">0</div>
-    </div>
-    <div class="calc-keys">
-        <button class="calc-btn special" onclick="calcAction('C')">C</button>
-        <button class="calc-btn special" onclick="calcAction('DEL')">DEL</button>
-        <button class="calc-btn special" onclick="calcAction('%')">%</button>
-        <button class="calc-btn op" onclick="calcAction('/')">÷</button>
+<div class="calculator-container">
+    <div class="calculator">
+        <div class="display">
+            <div id="history" class="history"></div>
+            <div id="result" class="result">0</div>
+        </div>
+        <div class="buttons-grid">
+            <!-- Bilimsel ve Ek Fonksiyonlar -->
+            <button class="btn fn" onclick="clearCalculator()">AC</button>
+            <button class="btn fn" onclick="deleteChar()">DEL</button>
+            <button class="btn fn" onclick="appendCharacter('(')">(</button>
+            <button class="btn fn" onclick="appendCharacter(')')">)</button>
+            <button class="btn fn" onclick="appendCharacter('Math.PI')">π</button>
+            
+            <button class="btn sci" onclick="appendFunction('Math.sin(')">sin</button>
+            <button class="btn sci" onclick="appendFunction('Math.cos(')">cos</button>
+            <button class="btn sci" onclick="appendFunction('Math.tan(')">tan</button>
+            <button class="btn sci" onclick="appendFunction('Math.log10(')">log</button>
+            <button class="btn sci" onclick="appendFunction('Math.sqrt(')">√</button>
 
-        <button class="calc-btn special" onclick="calcAction('sqrt')">√</button>
-        <button class="calc-btn special" onclick="calcAction('sq')">x²</button>
-        <button class="calc-btn special" onclick="calcAction('pow')">x^y</button>
-        <button class="calc-btn op" onclick="calcAction('*')">×</button>
-        
-        <button class="calc-btn" onclick="calcInput('7')">7</button>
-        <button class="calc-btn" onclick="calcInput('8')">8</button>
-        <button class="calc-btn" onclick="calcInput('9')">9</button>
-        <button class="calc-btn op" onclick="calcAction('-')">−</button>
-        
-        <button class="calc-btn" onclick="calcInput('4')">4</button>
-        <button class="calc-btn" onclick="calcInput('5')">5</button>
-        <button class="calc-btn" onclick="calcInput('6')">6</button>
-        <button class="calc-btn op" onclick="calcAction('+')">+</button>
-        
-        <button class="calc-btn" onclick="calcInput('1')">1</button>
-        <button class="calc-btn" onclick="calcInput('2')">2</button>
-        <button class="calc-btn" onclick="calcInput('3')">3</button>
-        <button class="calc-btn op" rowspan="2" onclick="calcAction('=')" style="grid-row: span 2; height: 100%; background: #10b981;">=</button>
+            <button class="btn sci" onclick="appendCharacter('**2')">x²</button>
+            <button class="btn sci" onclick="appendCharacter('**')">x^y</button>
+            <button class="btn op" onclick="appendCharacter('%')">%</button>
+            <button class="btn op" onclick="appendCharacter('/')">÷</button>
+            <button class="btn op" onclick="appendCharacter('*')">×</button>
 
-        <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
-        <button class="calc-btn" onclick="calcInput('.')">.</button>
+            <!-- Rakamlar ve Temel İşlemler -->
+            <button class="btn num" onclick="appendCharacter('7')">7</button>
+            <button class="btn num" onclick="appendCharacter('8')">8</button>
+            <button class="btn num" onclick="appendCharacter('9')">9</button>
+            <button class="btn op" onclick="appendCharacter('-')">-</button>
+            <button class="btn sci" onclick="appendFunction('Math.abs(')">|x|</button>
+
+            <button class="btn num" onclick="appendCharacter('4')">4</button>
+            <button class="btn num" onclick="appendCharacter('5')">5</button>
+            <button class="btn num" onclick="appendCharacter('6')">6</button>
+            <button class="btn op" onclick="appendCharacter('+')">+</button>
+            <button class="btn sci" onclick="appendCharacter('**3')">x³</button>
+
+            <button class="btn num" onclick="appendCharacter('1')">1</button>
+            <button class="btn num" onclick="appendCharacter('2')">2</button>
+            <button class="btn num" onclick="appendCharacter('3')">3</button>
+            <button class="btn equals" onclick="calculateResult()" rowspan="2">=</button>
+            <button class="btn sci" onclick="appendCharacter('1/')">1/x</button>
+
+            <button class="btn num zero" onclick="appendCharacter('0')">0</button>
+            <button class="btn num" onclick="appendCharacter('.')">.</button>
+            <button class="btn sci" onclick="appendCharacter('Math.E')">e</button>
+        </div>
     </div>
 </div>
 
@@ -95,111 +187,61 @@
 </div>
 {% endblock %}
 {% block extra_js %}
-let currentInput = "0";
-let previousInput = "";
-let operation = null;
-let shouldResetScreen = false;
-
-const currentDisplay = document.getElementById('calcCurrent');
-const historyDisplay = document.getElementById('calcHistory');
+let currentInput = '0';
+let historyInput = '';
 
 function updateDisplay() {
-    currentDisplay.innerText = currentInput;
-    if (operation != null) {
-        let opSymbol = operation;
-        if(opSymbol === '*') opSymbol = '×';
-        if(opSymbol === '/') opSymbol = '÷';
-        if(opSymbol === 'pow') opSymbol = '^';
-        historyDisplay.innerText = previousInput + " " + opSymbol;
-    } else {
-        historyDisplay.innerText = "";
-    }
+    document.getElementById('result').innerText = currentInput;
+    document.getElementById('history').innerText = historyInput;
 }
 
-function calcInput(num) {
-    if (currentInput === "0" || shouldResetScreen) {
-        currentInput = num === '.' ? '0.' : num;
-        shouldResetScreen = false;
+function appendCharacter(char) {
+    if (currentInput === '0' && char !== '.' && !isNaN(char)) {
+        currentInput = char;
     } else {
-        if (num === '.' && currentInput.includes('.')) return;
-        currentInput += num;
+        currentInput += char;
     }
     updateDisplay();
 }
 
-function calcAction(action) {
-    if (action === 'C') {
-        currentInput = "0";
-        previousInput = "";
-        operation = null;
-    } else if (action === 'DEL') {
-        if (shouldResetScreen) return;
+function appendFunction(func) {
+    if (currentInput === '0') {
+        currentInput = func;
+    } else {
+        currentInput += func;
+    }
+    updateDisplay();
+}
+
+function clearCalculator() {
+    currentInput = '0';
+    historyInput = '';
+    updateDisplay();
+}
+
+function deleteChar() {
+    if (currentInput.length > 1) {
         currentInput = currentInput.slice(0, -1);
-        if (currentInput === "" || currentInput === "-") currentInput = "0";
-    } else if (action === '=') {
-        if (operation === null || shouldResetScreen) return;
-        compute();
-        operation = null;
-    } else if (action === 'sqrt') {
-        let val = parseFloat(currentInput);
-        if(val >= 0) {
-            currentInput = Math.sqrt(val).toString();
-        } else {
-            currentInput = "Hata";
-        }
-        shouldResetScreen = true;
-    } else if (action === 'sq') {
-        let val = parseFloat(currentInput);
-        currentInput = (val * val).toString();
-        shouldResetScreen = true;
-    } else if (action === '%') {
-        let val = parseFloat(currentInput);
-        currentInput = (val / 100).toString();
-        shouldResetScreen = true;
     } else {
-        if (operation !== null && !shouldResetScreen) {
-            compute();
-        }
-        previousInput = currentInput;
-        operation = action;
-        shouldResetScreen = true;
+        currentInput = '0';
     }
     updateDisplay();
 }
 
-function compute() {
-    let prev = parseFloat(previousInput);
-    let curr = parseFloat(currentInput);
-    if (isNaN(prev) || isNaN(curr)) return;
-    
-    let result = 0;
-    switch(operation) {
-        case '+': result = prev + curr; break;
-        case '-': result = prev - curr; break;
-        case '*': result = prev * curr; break;
-        case '/': 
-            if(curr === 0) { currentInput = "Hata"; return; }
-            result = prev / curr; 
-            break;
-        case 'pow': result = Math.pow(prev, curr); break;
+function calculateResult() {
+    try {
+        historyInput = currentInput;
+        // Güvenli hesaplama için eval kullanımı (matematiksel ifadeler)
+        let evalInput = currentInput.replace(/×/g, '*').replace(/÷/g, '/');
+        let res = eval(evalInput);
+        currentInput = String(res);
+        updateDisplay();
+    } catch (error) {
+        currentInput = 'Hata';
+        updateDisplay();
+        setTimeout(clearCalculator, 1500);
     }
-    currentInput = parseFloat(result.toFixed(8)).toString();
 }
-
-document.addEventListener('keydown', (event) => {
-    if (event.key >= '0' && event.key <= '9' || event.key === '.') {
-        calcInput(event.key);
-    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
-        calcAction(event.key);
-    } else if (event.key === 'Enter' || event.key === '=') {
-        event.preventDefault();
-        calcAction('=');
-    } else if (event.key === 'Backspace') {
-        calcAction('DEL');
-    } else if (event.key === 'Escape') {
-        calcAction('C');
-    }
-});
 
 function toggleFAQ(btn) {
     const item = btn.parentElement;
