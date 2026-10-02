@@ -5,7 +5,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI(title="Pratik Hesaplar - pratikhesaplar.com", version="3.6.0")
 templates = Jinja2Templates(directory="templates")
 
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def home(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -16,7 +16,7 @@ async def home(request: Request):
         }
     )
 
-@app.get("/kredi-hesaplama", response_class=HTMLResponse)
+@app.api_route("/kredi-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def kredi(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -27,7 +27,7 @@ async def kredi(request: Request):
         }
     )
 
-@app.get("/kdv-hesaplama", response_class=HTMLResponse)
+@app.api_route("/kdv-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def kdv(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -38,7 +38,7 @@ async def kdv(request: Request):
         }
     )
 
-@app.get("/maas-hesaplama", response_class=HTMLResponse)
+@app.api_route("/maas-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def maas(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -49,7 +49,7 @@ async def maas(request: Request):
         }
     )
 
-@app.get("/kidem-tazminati-hesaplama", response_class=HTMLResponse)
+@app.api_route("/kidem-tazminati-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def kidem(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -60,7 +60,7 @@ async def kidem(request: Request):
         }
     )
 
-@app.get("/metrekare-hesaplama", response_class=HTMLResponse)
+@app.api_route("/metrekare-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def metrekare(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -71,7 +71,7 @@ async def metrekare(request: Request):
         }
     )
 
-@app.get("/yol-yakit-hesaplama", response_class=HTMLResponse)
+@app.api_route("/yol-yakit-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def yakit(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -82,7 +82,7 @@ async def yakit(request: Request):
         }
     )
 
-@app.get("/kalori-hesaplama", response_class=HTMLResponse)
+@app.api_route("/kalori-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def kalori(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -93,7 +93,7 @@ async def kalori(request: Request):
         }
     )
 
-@app.get("/vki-hesaplama", response_class=HTMLResponse)
+@app.api_route("/vki-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def vki(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -104,7 +104,7 @@ async def vki(request: Request):
         }
     )
 
-@app.get("/hata-kodlari", response_class=HTMLResponse)
+@app.api_route("/hata-kodlari", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def ariza_kodlari(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -115,7 +115,7 @@ async def ariza_kodlari(request: Request):
         }
     )
 
-@app.get("/gunluk-su-ihtiyaci-hesaplama", response_class=HTMLResponse)
+@app.api_route("/gunluk-su-ihtiyaci-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def su_ihtiyaci(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -126,7 +126,7 @@ async def su_ihtiyaci(request: Request):
         }
     )
 
-@app.get("/gebelik-hesaplama", response_class=HTMLResponse)
+@app.api_route("/gebelik-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def gebelik(request: Request):
     return templates.TemplateResponse(
         request=request, 
@@ -137,95 +137,95 @@ async def gebelik(request: Request):
         }
     )
 
-@app.get("/enflasyon-hesaplama", response_class=HTMLResponse)
+@app.api_route("/enflasyon-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def enflasyon(request: Request):
     return templates.TemplateResponse(
         request=request, name="enflasyon.html",
         context={"title": "Enflasyon ve Satın Alma Gücü Hesaplama | Pratik Hesaplar", "description": "Geçmişten günümüze enflasyon oranları ile paranızın satın alma gücünü ve değer kaybını hesaplayın."}
     )
 
-@app.get("/mtv-hesaplama", response_class=HTMLResponse)
+@app.api_route("/mtv-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def mtv(request: Request):
     return templates.TemplateResponse(
         request=request, name="mtv.html",
         context={"title": "MTV ve Araç Gecikme Zammı Hesaplama | Pratik Hesaplar", "description": "Araç yaşı ve motor hacmine göre Motorlu Taşıtlar Vergisi (MTV) ve muayene gecikme cezasını öğrenin."}
     )
 
-@app.get("/yatirim-hesaplama", response_class=HTMLResponse)
+@app.api_route("/yatirim-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def yatirim(request: Request):
     return templates.TemplateResponse(
         request=request, name="yatirim.html",
         context={"title": "Bileşik Getiri ve Yatırım Hesaplama | Pratik Hesaplar", "description": "Mevduat, altın, fon birikimleriniz için bileşik faiz getirisini hesaplayarak geleceğinizi planlayın."}
     )
 
-@app.get("/emeklilik-hesaplama", response_class=HTMLResponse)
+@app.api_route("/emeklilik-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def emeklilik(request: Request):
     return templates.TemplateResponse(
         request=request, name="emeklilik.html",
         context={"title": "Emeklilik Yaşı ve Şartları Hesaplama (SSK/Bağkur) | Pratik Hesaplar", "description": "İşe giriş tarihinize ve prim gününüze göre ne zaman emekli olacağınızı ve kalan şartlarınızı sorgulayın."}
     )
 
-@app.get("/hesap-makinesi", response_class=HTMLResponse)
+@app.api_route("/hesap-makinesi", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def hesap_makinesi(request: Request):
     return templates.TemplateResponse(
         request=request, name="hesap-makinesi.html",
         context={"title": "Gelişmiş Online Hesap Makinesi | Pratik Hesaplar", "description": "Dört işlem, karekök, yüzde hesaplama ve bilimsel fonksiyonları bir arada sunan gelişmiş online hesap makinesi."}
     )
 
-@app.get("/yas-hesaplama", response_class=HTMLResponse)
+@app.api_route("/yas-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def yas_hesaplama(request: Request):
     return templates.TemplateResponse(
         request=request, name="yas.html",
         context={"title": "Yaş ve Gün Hesaplama Aracı | Pratik Hesaplar", "description": "Doğum tarihinizi girerek kaç yıl, ay, gün, saat ve dakikadır yaşadığınızı hesaplayın."}
     )
 
-@app.get("/emeklilik-sayaci", response_class=HTMLResponse)
+@app.api_route("/emeklilik-sayaci", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def emeklilik_sayaci(request: Request):
     return templates.TemplateResponse(
         request=request, name="emeklilik-sayaci.html",
         context={"title": "Emeklilik Geri Sayımı ve Yaş Hesaplama | Pratik Hesaplar", "description": "Emekliliğinize kalan süreyi detaylı bir geri sayım aracı ile hesaplayın."}
     )
 
-@app.get("/saat-farki-hesaplama", response_class=HTMLResponse)
+@app.api_route("/saat-farki-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def saat_farki(request: Request):
     return templates.TemplateResponse(
         request=request, name="saat-farki.html",
         context={"title": "Saat Farkı ve Zaman Dilimi Hesaplama | Pratik Hesaplar", "description": "Dünya şehirleri arasındaki anlık saat farkını ve zaman dilimlerini hesaplayın."}
     )
 
-@app.get("/metin-sayaci", response_class=HTMLResponse)
+@app.api_route("/metin-sayaci", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def metin_sayaci(request: Request):
     return templates.TemplateResponse(
         request=request, name="metin-sayaci.html",
         context={"title": "Metin ve Kelime Sayacı | Pratik Hesaplar", "description": "Metinlerinizin kelime, karakter (boşluklu/boşluksuz), cümle sayısını ve tahmini okuma süresini anında hesaplayın."}
     )
 
-@app.get("/qr-kod-olusturucu", response_class=HTMLResponse)
+@app.api_route("/qr-kod-olusturucu", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def qr_kod_olusturucu(request: Request):
     return templates.TemplateResponse(
         request=request, name="qr-kod-olusturucu.html",
         context={"title": "Ücretsiz QR Kod (Karekod) Oluşturucu | Pratik Hesaplar", "description": "Bağlantılarınızı ve metinlerinizi saniyeler içinde ücretsiz olarak QR koda (karekoda) dönüştürün ve indirin."}
     )
 
-@app.get("/guvenli-sifre-olustur", response_class=HTMLResponse)
+@app.api_route("/guvenli-sifre-olustur", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def guvenli_sifre(request: Request):
     return templates.TemplateResponse(
         request=request, name="sifre-olusturucu.html",
         context={"title": "Güvenli Şifre Oluşturucu (Password Generator) | Pratik Hesaplar", "description": "Kırılması zor ve güvenli şifreler üretin. Büyük harf, küçük harf, rakam ve sembolleri kullanarak rastgele parolalar oluşturun."}
     )
 
-@app.get("/cv-hazirlama", response_class=HTMLResponse)
+@app.api_route("/cv-hazirlama", response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def cv_hazirlama(request: Request):
     return templates.TemplateResponse(
         request=request, name="cv-hazirlama.html",
         context={"title": "Ücretsiz Online CV Hazırlama | Pratik Hesaplar", "description": "Adım adım form doldurarak ücretsiz ve profesyonel özgeçmiş (CV) oluşturun. ATS uyumlu formatta PDF olarak anında indirin."}
     )
 
-@app.get("/sitemap.xml", response_class=FileResponse)
+@app.api_route("/sitemap.xml", response_class=FileResponse, methods=["GET", "HEAD"])
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
 
-@app.get("/robots.txt", response_class=PlainTextResponse)
+@app.api_route("/robots.txt", response_class=PlainTextResponse, methods=["GET", "HEAD"])
 async def robots():
     content = "User-agent: *\nAllow: /\n\nSitemap: https://pratikhesaplar.com/sitemap.xml\n"
     return PlainTextResponse(content=content)
