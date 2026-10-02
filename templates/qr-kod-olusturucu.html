@@ -20,6 +20,14 @@
     </div>
 </div>
 
+<div class="card" style="margin-top: 25px;">
+    <h3>🕒 Son Oluşturulanlar (Tarayıcıya Kaydedilir)</h3>
+    <ul id="qrHistoryList" style="list-style: none; padding: 0; margin: 15px 0 0 0;">
+        <li style="color: #64748b; font-size: 0.95rem;">Henüz bir karekod oluşturmadınız.</li>
+    </ul>
+    <button onclick="clearQRHistory()" style="margin-top: 15px; background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.3s;">🗑️ Geçmişi Temizle</button>
+</div>
+
 <div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
     <h2 style="font-size: 1.3rem; margin-top: 0;">QR Kod Oluşturucu ile Saniyeler İçinde Ücretsiz Karekod Üretin</h2>
 
@@ -113,7 +121,56 @@ function generateQR() {
     img.style.display = 'block';
     placeholder.style.display = 'none';
     document.getElementById('qrDownloadBtn').style.display = 'block';
+    
+    saveQRHistory(text);
 }
+
+function saveQRHistory(text) {
+    let history = JSON.parse(localStorage.getItem('pratik_qr_history') || '[]');
+    // Remove if already exists to move it to top
+    history = history.filter(item => item !== text);
+    history.unshift(text); // Add to beginning
+    if(history.length > 5) history.pop(); // Keep only last 5
+    localStorage.setItem('pratik_qr_history', JSON.stringify(history));
+    loadQRHistory();
+}
+
+function loadQRHistory() {
+    const history = JSON.parse(localStorage.getItem('pratik_qr_history') || '[]');
+    const list = document.getElementById('qrHistoryList');
+    if(history.length === 0) {
+        list.innerHTML = '<li style="color: #64748b; font-size: 0.95rem;">Henüz bir karekod oluşturmadınız.</li>';
+        return;
+    }
+    list.innerHTML = '';
+    history.forEach(item => {
+        const li = document.createElement('li');
+        li.style.cssText = 'padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;';
+        
+        const span = document.createElement('span');
+        span.style.cssText = 'font-weight: 500; color: #1e293b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 70%;';
+        span.innerText = item;
+        
+        const btn = document.createElement('button');
+        btn.style.cssText = 'background: #38bdf8; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;';
+        btn.innerText = 'Tekrar Oluştur';
+        btn.onclick = () => {
+            document.getElementById('qrText').value = item;
+            generateQR();
+        };
+        
+        li.appendChild(span);
+        li.appendChild(btn);
+        list.appendChild(li);
+    });
+}
+
+function clearQRHistory() {
+    localStorage.removeItem('pratik_qr_history');
+    loadQRHistory();
+}
+
+window.addEventListener('DOMContentLoaded', loadQRHistory);
 
 function downloadQR() {
     const img = document.getElementById('qrImage');

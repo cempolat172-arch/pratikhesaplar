@@ -307,6 +307,64 @@ function updateCV() {
     document.getElementById('skillsSection').style.display = skills ? 'block' : 'none';
 }
 
+function saveCVDraft() {
+    const data = {
+        fName: document.getElementById('fName').value,
+        fTitle: document.getElementById('fTitle').value,
+        fEmail: document.getElementById('fEmail').value,
+        fPhone: document.getElementById('fPhone').value,
+        fLocation: document.getElementById('fLocation').value,
+        fLinks: document.getElementById('fLinks').value,
+        fSummary: document.getElementById('fSummary').value,
+        fExp1Title: document.getElementById('fExp1Title').value,
+        fExp1Company: document.getElementById('fExp1Company').value,
+        fExp1Desc: document.getElementById('fExp1Desc').value,
+        fExp2Title: document.getElementById('fExp2Title').value,
+        fExp2Company: document.getElementById('fExp2Company').value,
+        fExp2Desc: document.getElementById('fExp2Desc').value,
+        fEduSchool: document.getElementById('fEduSchool').value,
+        fEduDegree: document.getElementById('fEduDegree').value,
+        fSkills: document.getElementById('fSkills').value
+    };
+    localStorage.setItem('pratik_cv_draft', JSON.stringify(data));
+    
+    let toast = document.getElementById('toastMsg');
+    if(!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toastMsg';
+        toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#10b981;color:white;padding:10px 20px;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);z-index:9999;transition:0.3s;opacity:0;';
+        document.body.appendChild(toast);
+    }
+    toast.innerText = '💾 Taslak tarayıcıya otomatik kaydedildi';
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+}
+
+function loadCVDraft() {
+    const saved = localStorage.getItem('pratik_cv_draft');
+    if(saved) {
+        try {
+            const data = JSON.parse(saved);
+            Object.keys(data).forEach(key => {
+                if(document.getElementById(key)) {
+                    document.getElementById(key).value = data[key];
+                }
+            });
+            updateCV();
+        } catch(e) {}
+    }
+}
+
+window.addEventListener('DOMContentLoaded', loadCVDraft);
+
+// Wrap updateCV to include autosave
+const originalUpdateCV = updateCV;
+updateCV = function() {
+    originalUpdateCV();
+    clearTimeout(window.cvSaveTimer);
+    window.cvSaveTimer = setTimeout(saveCVDraft, 1500);
+};
+
 function printCV() {
     const originalTitle = document.title;
     // PDF çıktısında üstte çıkacak başlığı değiştiriyoruz
