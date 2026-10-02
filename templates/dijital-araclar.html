@@ -34,9 +34,10 @@
             <input type="text" id="qrText" placeholder="Örn: https://pratikhesaplar.com" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white;">
         </div>
         <button style="background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;" onclick="generateQR()">Karekod Üret</button>
-        <div style="text-align: center; background: #ffffff; padding: 15px; border-radius: 8px; min-height: 150px; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center; background: #ffffff; padding: 15px; border-radius: 8px; min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;">
             <img id="qrImage" src="" alt="QR Kod" style="display: none; max-width: 100%; border-radius: 4px;">
             <span id="qrPlaceholder" style="color: #64748b; font-size: 0.9rem;">Oluşturulan karekod burada görünecek</span>
+            <button id="qrDownloadBtn" style="display: none; background: #10b981; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-top: 5px;" onclick="downloadQR()">Karekod İndir</button>
         </div>
     </div>
 
@@ -61,6 +62,10 @@
             <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
                 <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statSentences">0</div>
                 <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Cümle</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 1.8rem; font-weight: bold; color: #10b981;" id="statReadTime">0 sn</div>
+                <div style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Okuma Sür.</div>
             </div>
         </div>
     </div>
@@ -167,6 +172,28 @@ function generateQR() {
     img.src = url;
     img.style.display = 'block';
     placeholder.style.display = 'none';
+    document.getElementById('qrDownloadBtn').style.display = 'block';
+}
+
+function downloadQR() {
+    const img = document.getElementById('qrImage');
+    if (!img.src) return;
+    fetch(img.src)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'karekod.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => {
+            // Fallback for CORS if needed
+            window.open(img.src, '_blank');
+        });
 }
 
 // Metin Analiz Aracı
@@ -182,10 +209,24 @@ function analyzeText() {
     // Cümle (Basit regex ile . ! ? karakterlerine göre)
     const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
 
+    // Tahmini okuma süresi (ortalama 200 kelime/dakika üzerinden)
+    const readTimeSeconds = Math.ceil((words / 200) * 60);
+    let readTimeText = "0 sn";
+    if (words > 0) {
+        if (readTimeSeconds < 60) {
+            readTimeText = readTimeSeconds + " sn";
+        } else {
+            const m = Math.floor(readTimeSeconds / 60);
+            const s = readTimeSeconds % 60;
+            readTimeText = m + " dk " + s + " sn";
+        }
+    }
+
     document.getElementById('statWords').innerText = words;
     document.getElementById('statChars').innerText = chars;
     document.getElementById('statCharsNoSpace').innerText = charsNoSpace;
     document.getElementById('statSentences').innerText = sentences;
+    document.getElementById('statReadTime').innerText = readTimeText;
 }
 
 function toggleFAQ(btn) {
