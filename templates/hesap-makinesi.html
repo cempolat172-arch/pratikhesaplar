@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}Gelişmiş Online Hesap Makinesi - Pratik Hesaplar{% endblock %}
+{% block description %}Ücretsiz gelişmiş online hesap makinesi ile dört işlem, yüzde, karekök, üslü sayı ve trigonometrik hesaplamalarınızı anında yapın.{% endblock %}
+{% block extra_css %}
+.calc-container { max-width: 400px; margin: 0 auto; background: #1e293b; padding: 20px; border-radius: 16px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); color: white; }
+.calc-display { background: #0f172a; border-radius: 8px; padding: 20px; margin-bottom: 20px; text-align: right; overflow: hidden; word-wrap: break-word; }
+.calc-display .history { font-size: 0.9rem; color: #94a3b8; min-height: 20px; margin-bottom: 5px; }
+.calc-display .current { font-size: 2.5rem; font-weight: 700; color: #f8fafc; }
+.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.calc-btn { background: #334155; border: none; color: white; font-size: 1.2rem; font-weight: 600; padding: 15px 0; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+.calc-btn:hover { background: #475569; }
+.calc-btn.op { background: #2563eb; color: white; }
+.calc-btn.op:hover { background: #1d4ed8; }
+.calc-btn.special { background: #64748b; }
+.calc-btn.special:hover { background: #94a3b8; }
+.calc-btn.equals { background: #10b981; grid-column: span 2; }
+.calc-btn.equals:hover { background: #059669; }
+{% endblock %}
+{% block content %}
+<h2>Gelişmiş Hesap Makinesi</h2>
+
+<div class="calc-container">
+    <div class="calc-display">
+        <div class="history" id="calcHistory"></div>
+        <div class="current" id="calcCurrent">0</div>
+    </div>
+    <div class="calc-keys">
+        <button class="calc-btn special" onclick="calcAction('C')">C</button>
+        <button class="calc-btn special" onclick="calcAction('DEL')">DEL</button>
+        <button class="calc-btn special" onclick="calcAction('%')">%</button>
+        <button class="calc-btn op" onclick="calcAction('/')">÷</button>
+
+        <button class="calc-btn special" onclick="calcAction('sqrt')">√</button>
+        <button class="calc-btn special" onclick="calcAction('sq')">x²</button>
+        <button class="calc-btn special" onclick="calcAction('pow')">x^y</button>
+        <button class="calc-btn op" onclick="calcAction('*')">×</button>
+        
+        <button class="calc-btn" onclick="calcInput('7')">7</button>
+        <button class="calc-btn" onclick="calcInput('8')">8</button>
+        <button class="calc-btn" onclick="calcInput('9')">9</button>
+        <button class="calc-btn op" onclick="calcAction('-')">−</button>
+        
+        <button class="calc-btn" onclick="calcInput('4')">4</button>
+        <button class="calc-btn" onclick="calcInput('5')">5</button>
+        <button class="calc-btn" onclick="calcInput('6')">6</button>
+        <button class="calc-btn op" onclick="calcAction('+')">+</button>
+        
+        <button class="calc-btn" onclick="calcInput('1')">1</button>
+        <button class="calc-btn" onclick="calcInput('2')">2</button>
+        <button class="calc-btn" onclick="calcInput('3')">3</button>
+        <button class="calc-btn op" rowspan="2" onclick="calcAction('=')" style="grid-row: span 2; height: 100%; background: #10b981;">=</button>
+
+        <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
+        <button class="calc-btn" onclick="calcInput('.')">.</button>
+    </div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Gelişmiş Online Hesap Makinesi: Tüm İşlemler Tek Ekranda</h2>
+
+    <p>Günlük yaşamda, eğitim hayatında, mühendislik projelerinde veya ticari hesaplamalarda bazen standart hesap makineleri yetersiz kalabilir. <strong>Online gelişmiş hesap makinesi</strong>; temel matematik işlemlerinden karmaşık bilimsel formüllere, yüzde hesaplamalarından finansal oranlara kadar ihtiyaç duyduğunuz tüm işlemleri saniyeler içinde yapmanızı sağlar. Karmaşık programlar indirmeden, tarayıcınız üzerinden anında sonuç alabilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Bilimsel ve Pratik Hesap Makinesi Hangi Özellikleri Sunar?</h3>
+
+    <p>Tek bir ekran üzerinden hem basit dört işlemleri hem de ileri düzey matematiksel fonksiyonları yürütebilmek zaman kazandırır. Bu kapsamlı araç sayesinde yapabileceğiniz başlıca işlemler şunlardır:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Temel Aritmetik İşlemler:</strong> Toplama, çıkarma, çarpma, bölme, parantezli işlemler ve hafıza tuşları (M+, M-, MR).</li>
+        <li><strong>Üslü ve Köklü Sayılar:</strong> Karekök, küp kök, üslü ifadeler ve logaritmik hesaplamalar.</li>
+        <li><strong>Trigonometrik Fonksiyonlar:</strong> Sinüs (sin), kosinüs (cos), tanjant (tan) ve açı hesaplamaları.</li>
+        <li><strong>Yüzde ve Oran Hesaplama:</strong> Alışveriş indirimleri, kâr-zarar oranları ve artış/azalış hesaplamaları.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Gelişmiş Hesap Makinesi Kullanmanın Avantajları</h3>
+
+    <p>İnternet üzerinden çalışan web tabanlı hesap makineleri, masaüstü veya mobil cihazlar arasında geçiş yaparken büyük kolaylık sunar. Kurulum gerektirmez, tamamen ücretsizdir ve her an elinizin altındadır. Özellikle öğrenciler, muhasebeciler, mühendisler ve ev bütçesini yönetenler için en pratik dijital yardımcıdır.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Hızlı ve Hatasız Sonuç:</strong> Manuel işlem hatalarını sıfıra indirir, doğru sonuca anında ulaştırır.</li>
+        <li><strong>Cihaz Bağımsız Çalışma:</strong> Bilgisayar, tablet veya akıllı telefon fark etmeksizin tüm tarayıcılarda sorunsuz çalışır.</li>
+        <li><strong>Zaman Tasarrufu:</strong> Farklı siteler arasında gezinmeden, tek bir ekranda tüm matematiksel ihtiyaçları karşılar.</li>
+    </ul>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Sık Sorulan Sorular</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Bilimsel hesap makinesi ile yüzde nasıl hesaplanır?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Gelişmiş hesap makinesinde yüzde hesabı yapmak için temel formül kullanılır. Örneğin bir sayının yüzde 20'sini bulmak için sayı 0.20 ile çarpılır veya yüzde tuşu yardımıyla doğrudan ekleme/çıkarma yapılabilir.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Bu hesap makinesi mobil cihazlarda çalışır mı?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Evet, duyarlı (responsive) tasarımı sayesinde akıllı telefonunuzdan veya tabletinizden ek bir uygulama indirmeden tarayıcı üzerinden rahatlıkla kullanabilirsiniz.</div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+let currentInput = "0";
+let previousInput = "";
+let operation = null;
+let shouldResetScreen = false;
+
+const currentDisplay = document.getElementById('calcCurrent');
+const historyDisplay = document.getElementById('calcHistory');
+
+function updateDisplay() {
+    currentDisplay.innerText = currentInput;
+    if (operation != null) {
+        let opSymbol = operation;
+        if(opSymbol === '*') opSymbol = '×';
+        if(opSymbol === '/') opSymbol = '÷';
+        if(opSymbol === 'pow') opSymbol = '^';
+        historyDisplay.innerText = previousInput + " " + opSymbol;
+    } else {
+        historyDisplay.innerText = "";
+    }
+}
+
+function calcInput(num) {
+    if (currentInput === "0" || shouldResetScreen) {
+        currentInput = num === '.' ? '0.' : num;
+        shouldResetScreen = false;
+    } else {
+        if (num === '.' && currentInput.includes('.')) return;
+        currentInput += num;
+    }
+    updateDisplay();
+}
+
+function calcAction(action) {
+    if (action === 'C') {
+        currentInput = "0";
+        previousInput = "";
+        operation = null;
+    } else if (action === 'DEL') {
+        if (shouldResetScreen) return;
+        currentInput = currentInput.slice(0, -1);
+        if (currentInput === "" || currentInput === "-") currentInput = "0";
+    } else if (action === '=') {
+        if (operation === null || shouldResetScreen) return;
+        compute();
+        operation = null;
+    } else if (action === 'sqrt') {
+        let val = parseFloat(currentInput);
+        if(val >= 0) {
+            currentInput = Math.sqrt(val).toString();
+        } else {
+            currentInput = "Hata";
+        }
+        shouldResetScreen = true;
+    } else if (action === 'sq') {
+        let val = parseFloat(currentInput);
+        currentInput = (val * val).toString();
+        shouldResetScreen = true;
+    } else if (action === '%') {
+        let val = parseFloat(currentInput);
+        currentInput = (val / 100).toString();
+        shouldResetScreen = true;
+    } else {
+        if (operation !== null && !shouldResetScreen) {
+            compute();
+        }
+        previousInput = currentInput;
+        operation = action;
+        shouldResetScreen = true;
+    }
+    updateDisplay();
+}
+
+function compute() {
+    let prev = parseFloat(previousInput);
+    let curr = parseFloat(currentInput);
+    if (isNaN(prev) || isNaN(curr)) return;
+    
+    let result = 0;
+    switch(operation) {
+        case '+': result = prev + curr; break;
+        case '-': result = prev - curr; break;
+        case '*': result = prev * curr; break;
+        case '/': 
+            if(curr === 0) { currentInput = "Hata"; return; }
+            result = prev / curr; 
+            break;
+        case 'pow': result = Math.pow(prev, curr); break;
+    }
+    currentInput = parseFloat(result.toFixed(8)).toString();
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key >= '0' && event.key <= '9' || event.key === '.') {
+        calcInput(event.key);
+    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+        calcAction(event.key);
+    } else if (event.key === 'Enter' || event.key === '=') {
+        event.preventDefault();
+        calcAction('=');
+    } else if (event.key === 'Backspace') {
+        calcAction('DEL');
+    } else if (event.key === 'Escape') {
+        calcAction('C');
+    }
+});
+
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+{% endblock %}

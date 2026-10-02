@@ -165,6 +165,13 @@ async def emeklilik(request: Request):
         context={"title": "Emeklilik Yaşı ve Şartları Hesaplama (SSK/Bağkur) | Pratik Hesaplar", "description": "İşe giriş tarihinize ve prim gününüze göre ne zaman emekli olacağınızı ve kalan şartlarınızı sorgulayın."}
     )
 
+@app.get("/hesap-makinesi", response_class=HTMLResponse)
+async def hesap_makinesi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="hesap-makinesi.html",
+        context={"title": "Gelişmiş Online Hesap Makinesi | Pratik Hesaplar", "description": "Dört işlem, karekök, yüzde hesaplama ve bilimsel fonksiyonları bir arada sunan gelişmiş online hesap makinesi."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
