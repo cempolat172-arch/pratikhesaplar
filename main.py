@@ -214,6 +214,13 @@ async def guvenli_sifre(request: Request):
         context={"title": "Güvenli Şifre Oluşturucu (Password Generator) | Pratik Hesaplar", "description": "Kırılması zor ve güvenli şifreler üretin. Büyük harf, küçük harf, rakam ve sembolleri kullanarak rastgele parolalar oluşturun."}
     )
 
+@app.get("/cv-hazirlama", response_class=HTMLResponse)
+async def cv_hazirlama(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="cv-hazirlama.html",
+        context={"title": "Ücretsiz Online CV Hazırlama | Pratik Hesaplar", "description": "Adım adım form doldurarak ücretsiz ve profesyonel özgeçmiş (CV) oluşturun. ATS uyumlu formatta PDF olarak anında indirin."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")

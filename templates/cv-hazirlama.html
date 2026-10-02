@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% block title %}Ücretsiz Online CV Hazırlama - Pratik Hesaplar{% endblock %}
+{% block description %}Adım adım form doldurarak saniyeler içinde ücretsiz, profesyonel ve ATS uyumlu özgeçmiş (CV) oluşturun. Anında PDF olarak indirin.{% endblock %}
+{% block extra_css %}
+<style>
+.cv-builder-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+.cv-form-area {
+    flex: 1 1 400px;
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    color: white;
+}
+.cv-preview-area {
+    flex: 1.5 1 500px;
+    background: #0f172a;
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #334155;
+    overflow-x: auto;
+}
+.cv-paper {
+    background: white;
+    color: #1f2937;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+.cv-paper h1 { font-size: 2.2rem; color: #111827; margin: 0 0 5px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.cv-paper .cv-title { font-size: 1.2rem; color: #4b5563; margin-bottom: 15px; font-weight: 500; }
+.cv-paper .cv-contact { font-size: 0.9rem; color: #6b7280; display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; border-bottom: 2px solid #e5e7eb; padding-bottom: 15px; }
+.cv-paper h3 { font-size: 1.3rem; color: #111827; border-bottom: 1px solid #d1d5db; padding-bottom: 5px; margin-top: 25px; margin-bottom: 15px; text-transform: uppercase; }
+.cv-paper p { font-size: 0.95rem; margin-bottom: 10px; color: #374151; }
+.cv-paper .experience-item, .cv-paper .education-item { margin-bottom: 15px; }
+.cv-paper .item-header { display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; color: #111827; }
+.cv-paper .item-sub { font-style: italic; color: #4b5563; font-size: 0.9rem; margin-bottom: 5px; }
+.cv-paper .skills-list { font-size: 0.95rem; color: #374151; }
+
+.form-section { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed #475569; }
+.form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.form-section h3 { margin-top: 0; color: #38bdf8; font-size: 1.2rem; margin-bottom: 15px; }
+.form-control { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; margin-bottom: 12px; font-family: inherit; }
+.form-control::placeholder { color: #64748b; }
+.btn-print { background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; margin-bottom: 20px; transition: 0.3s; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
+.btn-print:hover { background: #059669; }
+
+@media print {
+    body * { visibility: hidden; }
+    .cv-paper, .cv-paper * { visibility: visible; }
+    .cv-paper { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; padding: 0; min-height: auto; }
+    @page { size: A4; margin: 15mm; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 10px;">Profesyonel Online CV Oluşturucu</h2>
+<p style="text-align: center; color: #94a3b8; margin-bottom: 30px;">Bilgilerinizi doldurun, ATS uyumlu CV'niz anında hazırlansın ve tek tıkla PDF olarak indirin.</p>
+
+<div class="cv-builder-container">
+    
+    <!-- Form Alanı -->
+    <div class="cv-form-area">
+        <div class="form-section">
+            <h3>👤 Kişisel Bilgiler</h3>
+            <input type="text" class="form-control" id="fName" placeholder="Ad Soyad" oninput="updateCV()" value="Ad Soyad">
+            <input type="text" class="form-control" id="fTitle" placeholder="Meslek / Unvan" oninput="updateCV()" value="Yazılım Geliştirici">
+            <input type="text" class="form-control" id="fEmail" placeholder="E-posta Adresi" oninput="updateCV()" value="ornek@email.com">
+            <input type="text" class="form-control" id="fPhone" placeholder="Telefon Numarası" oninput="updateCV()" value="+90 555 123 4567">
+            <input type="text" class="form-control" id="fLocation" placeholder="Şehir, Ülke" oninput="updateCV()" value="İstanbul, Türkiye">
+            <input type="text" class="form-control" id="fLinks" placeholder="LinkedIn / GitHub (Opsiyonel)" oninput="updateCV()" value="linkedin.com/in/profil">
+        </div>
+
+        <div class="form-section">
+            <h3>📝 Hakkımda / Özet</h3>
+            <textarea class="form-control" id="fSummary" rows="4" placeholder="Kariyer hedeflerinizi ve deneyimlerinizi kısaca özetleyin..." oninput="updateCV()">Yenilikçi teknolojiler geliştirmeye odaklanmış, 5 yıllık deneyime sahip yazılım mühendisi. Ekip çalışmasına yatkın ve sürekli öğrenmeye hevesli.</textarea>
+        </div>
+
+        <div class="form-section">
+            <h3>💼 İş Deneyimi</h3>
+            <input type="text" class="form-control" id="fExp1Title" placeholder="Pozisyon (Örn: Kıdemli Geliştirici)" oninput="updateCV()" value="Kıdemli Yazılım Geliştirici">
+            <input type="text" class="form-control" id="fExp1Company" placeholder="Şirket Adı ve Tarihler (Örn: ABC Tech | 2020 - Günümüz)" oninput="updateCV()" value="ABC Teknoloji A.Ş. | 2020 - Günümüz">
+            <textarea class="form-control" id="fExp1Desc" rows="3" placeholder="Görev ve başarılarınızı yazın..." oninput="updateCV()">Büyük ölçekli web projelerinin mimarisini tasarladı ve takıma liderlik etti.</textarea>
+            
+            <input type="text" class="form-control" id="fExp2Title" placeholder="Önceki Pozisyon" oninput="updateCV()" style="margin-top:15px;" value="Yazılım Geliştirici">
+            <input type="text" class="form-control" id="fExp2Company" placeholder="Şirket Adı ve Tarihler" oninput="updateCV()" value="XYZ Yazılım | 2017 - 2020">
+            <textarea class="form-control" id="fExp2Desc" rows="3" placeholder="Görev ve başarılarınızı yazın..." oninput="updateCV()">Mobil uyumlu web uygulamaları geliştirdi ve API entegrasyonlarını sağladı.</textarea>
+        </div>
+
+        <div class="form-section">
+            <h3>🎓 Eğitim Bilgileri</h3>
+            <input type="text" class="form-control" id="fEduSchool" placeholder="Üniversite / Okul Adı" oninput="updateCV()" value="Örnek Üniversitesi">
+            <input type="text" class="form-control" id="fEduDegree" placeholder="Bölüm ve Mezuniyet Yılı (Örn: Bilgisayar Mühendisliği | 2017)" oninput="updateCV()" value="Bilgisayar Mühendisliği | 2013 - 2017">
+        </div>
+
+        <div class="form-section">
+            <h3>⚡ Yetenekler</h3>
+            <textarea class="form-control" id="fSkills" rows="3" placeholder="Yeteneklerinizi virgülle ayırarak yazın..." oninput="updateCV()">Python, JavaScript, HTML/CSS, React, SQL, Proje Yönetimi, Takım Liderliği</textarea>
+        </div>
+    </div>
+
+    <!-- Canlı Önizleme Alanı -->
+    <div class="cv-preview-area">
+        <button class="btn-print" onclick="window.print()">📥 PDF İndir / Yazdır</button>
+        
+        <div class="cv-paper" id="cvPaper">
+            <h1 id="cvName">Ad Soyad</h1>
+            <div class="cv-title" id="cvTitle">Meslek / Unvan</div>
+            
+            <div class="cv-contact">
+                <span id="cvEmail">📧 ornek@email.com</span> |
+                <span id="cvPhone">📱 +90 555 123 4567</span> |
+                <span id="cvLocation">📍 İstanbul, Türkiye</span> |
+                <span id="cvLinks">🔗 linkedin.com/in/profil</span>
+            </div>
+
+            <div id="summarySection">
+                <h3>Özet</h3>
+                <p id="cvSummary">Yenilikçi teknolojiler geliştirmeye odaklanmış, 5 yıllık deneyime sahip yazılım mühendisi. Ekip çalışmasına yatkın ve sürekli öğrenmeye hevesli.</p>
+            </div>
+
+            <div id="experienceSection">
+                <h3>İş Deneyimi</h3>
+                
+                <div class="experience-item" id="exp1Block">
+                    <div class="item-header" id="cvExp1Title">Kıdemli Yazılım Geliştirici</div>
+                    <div class="item-sub" id="cvExp1Company">ABC Teknoloji A.Ş. | 2020 - Günümüz</div>
+                    <p id="cvExp1Desc">Büyük ölçekli web projelerinin mimarisini tasarladı ve takıma liderlik etti.</p>
+                </div>
+
+                <div class="experience-item" id="exp2Block">
+                    <div class="item-header" id="cvExp2Title">Yazılım Geliştirici</div>
+                    <div class="item-sub" id="cvExp2Company">XYZ Yazılım | 2017 - 2020</div>
+                    <p id="cvExp2Desc">Mobil uyumlu web uygulamaları geliştirdi ve API entegrasyonlarını sağladı.</p>
+                </div>
+            </div>
+
+            <div id="educationSection">
+                <h3>Eğitim</h3>
+                <div class="education-item">
+                    <div class="item-header" id="cvEduSchool">Örnek Üniversitesi</div>
+                    <div class="item-sub" id="cvEduDegree">Bilgisayar Mühendisliği | 2013 - 2017</div>
+                </div>
+            </div>
+
+            <div id="skillsSection">
+                <h3>Yetenekler</h3>
+                <div class="skills-list" id="cvSkills">Python, JavaScript, HTML/CSS, React, SQL, Proje Yönetimi, Takım Liderliği</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Online CV Hazırlama: Profesyonel Özgeçmiş Oluşturucu</h2>
+    <p>İş arama sürecinin en kritik adımı, sizi rakiplerinizin önüne geçirecek profesyonel ve etkili bir özgeçmiş (CV) hazırlamaktır. <strong>Pratikhesaplar.com Ücretsiz CV Oluşturucu</strong> aracı, hiçbir tasarım bilgisine ihtiyaç duymadan, ATS (Aday Takip Sistemi) standartlarına uygun, sade ve şık bir özgeçmişi saniyeler içinde hazırlamanızı sağlar. Doldurduğunuz bilgiler anlık olarak yanda görüntülenir ve bittiğinde tek tıkla cihazınıza PDF formatında kaydedilir.</p>
+    
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Neden Bu CV Şablonunu Kullanmalısınız?</h3>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>ATS (Aday Takip Sistemi) Uyumu:</strong> Kurumsal şirketlerin kullandığı İnsan Kaynakları yazılımları karmaşık grafikli CV'leri okuyamaz. Sistemimiz tamamen metin odaklı, beyaz zeminli ve sistemlerin kolayca analiz edebileceği profesyonel formatta tasarlanmıştır.</li>
+        <li><strong>Canlı Önizleme:</strong> Siz sol taraftaki formu doldururken sağ tarafta yer alan A4 boyutundaki şablon eş zamanlı olarak güncellenir. Sonucu görmek için beklemenize gerek kalmaz.</li>
+        <li><strong>PDF Olarak İndirme:</strong> Tamamen ücretsiz olarak "Yazdır / İndir" butonu üzerinden oluşturduğunuz özgeçmişi filigransız bir şekilde cihazınıza PDF olarak kaydedebilirsiniz.</li>
+        <li><strong>Veri Gizliliği:</strong> Girdiğiniz tüm kişisel veriler, iletişim bilgileriniz ve geçmişiniz sadece tarayıcınızın içinde işlenir, sunucularımıza asla aktarılmaz.</li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+function updateCV() {
+    // Kişisel Bilgiler
+    document.getElementById('cvName').innerText = document.getElementById('fName').value || 'Ad Soyad';
+    document.getElementById('cvTitle').innerText = document.getElementById('fTitle').value || 'Unvan';
+    
+    const email = document.getElementById('fEmail').value;
+    document.getElementById('cvEmail').innerHTML = email ? `📧 ${email}` : '';
+    
+    const phone = document.getElementById('fPhone').value;
+    document.getElementById('cvPhone').innerHTML = phone ? `📱 ${phone}` : '';
+    
+    const location = document.getElementById('fLocation').value;
+    document.getElementById('cvLocation').innerHTML = location ? `📍 ${location}` : '';
+    
+    const links = document.getElementById('fLinks').value;
+    document.getElementById('cvLinks').innerHTML = links ? `🔗 ${links}` : '';
+
+    // Özet
+    const summary = document.getElementById('fSummary').value;
+    document.getElementById('cvSummary').innerText = summary;
+    document.getElementById('summarySection').style.display = summary ? 'block' : 'none';
+
+    // Deneyim 1
+    const exp1Title = document.getElementById('fExp1Title').value;
+    document.getElementById('cvExp1Title').innerText = exp1Title;
+    document.getElementById('cvExp1Company').innerText = document.getElementById('fExp1Company').value;
+    document.getElementById('cvExp1Desc').innerText = document.getElementById('fExp1Desc').value;
+    document.getElementById('exp1Block').style.display = exp1Title ? 'block' : 'none';
+
+    // Deneyim 2
+    const exp2Title = document.getElementById('fExp2Title').value;
+    document.getElementById('cvExp2Title').innerText = exp2Title;
+    document.getElementById('cvExp2Company').innerText = document.getElementById('fExp2Company').value;
+    document.getElementById('cvExp2Desc').innerText = document.getElementById('fExp2Desc').value;
+    document.getElementById('exp2Block').style.display = exp2Title ? 'block' : 'none';
+
+    // Eğitim
+    const eduSchool = document.getElementById('fEduSchool').value;
+    document.getElementById('cvEduSchool').innerText = eduSchool;
+    document.getElementById('cvEduDegree').innerText = document.getElementById('fEduDegree').value;
+    document.getElementById('educationSection').style.display = eduSchool ? 'block' : 'none';
+
+    // Yetenekler
+    const skills = document.getElementById('fSkills').value;
+    document.getElementById('cvSkills').innerText = skills;
+    document.getElementById('skillsSection').style.display = skills ? 'block' : 'none';
+}
+{% endblock %}
