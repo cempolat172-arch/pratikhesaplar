@@ -33,11 +33,20 @@
     color: #1f2937;
     width: 210mm;
     min-height: 297mm;
-    padding: 20mm;
+    padding: 20mm 20mm 25mm 20mm;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     line-height: 1.5;
+    position: relative;
+}
+.cv-watermark {
+    position: absolute;
+    bottom: 10mm;
+    right: 20mm;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-style: italic;
 }
 .cv-paper h1 { font-size: 2.2rem; color: #111827; margin: 0 0 5px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 .cv-paper .cv-title { font-size: 1.2rem; color: #4b5563; margin-bottom: 15px; font-weight: 500; }
@@ -160,6 +169,8 @@
                 <h3>Yetenekler</h3>
                 <div class="skills-list" id="cvSkills">Python, JavaScript, HTML/CSS, React, SQL, Proje Yönetimi, Takım Liderliği</div>
             </div>
+
+            <div class="cv-watermark">pratikhesaplar.com</div>
         </div>
     </div>
 </div>
