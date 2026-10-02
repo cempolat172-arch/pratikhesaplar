@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
 
 app = FastAPI(title="Pratik Hesaplar - pratikhesaplar.com", version="3.6.0")
@@ -225,6 +225,7 @@ async def cv_hazirlama(request: Request):
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
 
-@app.get("/robots.txt", response_class=FileResponse)
+@app.get("/robots.txt", response_class=PlainTextResponse)
 async def robots():
-    return FileResponse("robots.txt", media_type="text/plain")
+    content = "User-agent: *\nAllow: /\n\nSitemap: https://pratikhesaplar.com/sitemap.xml\n"
+    return PlainTextResponse(content=content)
