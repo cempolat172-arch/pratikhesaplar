@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block title %}Güvenli Şifre Oluşturucu - Pratik Hesaplar{% endblock %}
+{% block description %}Rastgele, kırılması imkansız ve güçlü şifreler üretin. Büyük harf, küçük harf, rakam ve sembol kombinasyonlarıyla hesaplarınızı anında güvenceye alın.{% endblock %}
+{% block extra_css %}
+<style>
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #10b981;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+    z-index: 9999;
+}
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.strength-bar-container {
+    height: 8px;
+    background: #334155;
+    border-radius: 4px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    transition: all 0.4s ease;
+}
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+}
+.setting-row input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+</style>
+{% endblock %}
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">Güvenli Şifre Oluşturucu</h2>
+
+<div class="calculator-container" style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">
+    <div class="card" style="background: #1e293b; color: white; padding: 35px 30px; border-radius: 16px; border: 1px solid #334155; width: 100%; max-width: 500px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);">
+        
+        <!-- Şifre Gösterim Ekranı ve Kopyala Butonu -->
+        <div style="position: relative; margin-bottom: 25px;">
+            <input type="text" id="pwdResult" readonly style="width: 100%; padding: 20px 120px 20px 20px; border-radius: 10px; border: 2px solid #475569; background: #0f172a; color: #10b981; font-family: monospace; font-size: 1.5rem; text-align: center; letter-spacing: 2px; transition: border-color 0.3s;">
+            <button onclick="copyPassword()" style="position: absolute; right: 10px; top: 10px; bottom: 10px; background: #3b82f6; color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">Kopyala</button>
+        </div>
+
+        <!-- Güvenlik Göstergesi -->
+        <div style="margin-bottom: 30px; text-align: center;">
+            <span id="strengthText" style="font-weight: bold; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Güçlük: Bekleniyor</span>
+            <div class="strength-bar-container">
+                <div id="strengthBar" class="strength-bar"></div>
+            </div>
+        </div>
+
+        <!-- Uzunluk Ayarı -->
+        <div class="form-group" style="margin-bottom: 30px;">
+            <label style="color: #cbd5e1; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 1.1rem;">Karakter Uzunluğu</span>
+                <span id="pwdLenLabel" style="color: #38bdf8; font-weight: bold; font-size: 1.4rem; background: #0f172a; padding: 4px 12px; border-radius: 6px;">16</span>
+            </label>
+            <input type="range" id="pwdLen" min="6" max="32" value="16" style="width: 100%; cursor: pointer; accent-color: var(--primary);" oninput="updateLenLabel(); generatePassword()">
+        </div>
+
+        <!-- Seçenekler -->
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px; background: #0f172a; padding: 20px; border-radius: 10px; border: 1px solid #475569;">
+            <label class="setting-row">
+                <span style="font-size: 1.05rem;">Büyük Harf (A-Z)</span>
+                <input type="checkbox" id="pwdUpper" checked onchange="generatePassword()">
+            </label>
+            <label class="setting-row">
+                <span style="font-size: 1.05rem;">Küçük Harf (a-z)</span>
+                <input type="checkbox" id="pwdLower" checked onchange="generatePassword()">
+            </label>
+            <label class="setting-row">
+                <span style="font-size: 1.05rem;">Rakamlar (0-9)</span>
+                <input type="checkbox" id="pwdNum" checked onchange="generatePassword()">
+            </label>
+            <label class="setting-row">
+                <span style="font-size: 1.05rem;">Özel Karakterler (!@#$ vb.)</span>
+                <input type="checkbox" id="pwdSym" checked onchange="generatePassword()">
+            </label>
+        </div>
+
+        <button style="background: var(--primary); color: white; border: none; padding: 18px; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.2rem; transition: background 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="generatePassword()" onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='var(--primary)'">
+            🔄 Yeni Şifre Üret
+        </button>
+    </div>
+</div>
+
+<!-- Toast Bildirimi -->
+<div id="toastMessage" class="toast">✅ Şifre panoya kopyalandı!</div>
+
+<!-- Bilgilendirme Metni -->
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Güvenli Şifre Oluşturucu (Password Generator)</h2>
+    <p>Dijital dünyada hesap güvenliğinin en temel kuralı, kırılması zor ve tahmin edilemez parolalar kullanmaktır. Doğum tarihiniz, evcil hayvanınızın adı veya ardışık rakamlar (123456 vb.) içeren şifreler, kötü niyetli yazılımlar tarafından saniyeler içinde kırılabilir. <strong>Pratikhesaplar.com Güvenli Şifre Oluşturucu</strong> ile sosyal medya, bankacılık ve e-posta hesaplarınız için üst düzey güvenlik sağlayan rastgele şifreler üretebilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Güçlü Bir Şifrenin Özellikleri Nelerdir?</h3>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Uzunluk:</strong> Uzmanlar tarafından önerilen minimum şifre uzunluğu en az 12 karakterdir. Aracımızla 32 karaktere kadar şifreler oluşturabilirsiniz.</li>
+        <li><strong>Karmaşıklık:</strong> Büyük harf, küçük harf, rakam ve özel karakterlerin (!@#$%^&*) bir arada kullanılması şifrenin kombinasyon ihtimalini milyarlarca kat artırır.</li>
+        <li><strong>Rastgelelik:</strong> Sözlük kelimeleri içermemeli, tamamen rastgele üretilmiş anlamsız dizilimlerden oluşmalıdır.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Oluşturulan Şifreler Kaydediliyor mu?</h3>
+    <p>Kesinlikle hayır. Güvenliğiniz bizim için önceliklidir. Bu araç, şifre üretim işlemini tamamen sizin cihazınızda (tarayıcı üzerinde JavaScript ile) lokal olarak gerçekleştirir. Üretilen hiçbir şifre sunucularımıza gönderilmez, veritabanlarına kaydedilmez ve internet üzerinden aktarılmaz. Yalnızca siz görür ve "Kopyala" butonuna basarak doğrudan panonuza alırsınız.</p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+function updateLenLabel() {
+    document.getElementById('pwdLenLabel').innerText = document.getElementById('pwdLen').value;
+}
+
+function calculateStrength(password) {
+    let score = 0;
+    if (password.length > 8) score += 1;
+    if (password.length >= 14) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+    const pwdResult = document.getElementById('pwdResult');
+
+    if (password.length === 0) {
+        strengthBar.style.width = '0%';
+        strengthText.innerText = 'Güçlük: Bekleniyor';
+        strengthText.style.color = '#94a3b8';
+        pwdResult.style.borderColor = '#475569';
+    } else if (score < 3) {
+        strengthBar.style.width = '33%';
+        strengthBar.style.backgroundColor = '#ef4444'; // Kırmızı
+        strengthText.innerText = 'Güçlük: Zayıf';
+        strengthText.style.color = '#ef4444';
+        pwdResult.style.borderColor = '#ef4444';
+    } else if (score < 5) {
+        strengthBar.style.width = '66%';
+        strengthBar.style.backgroundColor = '#f59e0b'; // Turuncu
+        strengthText.innerText = 'Güçlük: Orta';
+        strengthText.style.color = '#f59e0b';
+        pwdResult.style.borderColor = '#f59e0b';
+    } else {
+        strengthBar.style.width = '100%';
+        strengthBar.style.backgroundColor = '#10b981'; // Yeşil
+        strengthText.innerText = 'Güçlük: Çok Güçlü';
+        strengthText.style.color = '#10b981';
+        pwdResult.style.borderColor = '#10b981';
+    }
+}
+
+function generatePassword() {
+    const length = parseInt(document.getElementById('pwdLen').value);
+    const hasUpper = document.getElementById('pwdUpper').checked;
+    const hasLower = document.getElementById('pwdLower').checked;
+    const hasNum = document.getElementById('pwdNum').checked;
+    const hasSym = document.getElementById('pwdSym').checked;
+
+    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lower = 'abcdefghijklmnopqrstuvwxyz';
+    const num = '0123456789';
+    const sym = '!@#$%^&*()_+~|}{[]:;?><,./-=';
+
+    let charSet = '';
+    if (hasUpper) charSet += upper;
+    if (hasLower) charSet += lower;
+    if (hasNum) charSet += num;
+    if (hasSym) charSet += sym;
+
+    if (charSet === '') {
+        document.getElementById('pwdUpper').checked = true;
+        charSet += upper;
+    }
+
+    let password = '';
+    // Güçlü kriptografik rastgelelik için crypto API kullanımı
+    const array = new Uint32Array(length);
+    window.crypto.getRandomValues(array);
+    
+    for (let i = 0; i < length; i++) {
+        password += charSet[array[i] % charSet.length];
+    }
+    
+    document.getElementById('pwdResult').value = password;
+    calculateStrength(password);
+}
+
+function copyPassword() {
+    const pwd = document.getElementById('pwdResult');
+    if (!pwd.value) return;
+    
+    // Modern Clipboard API kullanımı
+    navigator.clipboard.writeText(pwd.value).then(() => {
+        showToast();
+    }).catch(err => {
+        // Fallback
+        pwd.select();
+        document.execCommand('copy');
+        showToast();
+    });
+}
+
+function showToast() {
+    const toast = document.getElementById('toastMessage');
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
+
+// Sayfa yüklendiğinde bir tane oluştur
+window.addEventListener('DOMContentLoaded', () => {
+    updateLenLabel();
+    generatePassword();
+});
+{% endblock %}

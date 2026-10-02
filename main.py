@@ -207,6 +207,13 @@ async def qr_kod_olusturucu(request: Request):
         context={"title": "Ücretsiz QR Kod (Karekod) Oluşturucu | Pratik Hesaplar", "description": "Bağlantılarınızı ve metinlerinizi saniyeler içinde ücretsiz olarak QR koda (karekoda) dönüştürün ve indirin."}
     )
 
+@app.get("/guvenli-sifre-olustur", response_class=HTMLResponse)
+async def guvenli_sifre(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="sifre-olusturucu.html",
+        context={"title": "Güvenli Şifre Oluşturucu (Password Generator) | Pratik Hesaplar", "description": "Kırılması zor ve güvenli şifreler üretin. Büyük harf, küçük harf, rakam ve sembolleri kullanarak rastgele parolalar oluşturun."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
