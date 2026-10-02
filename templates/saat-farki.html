@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Saat Farkı ve Zaman Dilimi Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Farklı ülkeler ve şehirler arasındaki güncel saat farkını, zaman dilimlerini (Timezone) anında hesaplayın ve uluslararası planlarınızı kolayca yapın.{% endblock %}
+{% block content %}
+<h2>Saat Farkı ve Zaman Dilimi Hesaplama</h2>
+
+<div class="form-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 250px;">
+        <label>1. Şehir / Zaman Dilimi:</label>
+        <select id="tz1" onchange="hesaplaSaatFarki()">
+            <option value="Europe/Istanbul" selected>İstanbul, Türkiye (GMT+3)</option>
+            <option value="Europe/London">Londra, Birleşik Krallık (GMT/BST)</option>
+            <option value="Europe/Berlin">Berlin, Almanya (CET/CEST)</option>
+            <option value="America/New_York">New York, ABD (EST/EDT)</option>
+            <option value="America/Los_Angeles">Los Angeles, ABD (PST/PDT)</option>
+            <option value="Asia/Tokyo">Tokyo, Japonya (JST)</option>
+            <option value="Asia/Dubai">Dubai, BAE (GST)</option>
+            <option value="Australia/Sydney">Sidney, Avustralya (AEST/AEDT)</option>
+        </select>
+    </div>
+    <div style="flex: 1; min-width: 250px;">
+        <label>2. Şehir / Zaman Dilimi:</label>
+        <select id="tz2" onchange="hesaplaSaatFarki()">
+            <option value="America/New_York" selected>New York, ABD (EST/EDT)</option>
+            <option value="Europe/Istanbul">İstanbul, Türkiye (GMT+3)</option>
+            <option value="Europe/London">Londra, Birleşik Krallık (GMT/BST)</option>
+            <option value="Europe/Berlin">Berlin, Almanya (CET/CEST)</option>
+            <option value="America/Los_Angeles">Los Angeles, ABD (PST/PDT)</option>
+            <option value="Asia/Tokyo">Tokyo, Japonya (JST)</option>
+            <option value="Asia/Dubai">Dubai, BAE (GST)</option>
+            <option value="Australia/Sydney">Sidney, Avustralya (AEST/AEDT)</option>
+        </select>
+    </div>
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr; margin-top: 20px;">
+    <div class="result-item" style="background: #1e293b; color: white;">
+        <h3 style="color: #94a3b8; font-size: 1rem; margin-bottom: 5px;" id="lblCity1">İstanbul</h3>
+        <span id="time1" style="font-size: 2.5rem; font-weight: bold; font-family: monospace;">00:00</span>
+        <div id="date1" style="font-size: 0.9rem; color: #cbd5e1; margin-top: 5px;">-</div>
+    </div>
+    <div class="result-item" style="background: #1e293b; color: white;">
+        <h3 style="color: #94a3b8; font-size: 1rem; margin-bottom: 5px;" id="lblCity2">New York</h3>
+        <span id="time2" style="font-size: 2.5rem; font-weight: bold; font-family: monospace;">00:00</span>
+        <div id="date2" style="font-size: 0.9rem; color: #cbd5e1; margin-top: 5px;">-</div>
+    </div>
+    <div class="result-item" style="grid-column: span 2; border: 2px dashed var(--primary);">
+        <h3 style="margin-bottom: 5px;">Aralarındaki Saat Farkı</h3>
+        <span id="resFark" style="color: var(--primary); font-size: 1.5rem; font-weight: bold;">-</span>
+    </div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Saat Farkı ve Zaman Dilimi Hesaplama: Dünyayı Tek Ekranda Yakalayın</h2>
+    
+    <p>Küreselleşen dünyada iş toplantıları yapmak, yurt dışındaki akrabalarla görüşmek veya uluslararası bir uçuş planlamak için farklı coğrafyalar arasındaki yerel saatleri bilmek zorunlu hale gelmiştir. <strong>Saat farkı hesaplama</strong> aracı sayesinde, bulunduğunuz konum ile hedeflediğiniz dünya şehri (New York, Londra, Tokyo vb.) arasındaki anlık zaman dilimini (timezone) saniyeler içinde net bir şekilde öğrenebilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Zaman Dilimi (Timezone) ve Ülkeler Arası Saat Farkları Nasıl Belirlenir?</h3>
+    
+    <p>Dünya, başlangıç meridyeni olan Greenwich'ten (GMT) doğuya ve batıya doğru toplam 24 farklı saat dilimine ayrılmıştır. Her bir dilim arası 1 saatlik fark yaratır. Ancak <strong>zaman dilimi hesaplama</strong> sürecini karmaşıklaştıran bazı yasal uygulamalar bulunmaktadır. Aracımız bu zorlukları otomatik olarak çözer:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Yaz Saati Uygulaması (DST):</strong> Avrupa ülkeleri ve Amerika başta olmak üzere birçok devlet, gün ışığından daha fazla yararlanmak için kış ve yaz aylarında saatleri ileri/geri alır. Hesaplama aracımız bu değişimleri canlı olarak algılar ve hatasız sonuç verir.</li>
+        <li><strong>Coğrafi Büyüklük:</strong> ABD, Rusya veya Avustralya gibi devasa yüzölçümüne sahip ülkelerde aynı anda birden fazla zaman dilimi kullanılır. Aracımızda ülke yerine doğrudan şehir seçimi yaparak en doğru yerel saate ulaşabilirsiniz.</li>
+        <li><strong>Tarih Çizgisi Farkı:</strong> Bazen saat farkı sadece günün saatini değil, yaşanılan günü de değiştirir. Örneğin Türkiye'de Cuma akşamı yaşanırken, Japonya'da çoktan Cumartesi sabahı başlamış olabilir. Ekranımızda tarih eşitsizliklerini de görebilirsiniz.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Kimler İçin En İdeal Çözümdür?</h3>
+    
+    <p>Hızlı ve arama niyetine (Search Intent) uygun olan bu modül; çok uluslu şirketlerde çalışan profesyonellerin toplantı saatlerini (Google Meet, Zoom) koordine etmesi, dijital göçebelerin mesai takibi yapması, uluslararası döviz ve borsa yatırımcılarının piyasa açılış saatlerini yakalaması için hayat kurtaran pratik bir <strong>dünya saatleri</strong> rehberidir.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+let timerInterval;
+
+function hesaplaSaatFarki() {
+    if(timerInterval) clearInterval(timerInterval);
+    guncelleSaat();
+    timerInterval = setInterval(guncelleSaat, 1000);
+}
+
+function guncelleSaat() {
+    const tz1 = document.getElementById('tz1').value;
+    const tz2 = document.getElementById('tz2').value;
+    
+    const sel1 = document.getElementById('tz1');
+    const sel2 = document.getElementById('tz2');
+    
+    document.getElementById('lblCity1').innerText = sel1.options[sel1.selectedIndex].text.split(',')[0];
+    document.getElementById('lblCity2').innerText = sel2.options[sel2.selectedIndex].text.split(',')[0];
+
+    const now = new Date();
+    
+    // Format options
+    const timeOpt = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const dateOpt = { year: 'numeric', month: 'long', day: 'numeric' };
+    
+    // JS trick to get timezone offset difference
+    // It's more reliable to format strings but to get exact hour diff:
+    
+    let d1 = new Date(now.toLocaleString('en-US', { timeZone: tz1 }));
+    let d2 = new Date(now.toLocaleString('en-US', { timeZone: tz2 }));
+    
+    document.getElementById('time1').innerText = now.toLocaleTimeString('tr-TR', { ...timeOpt, timeZone: tz1 });
+    document.getElementById('date1').innerText = now.toLocaleDateString('tr-TR', { ...dateOpt, timeZone: tz1 });
+    
+    document.getElementById('time2').innerText = now.toLocaleTimeString('tr-TR', { ...timeOpt, timeZone: tz2 });
+    document.getElementById('date2').innerText = now.toLocaleDateString('tr-TR', { ...dateOpt, timeZone: tz2 });
+    
+    let diffHours = (d1 - d2) / (1000 * 60 * 60);
+    let absDiff = Math.abs(diffHours);
+    
+    let farkMetni = "";
+    if (diffHours === 0) {
+        farkMetni = "Saatler tamamen aynı.";
+    } else if (diffHours > 0) {
+        farkMetni = `1. Şehir, 2. Şehirden ${absDiff} saat ileride.`;
+    } else {
+        farkMetni = `2. Şehir, 1. Şehirden ${absDiff} saat ileride.`;
+    }
+    
+    document.getElementById('resFark').innerText = farkMetni;
+}
+
+window.onload = hesaplaSaatFarki;
+{% endblock %}

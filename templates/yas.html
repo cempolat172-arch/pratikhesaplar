@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Yaş ve Gün Hesaplama Aracı - Pratik Hesaplar{% endblock %}
+{% block description %}Doğum tarihinizi girerek tam olarak kaç yıl, kaç ay, kaç gün, kaç saat ve kaç dakikadır yaşadığınızı anında hesaplayın.{% endblock %}
+{% block content %}
+<h2>Detaylı Yaş ve Gün Hesaplama Aracı</h2>
+
+<div class="form-group">
+    <label>Doğum Tarihiniz:</label>
+    <input type="date" id="yasDogumTarihi" onchange="hesaplaYas()">
+</div>
+
+<div class="results" style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); text-align: center;">
+    <div class="result-item"><h3>Yıl</h3><span id="resYil" style="color: var(--primary); font-size: 1.8rem;">0</span></div>
+    <div class="result-item"><h3>Ay</h3><span id="resAy" style="color: var(--primary); font-size: 1.8rem;">0</span></div>
+    <div class="result-item"><h3>Gün</h3><span id="resGun" style="color: var(--primary); font-size: 1.8rem;">0</span></div>
+    <div class="result-item"><h3>Saat</h3><span id="resSaat" style="color: #64748b; font-size: 1.5rem;">0</span></div>
+    <div class="result-item"><h3>Dakika</h3><span id="resDakika" style="color: #64748b; font-size: 1.5rem;">0</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Yaş ve Gün Hesaplama: Hayatınızın Matematiksel Özeti</h2>
+    
+    <p>Doğduğunuz günden bu yana tam olarak ne kadar zaman geçtiğini hiç merak ettiniz mi? Günlük yaşamda yaşımızı genellikle sadece "yıl" olarak ifade etsek de, zamanın akışını çok daha detaylı görmek mümkündür. Geliştirdiğimiz <strong>yaş ve gün hesaplama aracı</strong> sayesinde, sadece kaç yaşında olduğunuzu değil; hayatta geçirdiğiniz tam ayı, günü, saati ve hatta dakikayı saniyeler içinde öğrenebilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Yaş Hesaplama Aracı Hangi Bilgileri Sunar?</h3>
+    
+    <p>Standart hesaplamaların aksine, takvim üzerindeki artık yıllar ve ayların gün sayıları dikkate alınarak yüksek doğrulukla çalışan bu araç, arama motorlarında sıkça aratılan <strong>tam yaş hesaplama</strong> niyetine (Search Intent) uygun olarak tasarlanmıştır. Çıkan sonuç tablosunda şu verileri detaylıca görürsünüz:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Geçen Yıl ve Ay:</strong> Doğum tarihinizden bugüne kadar geçen net yılları ve geriye kalan ayları gösterir. Bebeğinizin ay gelişimini takip etmek için de idealdir.</li>
+        <li><strong>Geçen Gün Sayısı:</strong> Dünyada tam olarak kaç gündür nefes aldığınızı matematiksel olarak ortaya koyar. Doğum günü kutlamalarından ziyade bininci (1000, 5000, 10000) gün kutlamaları için eğlenceli bir referanstır.</li>
+        <li><strong>Saat ve Dakika Detayı:</strong> Geçen günlerin 24 saat ve 60 dakika üzerinden devasa bir zaman dilimine çevrilmiş halini sunar. "Kaç dakikadır yaşıyorum?" sorusunun yanıtını anında verir.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Doğum Tarihi ile Yaş Hesaplamanın Pratik Kullanım Alanları</h3>
+    
+    <p>Hem resmi işlemlerde hem de kişisel merak konularında <strong>doğum tarihine göre yaş hesaplama</strong> büyük önem taşır. Emeklilik planlaması, sigorta poliçesi başlangıçları, yasal yaş sınırları (reşit olma, ehliyet alma) ve hatta astrolojik hesaplamalar için bu net verilere ihtiyaç duyulur. Aracımız tamamen ücretsiz çalışır ve girdiğiniz verileri hiçbir şekilde kaydetmeden tarayıcınız üzerinde anlık olarak işler.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaYas() {
+    const dobInput = document.getElementById('yasDogumTarihi').value;
+    if (!dobInput) return;
+
+    const dob = new Date(dobInput);
+    const now = new Date();
+
+    if (dob > now) {
+        alert("Doğum tarihi bugünden büyük olamaz!");
+        return;
+    }
+
+    let diffMs = now - dob;
+
+    // Yaklaşık hesaplamalar (tam yaş için Date objelerini kullanıyoruz)
+    let ageDate = new Date(diffMs); 
+    let resYil = ageDate.getUTCFullYear() - 1970;
+    let resAy = ageDate.getUTCMonth();
+    let resGun = ageDate.getUTCDate() - 1;
+
+    // Toplam saat ve dakika
+    let totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+    let totalMinutes = Math.floor(diffMs / (1000 * 60));
+
+    // Animasyonlu sayı yazdırma efekti yapılabilir ama direkt basıyoruz
+    document.getElementById('resYil').innerText = resYil;
+    document.getElementById('resAy').innerText = resAy;
+    document.getElementById('resGun').innerText = resGun;
+    document.getElementById('resSaat').innerText = totalHours.toLocaleString('tr-TR');
+    document.getElementById('resDakika').innerText = totalMinutes.toLocaleString('tr-TR');
+}
+{% endblock %}

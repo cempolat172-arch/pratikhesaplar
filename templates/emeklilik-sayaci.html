@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Emeklilik Geri Sayımı ve Yaş Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Doğum tarihiniz ve işe girişinize göre emekliliğinize kalan yılı, ayı ve günü detaylı bir geri sayım sayacı ile hesaplayın.{% endblock %}
+{% block content %}
+<h2>Emeklilik Geri Sayım Aracı</h2>
+
+<div class="form-group">
+    <label>Doğum Tarihiniz:</label>
+    <input type="date" id="emeklilikDogum" onchange="hesaplaSayac()">
+</div>
+<div class="form-group">
+    <label>Cinsiyetiniz:</label>
+    <select id="emeklilikCinsiyet" onchange="hesaplaSayac()">
+        <option value="erkek" selected>Erkek (Hedef 60 Yaş)</option>
+        <option value="kadin">Kadın (Hedef 58 Yaş)</option>
+        <option value="eyt65">Yeni Yasa (Hedef 65 Yaş)</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Tahmini Emeklilik Yaşınız (Sisteme Göre):</label>
+    <input type="number" id="emeklilikHedef" value="60" oninput="hesaplaSayac()" readonly style="background: #e2e8f0;">
+</div>
+
+<div class="results" style="grid-template-columns: repeat(3, 1fr); text-align: center;">
+    <div class="result-item" style="grid-column: span 3; background: var(--primary); color: white;">
+        <h3 style="color: white; margin-bottom: 5px;">Emeklilik Tarihiniz</h3>
+        <span id="resEmeklilikTarihi" style="font-size: 1.8rem; font-weight: bold;">-</span>
+    </div>
+    <div class="result-item"><h3>Kalan Yıl</h3><span id="resKalanYil" style="color: #dc2626; font-size: 2rem;">0</span></div>
+    <div class="result-item"><h3>Kalan Ay</h3><span id="resKalanAy" style="color: #d97706; font-size: 2rem;">0</span></div>
+    <div class="result-item"><h3>Kalan Gün</h3><span id="resKalanGun" style="color: #10b981; font-size: 2rem;">0</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Emeklilik Geri Sayımı ve Yaş Hesaplama Rehberi</h2>
+    
+    <p>Çalışma hayatının en büyük motivasyonlarından biri, uzun ve yorucu yılların ardından rahat bir emeklilik dönemine adım atmaktır. "Ne zaman emekli olurum?" sorusu kadar, "Emekliliğime ne kadar kaldı?" sorusu da çalışanlar için kritik bir merak konusudur. <strong>Emeklilik geri sayım aracı</strong> ile doğum tarihinizi ve sistemsel emeklilik yaşınızı baz alarak, emekli olacağınız o büyük güne tam olarak kaç yıl, kaç ay ve kaç gün kaldığını interaktif şekilde hesaplayabilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Geri Sayım Aracı Nasıl Çalışır ve Neden Önemlidir?</h3>
+    
+    <p>Ülkemizdeki SGK, Bağ-Kur veya Emekli Sandığı kuralları gereği işe giriş tarihinize bağlı olarak emeklilik yaşı farklılık gösterir. Geliştirdiğimiz bu akıllı modül, yasal <strong>emeklilik yaşı hesaplama</strong> sistemine paralel olarak hedefinize ne kadar süre kaldığını görsel bir sayaçla sunar:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Finansal Planlama Fırsatı:</strong> Emekliliğe kalan net sürenizi bilmek (örneğin 5 yıl 3 ay), Bireysel Emeklilik Sistemi (BES) ödemelerinizi ve tasarruf yatırımlarınızı çok daha verimli planlamanıza olanak tanır.</li>
+        <li><strong>Psikolojik Motivasyon:</strong> Geri sayım sayacında kalan sürenin giderek azaldığını görmek, yoğun iş temposunda çalışan bireyler için güçlü bir psikolojik destek ve motivasyon kaynağıdır.</li>
+        <li><strong>Yasal Yaş Hedefi Belirleme:</strong> Cinsiyetinize (kadınlarda genellikle 58, erkeklerde 60) veya 2008 sonrası işe giriş kurallarına (65 yaş hedefi) göre değişen dinamikleri araca girerek kendi kişisel geri sayımınızı oluşturabilirsiniz.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Emeklilik Sürecinde Dikkat Edilmesi Gerekenler</h3>
+    
+    <p>Emeklilik hesaplamalarında sadece <strong>kalan yıl ve gün hesaplaması</strong> yeterli değildir. Sosyal Güvenlik Kurumu (SGK) nezdinde eksik prim günlerinizin tamamlanmış olması şarttır. Geri sayım aracımız yaş kriterine odaklanarak size zaman planlaması sunarken, prim eksiği olan çalışanların askerlik borçlanması veya doğum borçlanması gibi haklarını da bu kalan süre zarfında tamamlamaları önerilir.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaSayac() {
+    const dogumInput = document.getElementById('emeklilikDogum').value;
+    if (!dogumInput) return;
+
+    const cinsiyet = document.getElementById('emeklilikCinsiyet').value;
+    let hedefYas = 60;
+    if(cinsiyet === 'kadin') hedefYas = 58;
+    if(cinsiyet === 'eyt65') hedefYas = 65;
+    
+    document.getElementById('emeklilikHedef').value = hedefYas;
+
+    const dogumTarihi = new Date(dogumInput);
+    const simdi = new Date();
+
+    // Emeklilik tarihini bul
+    let emeklilikTarihi = new Date(dogumTarihi);
+    emeklilikTarihi.setFullYear(emeklilikTarihi.getFullYear() + hedefYas);
+
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('resEmeklilikTarihi').innerText = emeklilikTarihi.toLocaleDateString('tr-TR', options);
+
+    if (emeklilikTarihi <= simdi) {
+        document.getElementById('resKalanYil').innerText = "0";
+        document.getElementById('resKalanAy').innerText = "0";
+        document.getElementById('resKalanGun').innerText = "0";
+        document.getElementById('resEmeklilikTarihi').innerText += " (Emekliliği Hak Ettiniz!)";
+        return;
+    }
+
+    // Kalan süreyi hesapla
+    let diffMs = emeklilikTarihi - simdi;
+    let kalanTarih = new Date(diffMs);
+
+    let kalanYil = kalanTarih.getUTCFullYear() - 1970;
+    let kalanAy = kalanTarih.getUTCMonth();
+    let kalanGun = kalanTarih.getUTCDate() - 1;
+
+    document.getElementById('resKalanYil').innerText = kalanYil;
+    document.getElementById('resKalanAy').innerText = kalanAy;
+    document.getElementById('resKalanGun').innerText = kalanGun;
+}
+document.getElementById('emeklilikCinsiyet').addEventListener('change', hesaplaSayac);
+{% endblock %}

@@ -172,6 +172,27 @@ async def hesap_makinesi(request: Request):
         context={"title": "Gelişmiş Online Hesap Makinesi | Pratik Hesaplar", "description": "Dört işlem, karekök, yüzde hesaplama ve bilimsel fonksiyonları bir arada sunan gelişmiş online hesap makinesi."}
     )
 
+@app.get("/yas-hesaplama", response_class=HTMLResponse)
+async def yas_hesaplama(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="yas.html",
+        context={"title": "Yaş ve Gün Hesaplama Aracı | Pratik Hesaplar", "description": "Doğum tarihinizi girerek kaç yıl, ay, gün, saat ve dakikadır yaşadığınızı hesaplayın."}
+    )
+
+@app.get("/emeklilik-sayaci", response_class=HTMLResponse)
+async def emeklilik_sayaci(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="emeklilik-sayaci.html",
+        context={"title": "Emeklilik Geri Sayımı ve Yaş Hesaplama | Pratik Hesaplar", "description": "Emekliliğinize kalan süreyi detaylı bir geri sayım aracı ile hesaplayın."}
+    )
+
+@app.get("/saat-farki-hesaplama", response_class=HTMLResponse)
+async def saat_farki(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="saat-farki.html",
+        context={"title": "Saat Farkı ve Zaman Dilimi Hesaplama | Pratik Hesaplar", "description": "Dünya şehirleri arasındaki anlık saat farkını ve zaman dilimlerini hesaplayın."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
