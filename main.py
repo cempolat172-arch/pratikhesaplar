@@ -200,6 +200,13 @@ async def dijital_araclar(request: Request):
         context={"title": "Dijital ve Teknik Hesaplama Araçları | Pratik Hesaplar", "description": "Şifre oluşturucu, QR kod yapıcı ve metin kelime sayacı gibi pratik dijital araçları hemen kullanın."}
     )
 
+@app.get("/qr-kod-olusturucu", response_class=HTMLResponse)
+async def qr_kod_olusturucu(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="qr-kod-olusturucu.html",
+        context={"title": "Ücretsiz QR Kod (Karekod) Oluşturucu | Pratik Hesaplar", "description": "Bağlantılarınızı ve metinlerinizi saniyeler içinde ücretsiz olarak QR koda (karekoda) dönüştürün ve indirin."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")

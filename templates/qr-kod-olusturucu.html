@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}QR Kod Oluşturucu - Ücretsiz Karekod Üret{% endblock %}
+{% block description %}Ücretsiz online QR kod oluşturucu ile web site bağlantılarınızı ve metinlerinizi anında taranabilir karekodlara dönüştürün ve indirin.{% endblock %}
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">QR Kod (Karekod) Oluşturucu</h2>
+
+<div class="calculator-container" style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px;">
+    <div class="card" style="background: #1e293b; color: white; padding: 30px; border-radius: 12px; border: 1px solid #334155; width: 100%; max-width: 500px; display: flex; flex-direction: column;">
+        <div class="form-group" style="flex: 1; margin-bottom: 20px;">
+            <label style="color: #cbd5e1; margin-bottom: 8px; display: block; font-size: 1.1rem;">Bağlantı (URL) veya Metin:</label>
+            <input type="text" id="qrText" placeholder="Örn: https://pratikhesaplar.com" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; font-size: 1rem;">
+        </div>
+        <button style="background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 20px; font-weight: bold; font-size: 1.1rem; transition: background 0.3s;" onclick="generateQR()" onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='var(--primary)'">Karekod Üret</button>
+        
+        <div style="text-align: center; background: #ffffff; padding: 20px; border-radius: 8px; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; border: 2px dashed #94a3b8;">
+            <img id="qrImage" src="" alt="QR Kod" style="display: none; max-width: 100%; border-radius: 4px;">
+            <span id="qrPlaceholder" style="color: #64748b; font-size: 1rem;">Oluşturulan karekod burada görünecek</span>
+            <button id="qrDownloadBtn" style="display: none; background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 5px; font-weight: bold; transition: background 0.3s;" onclick="downloadQR()" onmouseover="this.style.background='#059669'" onmouseout="this.style.background='#10b981'">⬇️ Karekod İndir</button>
+        </div>
+    </div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">QR Kod Oluşturucu ile Saniyeler İçinde Ücretsiz Karekod Üretin</h2>
+
+    <p>Günümüz dijital dünyasında bilgiye en hızlı şekilde ulaşmanın yolu karekodlardan geçer. <strong>Online QR kod oluşturucu</strong> aracı; web sitenizin adresini (URL), sosyal medya hesaplarınızı, dijital kartvizitlerinizi veya herhangi bir metni anında taranabilir grafiklere dönüştürmenizi sağlar. Herhangi bir program veya uygulama indirmenize gerek kalmadan, tarayıcınız üzerinden tamamen <strong>ücretsiz QR kod üretme</strong> işlemlerini saniyeler içinde gerçekleştirebilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">QR Kod (Karekod) Nedir ve Nerelerde Kullanılır?</h3>
+
+    <p>İngilizce "Quick Response" (Hızlı Tepki) kelimelerinin kısaltması olan QR kod, akıllı telefon kameraları tarafından taranarak kullanıcısını doğrudan dijital bir kaynağa ulaştıran iki boyutlu bir barkod türüdür. Geleneksel bağlantı paylaşım yöntemlerinin yerini alan bu teknoloji, günümüzde pek çok farklı sektörde aktif olarak kullanılmaktadır:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Restoran ve Kafe Menüleri:</strong> Temassız menü uygulamaları için en çok tercih edilen <strong>karekod menü oluşturma</strong> yöntemidir.</li>
+        <li><strong>Kurumsal ve Kişisel Kartvizitler:</strong> İletişim bilgilerinizi, telefon numaranızı veya e-posta adresinizi tek taramayla karşı tarafın rehberine kaydettirin.</li>
+        <li><strong>E-Ticaret ve Pazarlama:</strong> Ürün ambalajlarında, kampanya afişlerinde veya broşürlerde doğrudan web sitenize veya ürün sayfanıza trafik çekin.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">En İyi Ücretsiz QR Kod Oluşturucu Kullanmanın Avantajları</h3>
+
+    <p>Web tabanlı <strong>QR kod üreticisi</strong> kullanmak, işletmelere ve bireysel kullanıcılara büyük bir esneklik kazandırır. Sitemizde yer alan bu pratik araç sayesinde kampanyalarınızı, web sitenizi veya sosyal medya paylaşımlarınızı daha dinamik hale getirebilirsiniz. Bu aracın sunduğu başlıca avantajlar şunlardır:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Hızlı ve Kolay Üretim:</strong> Sadece hedef bağlantıyı veya metni ilgili alana yapıştırın, saniyeler içinde yüksek çözünürlüklü QR kodunuz hazır olsun.</li>
+        <li><strong>Cihaz Bağımsız Çalışma:</strong> Bilgisayar, tablet veya akıllı telefonlar üzerinden ek bir yazılıma ihtiyaç duymadan <strong>mobil uyumlu QR kod aracı</strong> ile anında sonuç alın.</li>
+        <li><strong>Yüksek Tarama Başarısı:</strong> Optimize edilmiş kod yapısı sayesinde tüm modern akıllı telefon kameraları tarafından anında algılanır.</li>
+    </ul>
+
+    <div class="faq-section" style="margin-top: 40px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Sık Sorulan Sorular</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">QR kod oluşturmak tamamen ücretsiz mi?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Evet, sitemiz üzerinden üyelik gerektirmeden dilediğiniz kadar standart metin ve URL tabanlı <strong>QR kod oluşturma</strong> işlemini tamamen ücretsiz olarak gerçekleştirebilirsiniz.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Oluşturduğum QR kodların süresi dolar mı?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Standart olarak oluşturduğunuz statik QR kodlar kalıcıdır; herhangi bir süre kısıtlaması olmadan çıktısını alabilir veya dijital mecralarda süresiz olarak kullanabilirsiniz.</div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+function generateQR() {
+    const text = document.getElementById('qrText').value.trim();
+    const img = document.getElementById('qrImage');
+    const placeholder = document.getElementById('qrPlaceholder');
+
+    if (!text) {
+        alert('Lütfen QR kod oluşturmak için bir metin veya bağlantı girin.');
+        return;
+    }
+
+    const url = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}`;
+    img.src = url;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+    document.getElementById('qrDownloadBtn').style.display = 'block';
+}
+
+function downloadQR() {
+    const img = document.getElementById('qrImage');
+    if (!img.src) return;
+    fetch(img.src)
+        .then(response => response.blob())
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'karekod.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => {
+            window.open(img.src, '_blank');
+        });
+}
+
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
+{% endblock %}
