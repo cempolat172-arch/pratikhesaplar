@@ -123,7 +123,7 @@
 
     <!-- Canlı Önizleme Alanı -->
     <div class="cv-preview-area">
-        <button class="btn-print" onclick="window.print()">📥 PDF İndir / Yazdır</button>
+        <button class="btn-print" onclick="printCV()">📥 PDF İndir / Yazdır</button>
         
         <div class="cv-paper" id="cvPaper">
             <h1 id="cvName">Ad Soyad</h1>
@@ -259,5 +259,16 @@ function updateCV() {
     const skills = document.getElementById('fSkills').value;
     document.getElementById('cvSkills').innerText = skills;
     document.getElementById('skillsSection').style.display = skills ? 'block' : 'none';
+}
+
+function printCV() {
+    const originalTitle = document.title;
+    // PDF çıktısında üstte çıkacak başlığı değiştiriyoruz
+    document.title = "pratikhesaplar.com";
+    window.print();
+    // Yazdırma işlemi tetiklendikten sonra sayfa başlığını eski haline getiriyoruz
+    setTimeout(() => {
+        document.title = originalTitle;
+    }, 1000);
 }
 {% endblock %}
