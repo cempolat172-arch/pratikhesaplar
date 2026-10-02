@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}MTV ve Araç Gecikme Zammı Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Aracınızın motor hacmi ve yaşına göre güncel Motorlu Taşıtlar Vergisi (MTV) tutarını ve muayene gecikme zammını hemen hesaplayın.{% endblock %}
+{% block content %}
+<h2>MTV ve Gecikme Zammı Hesaplama</h2>
+<div class="form-group">
+    <label>Araç Yaşı (Trafiğe Çıkış):</label>
+    <select id="mtvYas" onchange="hesaplaMTV()">
+        <option value="1_3" selected>1 - 3 Yaş</option>
+        <option value="4_6">4 - 6 Yaş</option>
+        <option value="7_11">7 - 11 Yaş</option>
+        <option value="12_15">12 - 15 Yaş</option>
+        <option value="16_99">16 Yaş ve Üzeri</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Motor Hacmi (cc):</label>
+    <select id="mtvMotor" onchange="hesaplaMTV()">
+        <option value="1300" selected>1300 cc ve altı</option>
+        <option value="1600">1301 cc - 1600 cc arası</option>
+        <option value="2000">1601 cc - 2000 cc arası</option>
+        <option value="2500">2001 cc ve üzeri</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Geciken Ay Sayısı (Muayene Zammı İçin):</label>
+    <input type="number" id="mtvGecikmeAy" value="0" min="0" oninput="hesaplaMTV()">
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr;">
+    <div class="result-item"><h3>Yıllık MTV Tutarı</h3><span id="resMtvToplam" style="color: var(--primary);">0,00 TL</span></div>
+    <div class="result-item"><h3>6 Aylık Taksit</h3><span id="resMtvTaksit">0,00 TL</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3>Tahmini Gecikme Zammı</h3><span id="resGecikme" style="color: #dc2626; font-size: 1.5rem;">0,00 TL</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">MTV Hesaplama ve Araç Vergisi Sorgulama Rehberi</h2>
+    <p>Araç sahiplerinin her yıl düzenli olarak ödemekle yükümlü olduğu Motorlu Taşıtlar Vergisi (MTV), Ocak ve Temmuz aylarında olmak üzere iki eşit taksitte ödenir. Aracın değerini koruması, yasal prosedürlere takılmadan trafiğe çıkabilmesi ve araç satış işlemlerinin sorunsuz yapılabilmesi için <strong>MTV hesaplama</strong> ve borç takip işlemlerinin zamanında yapılması şarttır.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">MTV Tutarı Neye Göre Belirlenir?</h3>
+    <p>Her aracın devlete ödediği vergi miktarı aynı değildir. Resmi Gazete'de yayımlanan yeniden değerleme oranlarına göre güncellenen <strong>araç vergisi</strong> hesaplanırken temel olarak şu kriterler göz önüne alınır:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Aracın Yaşı:</strong> Sıfır ve genç araçların MTV tutarı yüksekken, araç yaşlandıkça vergi tutarı kademeli olarak düşer.</li>
+        <li><strong>Motor Silindir Hacmi (cc):</strong> Aracın motor hacmi büyüdükçe karbon emisyonu ve güç oranı arttığı için ödenecek vergi dilimi de yukarıya çıkar (Örn: 1.3 motor ile 2.0 motor arasındaki fark).</li>
+        <li><strong>Aracın Tipi:</strong> Otomobil, motosiklet, minibüs, kamyonet veya elektrikli araç olmasına göre farklı tarife cetvelleri uygulanır.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Araç Gecikme Zammı Nedir ve Nasıl İşler?</h3>
+    <p>MTV taksitlerinin zamanında ödenmemesi durumunda veya aracın periyodik TÜVTÜRK muayenesinin geciktirilmesi halinde devlete yasal <strong>gecikme zammı</strong> ödenmek zorundadır. MTV gecikmelerinde her ay için yasayla belirlenen gecikme faizi işlerken, araç muayene gecikmelerinde her ay için %5 oranında gecikme cezası yansıtılır. Geciken süre ne kadar uzarsa, yasal faiz yükü bütçenizi o oranda fazla sarsacaktır.</p>
+    <p>Sitemizdeki güncel <strong>MTV hesaplama aracı</strong> sayesinde hem yıllık ödemeniz gereken net vergi tutarını hem de olası gecikmelerde karşılaşacağınız tahmini zam miktarını kolayca öğrenebilir, ödeme takviminizi güvenle oluşturabilirsiniz.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+const mtvTablosu = {
+    '1300': { '1_3': 3359, '4_6': 2343, '7_11': 1301, '12_15': 982, '16_99': 345 },
+    '1600': { '1_3': 5851, '4_6': 4387, '7_11': 2544, '12_15': 1798, '16_99': 689 },
+    '2000': { '1_3': 16383, '4_6': 12615, '7_11': 7414, '12_15': 5249, '16_99': 2043 },
+    '2500': { '1_3': 24578, '4_6': 17855, '7_11': 11145, '12_15': 6653, '16_99': 2634 }
+};
+
+function hesaplaMTV() {
+    let yas = document.getElementById('mtvYas').value;
+    let motor = document.getElementById('mtvMotor').value;
+    let gecikmeAy = parseInt(document.getElementById('mtvGecikmeAy').value) || 0;
+    
+    let yillikMtv = mtvTablosu[motor][yas];
+    let taksit = yillikMtv / 2;
+    
+    let gecikmeZammı = yillikMtv * 0.05 * gecikmeAy;
+    
+    document.getElementById('resMtvToplam').innerText = yillikMtv.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resMtvTaksit').innerText = taksit.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resGecikme').innerText = gecikmeZammı.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaMTV;
+{% endblock %}

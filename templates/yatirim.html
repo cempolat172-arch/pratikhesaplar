@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Bileşik Getiri ve Yatırım Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Mevduat, altın ve fon birikimleriniz için bileşik faiz ve yatırım getirisini ücretsiz ve detaylı olarak hesaplayın.{% endblock %}
+{% block content %}
+<h2>Bileşik Getiri ve Yatırım Hesaplama</h2>
+<div class="form-group">
+    <label>Başlangıç Sermayesi (TL):</label>
+    <input type="number" id="yatirimAnaPara" value="100000" oninput="hesaplaYatirim()">
+</div>
+<div class="form-group">
+    <label>Aylık Ek Düzenli Yatırım (TL):</label>
+    <input type="number" id="yatirimAylikEk" value="5000" oninput="hesaplaYatirim()">
+</div>
+<div class="form-group">
+    <label>Tahmini Yıllık Getiri Oranı (%):</label>
+    <input type="number" step="0.5" id="yatirimFaiz" value="45" oninput="hesaplaYatirim()">
+</div>
+<div class="form-group">
+    <label>Yatırım Vadesi (Yıl):</label>
+    <input type="number" id="yatirimYil" value="5" oninput="hesaplaYatirim()">
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr;">
+    <div class="result-item"><h3>Toplam Yatırılan Ana Para</h3><span id="resYatirimAnaPara" style="color: #64748b;">0,00 TL</span></div>
+    <div class="result-item"><h3>Bileşik Getiri (Kar) Tutarı</h3><span id="resYatirimGetiri" style="color: #10b981;">0,00 TL</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3>Vade Sonu Toplam Birikim</h3><span id="resYatirimToplam" style="font-size: 1.5rem; color: var(--primary);">0,00 TL</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Bileşik Getiri Hesaplama: Birikimlerinizi Nasıl Büyütebilirsiniz?</h2>
+    <p>Finans dünyasında "dünyanın sekizinci harikası" olarak adlandırılan bileşik faiz veya bileşik getiri, elde edilen kârın ana paraya eklenerek bir sonraki dönemde bu yeni toplam üzerinden getiri elde edilmesi sistemidir. İster vadeli mevduat hesabında, ister hisse senedi ve fon piyasasında olun, <strong>yatırım hesaplama</strong> yaparak paranın zaman içerisindeki kartopu etkisini görmek finansal özgürlüğe giden yolun ilk adımıdır.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Bileşik Faiz ve Basit Faiz Arasındaki Fark Nedir?</h3>
+    <p>Birikim yaparken veya yatırım fonu alırken doğru stratejiyi belirlemek için iki kavram arasındaki farkı net anlamak gerekir:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Basit Faiz:</strong> Sadece yatırılan başlangıç ana parası üzerinden her yıl aynı oranda kazanç sağlanan, sabit getirili bir yöntemdir.</li>
+        <li><strong>Bileşik Faiz (Getiri):</strong> İlk yıl kazandığınız karın da ana paraya dahil olmasıyla, ikinci yıl daha büyük bir bakiye üzerinden getiri sağlanır. Bu işlem yıllar geçtikçe üstel (eksponansiyel) bir büyüme yaratarak, paranızın çok daha hızlı katlanmasına yol açar.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Düzenli Tasarruf ve Yatırım Stratejilerinin Önemi</h3>
+    <p>Yüksek enflasyon dönemlerinde alım gücünüzü korumak ve paranızı değerlendirmek için sadece toplu para yatırmak yeterli olmayabilir. Sitemizdeki <strong>bileşik getiri hesaplama</strong> aracı sayesinde, başlangıç sermayenize her ay yapacağınız küçük eklemelerin (aylık düzenli yatırım) yıllar içinde ne kadar büyük bir devasa fon oluşturduğunu saniyeler içinde görebilirsiniz.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li>Erken yaşta yatırıma başlamak, bileşik getirinin gücünü maksimum seviyede kullanmanızı sağlar.</li>
+        <li>Borsada temettü (kâr payı) yatırımları, temettülerin tekrar hisseye çevrilmesiyle bileşik etki yaratır.</li>
+        <li>Her ay düzenli olarak küçük bir miktarı yatırıma ayırmak, maliyet ortalamasını düşürürken risksiz bir büyüme imkanı sunar.</li>
+    </ul>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaYatirim() {
+    let anaPara = parseFloat(document.getElementById('yatirimAnaPara').value) || 0;
+    let aylikEk = parseFloat(document.getElementById('yatirimAylikEk').value) || 0;
+    let yillikFaiz = parseFloat(document.getElementById('yatirimFaiz').value) || 0;
+    let yil = parseInt(document.getElementById('yatirimYil').value) || 0;
+    
+    let aylikFaiz = (yillikFaiz / 100) / 12;
+    let aySayisi = yil * 12;
+    let toplamBakiye = anaPara;
+    let yatirilanToplam = anaPara;
+
+    for (let i = 0; i < aySayisi; i++) {
+        toplamBakiye = toplamBakiye * (1 + aylikFaiz);
+        toplamBakiye += aylikEk;
+        yatirilanToplam += aylikEk;
+    }
+
+    let netGetiri = toplamBakiye - yatirilanToplam;
+
+    document.getElementById('resYatirimAnaPara').innerText = yatirilanToplam.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resYatirimGetiri').innerText = netGetiri.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resYatirimToplam').innerText = toplamBakiye.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+}
+window.onload = hesaplaYatirim;
+{% endblock %}

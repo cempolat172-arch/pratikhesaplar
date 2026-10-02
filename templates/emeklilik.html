@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Emeklilik Yaşı ve Şartları Hesaplama (SSK/Bağkur) - Pratik Hesaplar{% endblock %}
+{% block description %}İşe giriş tarihinize ve prim gününüze göre SGK (4A) ve Bağ-Kur (4B) emeklilik şartlarınızı ve emeklilik yaşınızı hemen hesaplayın.{% endblock %}
+{% block content %}
+<h2>Emeklilik Yaşı ve Prim Hesaplama</h2>
+<div class="form-group">
+    <label>Cinsiyet:</label>
+    <select id="emeklilikCinsiyet" onchange="hesaplaEmeklilik()">
+        <option value="erkek" selected>Erkek</option>
+        <option value="kadin">Kadın</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Sigorta Türü:</label>
+    <select id="emeklilikTuru" onchange="hesaplaEmeklilik()">
+        <option value="4a" selected>SSK (4A)</option>
+        <option value="4b">Bağ-Kur (4B)</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>İlk Sigorta Giriş Tarihi:</label>
+    <input type="date" id="emeklilikGiris" onchange="hesaplaEmeklilik()">
+</div>
+<div class="form-group">
+    <label>Mevcut Ödenmiş Prim Gününüz:</label>
+    <input type="number" id="emeklilikPrim" value="4500" oninput="hesaplaEmeklilik()">
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr;">
+    <div class="result-item"><h3>Gereken Emeklilik Yaşı</h3><span id="resEmeklilikYasi" style="color: var(--primary); font-size: 1.5rem;">-</span></div>
+    <div class="result-item"><h3>Gereken Toplam Prim (Gün)</h3><span id="resGerekliPrim" style="color: var(--primary); font-size: 1.5rem;">-</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3>Durumunuz</h3><span id="resEmeklilikDurum" style="color: #475569;">Lütfen giriş tarihinizi seçin.</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Ne Zaman Emekli Olurum? SGK Emeklilik Şartları Rehberi</h2>
+    <p>Çalışma hayatındaki milyonlarca vatandaşın aklındaki en büyük soru olan "Ne zaman emekli olurum?", tamamen sigortalı olarak ilk defa işe başladığınız tarihe, cinsiyetinize ve tabi olduğunuz sigorta koluna (SSK, Bağ-Kur, Emekli Sandığı) göre belirlenir. <strong>Emeklilik yaşı hesaplama</strong> ve prim günü takibi yapmak, geleceğe yönelik maddi güvencenizi planlamanız açısından son derece önemlidir.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Emeklilik Şartlarını Belirleyen Temel Kriterler Nelerdir?</h3>
+    <p>Ülkemizdeki sosyal güvenlik mevzuatında (özellikle EYT yasası ve 1999/2008 yılları reformları) emeklilik şartları belirli yasal milatlara göre kademelendirilmiştir. Emeklilik hakkı kazanabilmek için mutlaka sağlanması gereken üç temel şart bulunur:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Sigortalılık Süresi:</strong> İşe ilk giriş tarihinizden itibaren geçen yasal süredir (Kadınlarda 20 yıl, erkeklerde 25 yıl kuralı vb.).</li>
+        <li><strong>Prim Ödeme Gün Sayısı:</strong> Çalıştığınız ve adınıza devlete sigorta primi yatırılan toplam gün sayısıdır.</li>
+        <li><strong>Yaş Şartı:</strong> İşe giriş tarihinize göre kanunla belirlenmiş olan, doldurmanız gereken yaş sınırıdır. 8 Eylül 1999 öncesi girişlilerde EYT kapsamında yaş şartı kaldırılmış olsa da, sonraki dönemler için yaş şartı kademeli olarak 65'e kadar çıkmaktadır.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">SSK (4A) ve Bağ-Kur (4B) Arasındaki Emeklilik Farkları</h3>
+    <p>Bağlı olduğunuz statü, ne zaman emekli olacağınızı doğrudan değiştirir. Sitemizde sunduğumuz <strong>SGK emeklilik hesaplama aracı</strong>, yasal parametrelere göre size tahmini sonuçlar üretir.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>SSK (4A) Çalışanları:</strong> Özel sektörde bir işverene bağlı çalışan işçileri kapsar. Prim gün şartı döneme göre 5000 ile 7200 gün arasında değişiklik gösterir.</li>
+        <li><strong>Bağ-Kur (4B) Çalışanları:</strong> Kendi işini yapan esnaflar ve şirket ortaklarıdır. Normal emeklilik için kadınlarda 7200 gün (20 tam yıl), erkeklerde ise 9000 gün (25 tam yıl) prim ödemesi gerekmektedir.</li>
+    </ul>
+    <p>Hesaplama sonuçları mevzuat gereği tahmini bilgi amaçlıdır; kesin emeklilik tarihiniz ve eksik prim gün borçlanmaları (askerlik, doğum borçlanması) için e-Devlet kapısı veya SGK müdürlükleri üzerinden resmi <strong>ne zaman emekli olurum</strong> sorgulaması yapmanız önerilir.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaEmeklilik() {
+    let cinsiyet = document.getElementById('emeklilikCinsiyet').value;
+    let tur = document.getElementById('emeklilikTuru').value;
+    let girisDate = document.getElementById('emeklilikGiris').value;
+    let mevcutPrim = parseInt(document.getElementById('emeklilikPrim').value) || 0;
+    
+    if (!girisDate) return;
+    
+    let giris = new Date(girisDate);
+    let milat1 = new Date("1999-09-08"); // EYT miladı
+    let milat2 = new Date("2008-04-30"); // Yeni yasa miladı
+    
+    let gerekenYas = 0;
+    let gerekenPrim = 0;
+    
+    if (tur === '4a') {
+        if (giris <= milat1) {
+            gerekenYas = "EYT (Yaş Şartı Yok)";
+            gerekenPrim = 5975; 
+        } else if (giris > milat1 && giris <= milat2) {
+            gerekenYas = cinsiyet === 'erkek' ? 60 : 58;
+            gerekenPrim = 7000;
+        } else {
+            gerekenYas = 65; 
+            gerekenPrim = 7200;
+        }
+    } else if (tur === '4b') {
+        if (giris <= milat1) {
+            gerekenYas = "EYT (Yaş Şartı Yok)";
+            gerekenPrim = cinsiyet === 'erkek' ? 9000 : 7200;
+        } else if (giris > milat1 && giris <= milat2) {
+            gerekenYas = cinsiyet === 'erkek' ? 60 : 58;
+            gerekenPrim = 9000;
+        } else {
+            gerekenYas = 65;
+            gerekenPrim = 9000;
+        }
+    }
+    
+    document.getElementById('resEmeklilikYasi').innerText = gerekenYas;
+    document.getElementById('resGerekliPrim').innerText = gerekenPrim + " Gün";
+    
+    if (mevcutPrim >= gerekenPrim) {
+        document.getElementById('resEmeklilikDurum').innerText = "Tebrikler! Prim gün şartını tamamlamışsınız. (Yaş ve sigortalılık sürenizi SGK'dan teyit ediniz)";
+        document.getElementById('resEmeklilikDurum').style.color = "#10b981";
+    } else {
+        let eksik = gerekenPrim - mevcutPrim;
+        document.getElementById('resEmeklilikDurum').innerText = "Emeklilik için " + eksik + " gün daha prim ödemeniz gerekmektedir.";
+        document.getElementById('resEmeklilikDurum').style.color = "#dc2626";
+    }
+}
+window.onload = function() {
+    document.getElementById('emeklilikGiris').value = "2005-05-15";
+    hesaplaEmeklilik();
+};
+{% endblock %}

@@ -137,6 +137,34 @@ async def gebelik(request: Request):
         }
     )
 
+@app.get("/enflasyon-hesaplama", response_class=HTMLResponse)
+async def enflasyon(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="enflasyon.html",
+        context={"title": "Enflasyon ve Satın Alma Gücü Hesaplama | Pratik Hesaplar", "description": "Geçmişten günümüze enflasyon oranları ile paranızın satın alma gücünü ve değer kaybını hesaplayın."}
+    )
+
+@app.get("/mtv-hesaplama", response_class=HTMLResponse)
+async def mtv(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="mtv.html",
+        context={"title": "MTV ve Araç Gecikme Zammı Hesaplama | Pratik Hesaplar", "description": "Araç yaşı ve motor hacmine göre Motorlu Taşıtlar Vergisi (MTV) ve muayene gecikme cezasını öğrenin."}
+    )
+
+@app.get("/yatirim-hesaplama", response_class=HTMLResponse)
+async def yatirim(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="yatirim.html",
+        context={"title": "Bileşik Getiri ve Yatırım Hesaplama | Pratik Hesaplar", "description": "Mevduat, altın, fon birikimleriniz için bileşik faiz getirisini hesaplayarak geleceğinizi planlayın."}
+    )
+
+@app.get("/emeklilik-hesaplama", response_class=HTMLResponse)
+async def emeklilik(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="emeklilik.html",
+        context={"title": "Emeklilik Yaşı ve Şartları Hesaplama (SSK/Bağkur) | Pratik Hesaplar", "description": "İşe giriş tarihinize ve prim gününüze göre ne zaman emekli olacağınızı ve kalan şartlarınızı sorgulayın."}
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
