@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Günlük Su İhtiyacı Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Kilonuza, aktivite seviyenize ve mevsim şartlarına göre günlük ideal su tüketimi ihtiyacınızı (litre ve bardak) hesaplayın.{% endblock %}
+{% block content %}
+<h2>Günlük Su İhtiyacı Hesaplama</h2>
+<div class="form-group">
+    <label>Kilonuz (kg):</label>
+    <input type="number" id="suKilo" value="70" oninput="hesaplaSu()">
+</div>
+<div class="form-group">
+    <label>Günlük Hareket Seviyesi:</label>
+    <select id="suHareket" onchange="hesaplaSu()">
+        <option value="az">Az Hareketli (Masa başı vb.)</option>
+        <option value="orta" selected>Orta Hareketli (Düzenli yürüyüş vb.)</option>
+        <option value="cok">Çok Hareketli (Aktif spor vb.)</option>
+    </select>
+</div>
+<div class="form-group">
+    <label>Mevsim / Hava Durumu:</label>
+    <select id="suMevsim" onchange="hesaplaSu()">
+        <option value="normal" selected>Normal (Serin / Ilıman)</option>
+        <option value="sicak">Sıcak (Yaz ayları)</option>
+    </select>
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr;">
+    <div class="result-item"><h3>Günlük Su İhtiyacı (Litre)</h3><span id="resSuLitre" style="font-size: 1.5rem; color: var(--primary);">0,00 L</span></div>
+    <div class="result-item"><h3>Günlük Su İhtiyacı (Bardak)</h3><span id="resSuBardak" style="font-size: 1.5rem; color: #0284c7;">0 Bardak</span></div>
+</div>
+<p style="font-size: 0.85rem; color: #64748b; text-align: center; margin-top: 10px;">* Bir bardak ortalama 200 ml olarak hesaplanmıştır.</p>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Günlük Su İhtiyacı Hesaplama: Vücudunuzun Gerçek İhtiyacı Ne Kadar?</h2>
+    <p>Sağlıklı bir yaşamın en temel kuralı yeterli miktarda su tüketmektir. Ancak "günde en az 2 litre su içmelisiniz" ezberi herkes için geçerli değildir. <strong>Günlük su ihtiyacı</strong>, kişinin vücut ağırlığına, yaşam tarzına ve hatta içinde bulunduğu mevsime göre değişiklik gösterir. Sitemizdeki tamamen ücretsiz <strong>su ihtiyacı hesaplama aracı</strong> sayesinde, tam olarak kaç litre veya kaç bardak su içmeniz gerektiğini saniyeler içinde öğrenebilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Yetersiz Su Tüketiminin Zararları Nelerdir?</h3>
+    <p>Vücudumuzun büyük bir kısmı sudan oluşur ve hücresel fonksiyonların devamlılığı için suya ihtiyaç duyarız. Yeterli <strong>su tüketimi</strong> sağlanmadığında vücutta çeşitli olumsuzluklar meydana gelir:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Metabolizmanın Yavaşlaması:</strong> Az su içmek, metabolizma hızını düşürerek kilo alımına ve yağ yakımının zorlaşmasına sebep olur.</li>
+        <li><strong>Cilt Sağlığının Bozulması:</strong> Su, cildin nem dengesini korur. Susuz kalan cilt kurur, esnekliğini kaybeder ve yaşlanma belirtileri hızlanır.</li>
+        <li><strong>Enerji Kaybı ve Yorgunluk:</strong> Beynimizin fonksiyonlarını tam yerine getirebilmesi için hidrasyona ihtiyacı vardır. Susuzluk, baş ağrısı ve odaklanma problemlerine yol açar.</li>
+        <li><strong>Böbrek Fonksiyonları:</strong> Toksinlerin atılması ve böbrek taşlarının önlenmesi için bol su içmek hayati önem taşır.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Su İhtiyacı Nasıl Hesaplanır?</h3>
+    <p>İdeal <strong>su içme miktarı</strong> genellikle kilogram başına 30-35 ml olarak formüle edilir. Ancak bu sadece temel bir başlangıç noktasıdır. Hesabımıza dahil ettiğimiz diğer faktörler şunlardır:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Kilo Oranı:</strong> Kilonuz arttıkça vücudun ihtiyaç duyduğu sıvı miktarı da artar.</li>
+        <li><strong>Hareket Seviyesi:</strong> Spor yaptığınızda veya fiziksel bir işte çalıştığınızda terlemeyle su kaybedersiniz, bu kaybın ekstra su içerek telafi edilmesi gerekir.</li>
+        <li><strong>Mevsim Şartları:</strong> Sıcak yaz aylarında vücut ısısını dengelemek için daha fazla sıvıya ihtiyaç duyulur.</li>
+    </ul>
+    <p>Sağlığınızı korumak için gün boyunca suyunuzu yudum yudum içmeye özen gösterin ve susamayı beklemeden sıvı alımınızı gerçekleştirin.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function hesaplaSu() {
+    let kilo = parseFloat(document.getElementById('suKilo').value) || 0;
+    let hareket = document.getElementById('suHareket').value;
+    let mevsim = document.getElementById('suMevsim').value;
+    
+    let litre = kilo * 0.033;
+    
+    if (hareket === 'orta') {
+        litre += 0.5;
+    } else if (hareket === 'cok') {
+        litre += 1.0;
+    }
+    
+    if (mevsim === 'sicak') {
+        litre += 0.5;
+    }
+    
+    let bardak = Math.ceil((litre * 1000) / 200);
+    
+    document.getElementById('resSuLitre').innerText = litre.toLocaleString('tr-TR', {minimumFractionDigits: 1, maximumFractionDigits: 2}) + ' L';
+    document.getElementById('resSuBardak').innerText = bardak + ' Bardak';
+}
+window.onload = hesaplaSu;
+{% endblock %}

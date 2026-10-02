@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Gebelik ve Tahmini Doğum Tarihi Hesaplama - Pratik Hesaplar{% endblock %}
+{% block description %}Son adet tarihinize (SAT) göre kaç haftalık hamile olduğunuzu, tahmini doğum tarihinizi ve bebeğinizin muhtemel burcunu hemen hesaplayın.{% endblock %}
+{% block content %}
+<h2>Gebelik (Hamilelik) Hesaplama</h2>
+<div class="form-group">
+    <label>Son Adet Tarihinizin İlk Günü (SAT):</label>
+    <input type="date" id="gebelikSat" onchange="hesaplaGebelik()">
+</div>
+
+<div class="results" style="grid-template-columns: 1fr 1fr;">
+    <div class="result-item"><h3>Gebelik Haftası</h3><span id="resHafta" style="color: var(--primary);">-</span></div>
+    <div class="result-item"><h3>Gebelik Ayı</h3><span id="resAy" style="color: var(--primary);">-</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3 style="color: #1d4ed8;">Tahmini Doğum Tarihi</h3><span id="resDogum" style="font-size: 1.5rem; color: #1d4ed8;">-</span></div>
+    <div class="result-item" style="grid-column: span 2;"><h3>Bebeğin Muhtemel Burcu</h3><span id="resBurc" style="color: #64748b;">-</span></div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Gebelik Hesaplama: Bebeğinize Kavuşacağınız O Özel Günü Öğrenin</h2>
+    <p>Hamile olduğunuzu öğrendiğiniz an, hayatınızın en heyecan verici süreçlerinden biri başlar. Bu sürecin ilk ve en çok merak edilen sorusu ise "Kaç haftalık hamileyim?" ve "Bebeğim ne zaman doğacak?" sorularıdır. Sitemizdeki pratik <strong>gebelik hesaplama aracı</strong> sayesinde, son adet tarihinize (SAT) göre saniyeler içinde detaylı sonuçlara ulaşabilirsiniz.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Hamilelik Hesaplaması Nasıl Yapılır? (Naegele Kuralı)</h3>
+    <p>Tıbbi olarak <strong>tahmini doğum tarihi hesaplama</strong> işlemi, anne adayının beyan ettiği Son Adet Tarihi'nin (SAT) ilk günü baz alınarak yapılır. Bu tıbbi algoritmaya <em>Naegele Kuralı</em> denir ve gebeliğin başlangıcı, döllenmenin gerçekleştiği gün değil, son adetin ilk günü olarak kabul edilir. Normal bir gebelik süreci ortalama 40 hafta (280 gün) sürer.</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Tahmini Doğum Tarihi:</strong> SAT üzerine 280 gün eklenerek tespit edilir.</li>
+        <li><strong>Kaç Haftalık Hamileyim?:</strong> Mevcut tarih ile SAT arasındaki gün farkının 7'ye bölünmesiyle <strong>gebelik haftası</strong> belirlenir.</li>
+        <li><strong>Gebelik Ayı Hesaplama:</strong> Gebelik 9 ay 10 gün sürer. Çıkan hafta sayısına göre bebeğin hangi ayda (Trimester döneminde) olduğu bulunur.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Gebelik Takibinin Önemi ve Hafta Hafta Dikkat Edilmesi Gerekenler</h3>
+    <p>Sağlıklı bir hamilelik süreci geçirmek için bebeğinizin gelişimini <strong>hafta hafta gebelik hesaplama</strong> yöntemleriyle takip etmek çok değerlidir. Trimester adı verilen 3 farklı dönemden oluşan bu süreçte, hem annenin hem de bebeğin ihtiyaçları değişir:</p>
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Birinci Trimester (1-13. Hafta):</strong> Organ gelişiminin en hızlı olduğu dönemdir. Folik asit kullanımı ve doktorun önereceği beslenme düzenine harfiyen uymak gerekir.</li>
+        <li><strong>İkinci Trimester (14-27. Hafta):</strong> Genellikle bulantıların azaldığı ve bebeğin hareketlerinin hissedilmeye başlandığı en rahat dönemdir. Demir ve kalsiyum takviyesi önemlidir.</li>
+        <li><strong>Üçüncü Trimester (28-40. Hafta):</strong> Doğuma hazırlık sürecidir. Bebeğin ağırlığı artar, anne adayının bol dinlenmesi ve doktor randevularını sıklaştırması tavsiye edilir.</li>
+    </ul>
+    <p>Bebeğinizin <strong>muhtemel burcunu</strong> da öğrenebileceğiniz bu ücretsiz aracımız, size yol göstermek amacıyla hazırlanmıştır. Ancak unutmayın ki doğan bebeklerin sadece %5'i tam hesaplanan tarihte doğar. Kesin medikal teşhis ve takip için mutlaka kadın doğum uzmanınıza (jinekoloğunuza) başvurmalısınız.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function getBurc(gun, ay) {
+    if ((ay == 1 && gun >= 21) || (ay == 2 && gun <= 19)) return "Kova ♒";
+    if ((ay == 2 && gun >= 20) || (ay == 3 && gun <= 20)) return "Balık ♓";
+    if ((ay == 3 && gun >= 21) || (ay == 4 && gun <= 20)) return "Koç ♈";
+    if ((ay == 4 && gun >= 21) || (ay == 5 && gun <= 20)) return "Boğa ♉";
+    if ((ay == 5 && gun >= 21) || (ay == 6 && gun <= 21)) return "İkizler ♊";
+    if ((ay == 6 && gun >= 22) || (ay == 7 && gun <= 22)) return "Yengeç ♋";
+    if ((ay == 7 && gun >= 23) || (ay == 8 && gun <= 22)) return "Aslan ♌";
+    if ((ay == 8 && gun >= 23) || (ay == 9 && gun <= 22)) return "Başak ♍";
+    if ((ay == 9 && gun >= 23) || (ay == 10 && gun <= 22)) return "Terazi ♎";
+    if ((ay == 10 && gun >= 23) || (ay == 11 && gun <= 21)) return "Akrep ♏";
+    if ((ay == 11 && gun >= 22) || (ay == 12 && gun <= 21)) return "Yay ♐";
+    if ((ay == 12 && gun >= 22) || (ay == 1 && gun <= 20)) return "Oğlak ♑";
+    return "-";
+}
+
+function hesaplaGebelik() {
+    let satInput = document.getElementById('gebelikSat').value;
+    if (!satInput) return;
+    
+    let sat = new Date(satInput);
+    let bugun = new Date();
+    
+    let dogumTarihi = new Date(sat.getTime() + (280 * 24 * 60 * 60 * 1000));
+    let options = { year: 'numeric', month: 'long', day: 'numeric' };
+    
+    let farkMs = bugun.getTime() - sat.getTime();
+    let farkGun = Math.floor(farkMs / (1000 * 60 * 60 * 24));
+    
+    if (farkGun < 0 || farkGun > 300) {
+        document.getElementById('resHafta').innerText = "Geçersiz Tarih";
+        document.getElementById('resAy').innerText = "-";
+        document.getElementById('resDogum').innerText = "-";
+        document.getElementById('resBurc').innerText = "-";
+        return;
+    }
+    
+    let hafta = Math.floor(farkGun / 7);
+    let gun = farkGun % 7;
+    let ay = Math.ceil(hafta / 4.33);
+    if (ay > 9) ay = 9;
+    
+    let burc = getBurc(dogumTarihi.getDate(), dogumTarihi.getMonth() + 1);
+    
+    document.getElementById('resHafta').innerText = hafta + " Hafta " + (gun > 0 ? gun + " Gün" : "");
+    document.getElementById('resAy').innerText = ay + ". Ay";
+    document.getElementById('resDogum').innerText = dogumTarihi.toLocaleDateString('tr-TR', options);
+    document.getElementById('resBurc').innerText = burc;
+}
+window.onload = function() {
+    let bg = new Date();
+    bg.setDate(bg.getDate() - 30);
+    let str = bg.toISOString().split('T')[0];
+    document.getElementById('gebelikSat').value = str;
+    hesaplaGebelik();
+};
+{% endblock %}

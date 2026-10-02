@@ -115,6 +115,28 @@ async def ariza_kodlari(request: Request):
         }
     )
 
+@app.get("/gunluk-su-ihtiyaci-hesaplama", response_class=HTMLResponse)
+async def su_ihtiyaci(request: Request):
+    return templates.TemplateResponse(
+        request=request, 
+        name="su-ihtiyaci.html",
+        context={
+            "title": "Günlük Su İhtiyacı Hesaplama (Litre/Bardak) | Pratik Hesaplar",
+            "description": "Kilonuza, hareket seviyenize ve mevsim şartlarına göre vücudunuzun günlük su tüketim ihtiyacını ücretsiz hesaplayın."
+        }
+    )
+
+@app.get("/gebelik-hesaplama", response_class=HTMLResponse)
+async def gebelik(request: Request):
+    return templates.TemplateResponse(
+        request=request, 
+        name="gebelik.html",
+        context={
+            "title": "Gebelik ve Tahmini Doğum Tarihi Hesaplama | Pratik Hesaplar",
+            "description": "Son adet tarihinize (SAT) göre kaç haftalık hamile olduğunuzu, tahmini doğum tarihinizi ve bebeğinizin burcunu hesaplayın."
+        }
+    )
+
 @app.get("/sitemap.xml", response_class=FileResponse)
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
