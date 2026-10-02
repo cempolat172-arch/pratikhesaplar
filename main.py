@@ -193,11 +193,11 @@ async def saat_farki(request: Request):
         context={"title": "Saat Farkı ve Zaman Dilimi Hesaplama | Pratik Hesaplar", "description": "Dünya şehirleri arasındaki anlık saat farkını ve zaman dilimlerini hesaplayın."}
     )
 
-@app.get("/dijital-araclar", response_class=HTMLResponse)
-async def dijital_araclar(request: Request):
+@app.get("/metin-sayaci", response_class=HTMLResponse)
+async def metin_sayaci(request: Request):
     return templates.TemplateResponse(
-        request=request, name="dijital-araclar.html",
-        context={"title": "Dijital ve Teknik Hesaplama Araçları | Pratik Hesaplar", "description": "Şifre oluşturucu, QR kod yapıcı ve metin kelime sayacı gibi pratik dijital araçları hemen kullanın."}
+        request=request, name="metin-sayaci.html",
+        context={"title": "Metin ve Kelime Sayacı | Pratik Hesaplar", "description": "Metinlerinizin kelime, karakter (boşluklu/boşluksuz), cümle sayısını ve tahmini okuma süresini anında hesaplayın."}
     )
 
 @app.get("/qr-kod-olusturucu", response_class=HTMLResponse)

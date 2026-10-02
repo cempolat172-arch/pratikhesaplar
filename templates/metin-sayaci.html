@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Kelime ve Metin Sayacı - Pratik Hesaplar{% endblock %}
+{% block description %}Yazdığınız metinlerin kelime, karakter (boşluklu/boşluksuz), cümle sayısını ve tahmini okuma süresini anlık olarak ücretsiz hesaplayın.{% endblock %}
+{% block content %}
+<h2 style="text-align: center; margin-bottom: 20px;">Kelime ve Metin Sayacı</h2>
+
+<div style="display: flex; justify-content: center;">
+    <div class="card" style="background: #1e293b; color: white; padding: 20px; border-radius: 12px; width: 100%; border: 1px solid #334155;">
+        <textarea id="textInput" rows="8" style="width: 100%; background: #0f172a; color: white; border: 1px solid #475569; padding: 15px; border-radius: 8px; font-family: inherit; font-size: 1.1rem; resize: vertical;" placeholder="Analiz edilecek metninizi buraya yapıştırın veya yazmaya başlayın..." oninput="analyzeText()"></textarea>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 25px; text-align: center;">
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="statWords">0</div>
+                <div style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Kelime</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="statChars">0</div>
+                <div style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Karakter</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="statCharsNoSpace">0</div>
+                <div style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Boşluksuz</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="statSentences">0</div>
+                <div style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Cümle</div>
+            </div>
+            <div style="background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #475569;">
+                <div style="font-size: 2rem; font-weight: bold; color: #10b981;" id="statReadTime">0 sn</div>
+                <div style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;">Okuma Sür.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h2 style="font-size: 1.3rem; margin-top: 0;">Online Kelime ve Karakter Sayacı Nedir?</h2>
+
+    <p>Dijital dünyada içerik üretirken, akademik ödevler hazırlarken veya sosyal medya platformlarında paylaşım yaparken yazının uzunluğu büyük önem taşır. <strong>Kelime ve karakter sayacı</strong> aracı, herhangi bir metnin içerdiği kelime, karakter, cümle sayısı ve ortalama okuma süresini anlık olarak analiz etmenizi sağlayan ücretsiz bir ölçüm aracıdır.</p>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Metin Sayacı Hangi Özellikleri Sunar?</h3>
+
+    <ul style="margin-top: 10px; margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+        <li><strong>Kelime Sayısı:</strong> SEO uyumlu makale yazarları ve ödev teslimi yapacak öğrenciler için hedef kelime sayısına (örn: 500 veya 1000 kelime) ulaşıp ulaşılmadığını gösterir.</li>
+        <li><strong>Karakter Sayısı (Boşluklu ve Boşluksuz):</strong> Twitter (X), Instagram, SMS veya Google Meta Description gibi katı karakter sınırı olan yerlerde metni optimize etmenize olanak tanır.</li>
+        <li><strong>Tahmini Okuma Süresi:</strong> Ziyaretçilerinizin yazınızı ne kadar sürede okuyabileceğini hesaplayarak kullanıcı deneyimini (UX) artırmanızı sağlar.</li>
+        <li><strong>Cümle Sayısı:</strong> Yazınızın yapısal uzunluğunu analiz ederek okunabilirliği (readability) düzenlemenize yardımcı olur.</li>
+    </ul>
+
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 25px; margin-bottom: 10px;">Aracın Avantajları ve Gizlilik</h3>
+
+    <p>Sitemizde yer alan bu pratik <strong>metin analiz aracı</strong>, klavyenizdeki her dokunuşta anlık olarak güncellenir ve hızlıca sonuç verir. En önemlisi, yapıştırdığınız veya yazdığınız hiçbir metin sunucularımıza kaydedilmez; analiz işleminin tamamı doğrudan sizin tarayıcınızın (bilgisayar/telefon) belleği üzerinde gerçekleşir. Bu sayede özel belgelerinizi, ticari maillerinizi veya gizli ödevlerinizi yüzde yüz güvenle sayabilirsiniz.</p>
+</div>
+{% endblock %}
+{% block extra_js %}
+function analyzeText() {
+    const text = document.getElementById('textInput').value;
+    
+    // Karakter
+    const chars = text.length;
+    // Boşluksuz Karakter
+    const charsNoSpace = text.replace(/\s+/g, '').length;
+    // Kelime
+    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+    // Cümle (Basit regex ile . ! ? karakterlerine göre)
+    const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+
+    // Tahmini okuma süresi (ortalama 200 kelime/dakika üzerinden)
+    const readTimeSeconds = Math.ceil((words / 200) * 60);
+    let readTimeText = "0 sn";
+    if (words > 0) {
+        if (readTimeSeconds < 60) {
+            readTimeText = readTimeSeconds + " sn";
+        } else {
+            const m = Math.floor(readTimeSeconds / 60);
+            const s = readTimeSeconds % 60;
+            readTimeText = m + " dk " + s + " sn";
+        }
+    }
+
+    document.getElementById('statWords').innerText = words;
+    document.getElementById('statChars').innerText = chars;
+    document.getElementById('statCharsNoSpace').innerText = charsNoSpace;
+    document.getElementById('statSentences').innerText = sentences;
+    document.getElementById('statReadTime').innerText = readTimeText;
+}
+{% endblock %}
