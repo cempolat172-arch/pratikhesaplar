@@ -218,7 +218,10 @@ async def guvenli_sifre(request: Request):
 async def cv_hazirlama(request: Request):
     return templates.TemplateResponse(
         request=request, name="cv-hazirlama.html",
-        context={"title": "Ücretsiz Online CV Hazırlama | Pratik Hesaplar", "description": "Adım adım form doldurarak ücretsiz ve profesyonel özgeçmiş (CV) oluşturun. ATS uyumlu formatta PDF olarak anında indirin."}
+        context={
+            "title": "Gerçekten %100 Ücretsiz Online CV Hazırlama (Sürpriz Ücret Yok)", 
+            "description": "Son aşamada para isteyen siteleri unutun. Üyeliksiz, kredi kartsız ve gizli ücretsiz tamamen bedava CV (Özgeçmiş) oluşturup anında PDF olarak indirin."
+        }
     )
 
 @app.api_route("/sitemap.xml", response_class=FileResponse, methods=["GET", "HEAD"])
