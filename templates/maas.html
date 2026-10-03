@@ -3,7 +3,7 @@
 {% block description %}Brüt maaştan net maaş hesaplama. SGK, işsizlik sigortası, gelir vergisi ve damga vergisi kesintilerini detaylı görün.{% endblock %}
 {% block content %}
 <h2>Brütten Nete Maaş Hesaplama</h2>
-<div class="form-group"><label>Aylık Brüt Maaş (TL):</label><input type="number" id="brutMaas" value="35000" oninput="hesaplaMaas()"></div>
+<div class="form-group"><label>Aylık Brüt Maaş (TL):</label><input type="number" id="brutMaas" value="{% if tutar %}{{ tutar }}{% else %}35000{% endif %}" oninput="hesaplaMaas()"></div>
 <div class="results" style="grid-template-columns: 1fr 1fr 1fr;">
     <div class="result-item"><h3>SGK İşçi Payı (%14)</h3><span id="resSgk">0,00 TL</span></div>
     <div class="result-item"><h3>İşsizlik Payı (%1)</h3><span id="resIssizlik">0,00 TL</span></div>
