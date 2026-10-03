@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 30px;">
+    <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 10px;">Bilgi Bankası ve Rehberler</h2>
+    <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Hesaplamalarınızda, hukuki haklarınızda ve kariyerinizde size yol gösterecek tamamen özgün, SEO uyumlu profesyonel makaleler.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px;">
+    <a href="/rehber/kidem-tazminati-nasil-hesaplanir" style="display: flex; flex-direction: column; text-decoration: none; padding: 25px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; color: #1e293b;">
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.4rem;">Kıdem Tazminatı Nasıl Hesaplanır? 2026 Şartları</h3>
+        <p style="margin: 0; color: #64748b; line-height: 1.6;">İstifa edince kıdem tazminatı alınır mı? Brüt ücret üzerinden yapılan hesaplamalar, 2026 yılı tavan tutarları ve yasal haklarınızı öğrenin.</p>
+        <span style="margin-top: 15px; color: #10b981; font-weight: 600;">Devamını Oku →</span>
+    </a>
+    
+    <a href="/rehber/kredi-cekerken-nelere-dikkat-etmeli" style="display: flex; flex-direction: column; text-decoration: none; padding: 25px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; color: #1e293b;">
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.4rem;">Kredi Çekerken Nelere Dikkat Etmeli?</h3>
+        <p style="margin: 0; color: #64748b; line-height: 1.6;">Aylık taksit düşürmek her zaman kârlı mıdır? Banka kredisi başvurusu yapmadan önce toplam faiz maliyetini nasıl optimize edebileceğinizi keşfedin.</p>
+        <span style="margin-top: 15px; color: #10b981; font-weight: 600;">Devamını Oku →</span>
+    </a>
+
+    <a href="/rehber/ats-uyumlu-cv-nasil-hazirlanir" style="display: flex; flex-direction: column; text-decoration: none; padding: 25px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; color: #1e293b;">
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.4rem;">ATS Uyumlu Özgeçmiş (CV) Nasıl Hazırlanır?</h3>
+        <p style="margin: 0; color: #64748b; line-height: 1.6;">İnsan Kaynakları sistemleri (Applicant Tracking System) özgeçmişinizi nasıl eliyor? Otomatik sistemlerden %100 başarıyla geçecek bir CV oluşturmanın sırları.</p>
+        <span style="margin-top: 15px; color: #10b981; font-weight: 600;">Devamını Oku →</span>
+    </a>
+</div>
+{% endblock %}

@@ -93,6 +93,7 @@
             <a href="/metin-sayaci" class="{% if request.url.path == '/metin-sayaci' %}active{% endif %}">📝 Kelime Sayacı</a>
             <a href="/qr-kod-olusturucu" class="{% if request.url.path == '/qr-kod-olusturucu' %}active{% endif %}">🔳 QR Kod Oluştur</a>
             <a href="/guvenli-sifre-olustur" class="{% if request.url.path == '/guvenli-sifre-olustur' %}active{% endif %}">🔐 Şifre Oluştur</a>
+            <a href="/rehber" class="{% if request.url.path.startswith('/rehber') %}active{% endif %}" style="background: var(--primary); color: white;">📚 Blog & Rehber</a>
             <a href="/cv-hazirlama" class="{% if request.url.path == '/cv-hazirlama' %}active{% endif %}">📄 CV Hazırlama</a>
         </div>
 

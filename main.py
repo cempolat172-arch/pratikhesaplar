@@ -224,6 +224,35 @@ async def cv_hazirlama(request: Request):
         }
     )
 
+
+@app.api_route("/rehber", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_index(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-index.html",
+        context={"title": "Bilgi Bankası ve Rehberler | Pratik Hesaplar", "description": "Kredi, tazminat, özgeçmiş hazırlama ve dijital araçlar hakkında en güncel ipuçları, SEO uyumlu detaylı rehberler."}
+    )
+
+@app.api_route("/rehber/kidem-tazminati-nasil-hesaplanir", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_kidem(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-kidem.html",
+        context={"title": "Kıdem Tazminatı Nasıl Hesaplanır? 2026 Güncel Şartlar", "description": "İstifa edince kıdem tazminatı alınır mı? Brüt ve net maaş üzerinden tazminat hesaplama şartları."}
+    )
+
+@app.api_route("/rehber/kredi-cekerken-nelere-dikkat-etmeli", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_kredi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-kredi.html",
+        context={"title": "Kredi Çekerken Nelere Dikkat Etmeli? Faiz Hesaplama Tüyoları", "description": "İhtiyaç, konut veya taşıt kredisi alırken faiz yükünü azaltmanın yolları ve doğru taksit hesaplama teknikleri."}
+    )
+
+@app.api_route("/rehber/ats-uyumlu-cv-nasil-hazirlanir", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_cv(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-cv.html",
+        context={"title": "ATS Uyumlu CV Nasıl Hazırlanır? Ücretsiz Rehber", "description": "İnsan kaynakları programlarından (ATS) %100 geçen, modern ve profesyonel CV hazırlamanın altın kuralları."}
+    )
+
 @app.api_route("/sitemap.xml", response_class=FileResponse, methods=["GET", "HEAD"])
 async def sitemap():
     return FileResponse("sitemap.xml", media_type="application/xml")
