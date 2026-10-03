@@ -87,6 +87,16 @@
         .ticker-item .down { color: #fca5a5; }
         .ticker-item .neutral { color: #cbd5e1; }
 
+        
+        .news-ticker-wrap { width: 100%; background: #0f172a; color: #e2e8f0; overflow: hidden; box-sizing: border-box; font-size: 0.85rem; font-weight: 500; border-bottom: 1px solid #334155; display: flex; align-items: center; }
+        .news-label { background: #ef4444; color: white; font-weight: bold; padding: 6px 15px; z-index: 10; white-space: nowrap; font-size: 0.8rem; letter-spacing: 0.5px; }
+        .news-ticker-inner { overflow: hidden; flex-grow: 1; position: relative; padding: 6px 0; }
+        .news-ticker { display: inline-block; white-space: nowrap; animation: ticker 35s linear infinite; padding-left: 100%; }
+        .news-ticker:hover { animation-play-state: paused; }
+        .news-item { display: inline-block; margin-right: 40px; }
+        .news-item a { color: #cbd5e1; text-decoration: none; }
+        .news-item a:hover { color: #38bdf8; text-decoration: underline; }
+
         /* SEO Metin ve FAQ (SSS) Stilleri */
         .seo-content { margin-top: 40px; text-align: left; color: #334155; font-size: 0.95rem; line-height: 1.6; border-top: 2px solid #f1f5f9; padding-top: 20px; }
         .seo-content h2, .seo-content h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.25rem; }
@@ -148,6 +158,16 @@
           <span>Canlı Piyasalar Yükleniyor...</span>
        </div>
     </div>
+
+    <div class="news-ticker-wrap">
+       <div class="news-label">SON DAKİKA ⚡</div>
+       <div class="news-ticker-inner">
+           <div class="news-ticker" id="newsTicker">
+              <span>Ekonomi ve piyasa haberleri yükleniyor...</span>
+           </div>
+       </div>
+    </div>
+
 
     <main class="container" role="main">
         <header>
@@ -243,6 +263,20 @@
             }
         }
         window.addEventListener('DOMContentLoaded', loadMarketData);
+
+        async function loadNewsData() {
+            try {
+                const response = await fetch('/api/haberler');
+                const news = await response.json();
+                let html = '';
+                news.forEach(item => {
+                    html += `<div class="news-item">● <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a></div>`;
+                });
+                document.getElementById('newsTicker').innerHTML = html;
+            } catch(e) {}
+        }
+        window.addEventListener('DOMContentLoaded', loadNewsData);
+
     </script>
 
 </body>

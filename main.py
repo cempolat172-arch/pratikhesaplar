@@ -306,6 +306,39 @@ async def rehber_cv(request: Request):
     )
 
 
+
+haber_cache = {"data": None, "time": 0}
+
+@app.api_route("/api/haberler", methods=["GET"])
+async def api_haberler():
+    global haber_cache
+    import time
+    import xml.etree.ElementTree as ET
+    
+    if time.time() - haber_cache["time"] < 300 and haber_cache["data"]:
+        return JSONResponse(content=haber_cache["data"])
+    try:
+        url = "https://www.trthaber.com/xml_mobile.php?tur=xml_genel&kategori=ekonomi&adet=10"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            xml_data = response.read()
+        root = ET.fromstring(xml_data)
+        news = []
+        for haber in root.findall('./haber'):
+            title = haber.find('haber_manset').text
+            link = haber.find('haber_link').text
+            if not link.startswith('http'):
+                link = f'https://www.trthaber.com/{link}'
+            news.append({"title": title, "link": link})
+        haber_cache["data"] = news
+        haber_cache["time"] = time.time()
+        return JSONResponse(content=news)
+    except Exception as e:
+        if haber_cache["data"]:
+            return JSONResponse(content=haber_cache["data"])
+        return JSONResponse(content=[{"title": "Ekonomi haberleri şu an güncellenemiyor.", "link": "#"}])
+
+
 @app.api_route("/api/piyasa", methods=["GET", "HEAD"])
 async def api_piyasa():
     import urllib.request
