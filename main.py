@@ -21,13 +21,27 @@ async def home(request: Request):
     )
 
 @app.api_route("/kredi-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
-async def kredi(request: Request):
+@app.api_route("/kredi-hesaplama/{tutar}-tl-{vade}-ay", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def kredi(request: Request, tutar: str = "", vade: str = ""):
+    import datetime
+    year = datetime.datetime.now().year
+    
+    if tutar and vade:
+        title = f"{tutar} TL {vade} Ay Kredi Hesaplama {year} | Pratik Hesaplar"
+        desc = f"{year} yılı güncel faiz oranlarıyla {tutar} TL tutarındaki kredinin {vade} ay vadeli taksit ve geri ödeme tablosunu anında hesaplayın."
+    else:
+        title = f"Kredi Hesaplama Aracı {year} | İhtiyaç, Taşıt ve Konut Kredisi - Pratik Hesaplar"
+        desc = f"{year} yılı güncel faiz oranlarıyla hızlı kredi hesaplama yapın. İstediğiniz vade oranlarına göre aylık taksit miktarını ve toplam geri ödeme tutarını anında öğrenin."
+        
     return templates.TemplateResponse(
         request=request, 
         name="kredi.html",
         context={
-            "title": "Kredi Hesaplama Aracı | İhtiyaç, Taşıt ve Konut Kredisi - Pratik Hesaplar",
-            "description": "Güncel faiz oranlarıyla hızlı kredi hesaplama yapın. İstediğiniz vade oranlarına göre aylık taksit miktarını ve toplam geri ödeme tutarını anında öğrenin."
+            "title": title,
+            "description": desc,
+            "tutar": tutar,
+            "vade": vade,
+            "year": year
         }
     )
 

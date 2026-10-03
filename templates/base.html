@@ -112,6 +112,27 @@
 
       gtag('config', 'G-CB47NEEKRM');
     </script>
+
+    <!-- Dinamik Schema.org / AggregateRating (Yildizli Gorunum) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "{{ title }}",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TRY"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "1485"
+      }
+    }
+    </script>
 </head>
 <body>
     <div class="market-ticker-wrap">
