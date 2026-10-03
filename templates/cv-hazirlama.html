@@ -285,53 +285,156 @@
 {% endblock %}
 
 {% block extra_js %}
+
 function updateCV() {
-    // Kişisel Bilgiler
-    document.getElementById('cvName').innerText = document.getElementById('fName').value || 'Ad Soyad';
-    document.getElementById('cvTitle').innerText = document.getElementById('fTitle').value || 'Unvan';
+    const data = {
+        name: document.getElementById('fName').value || 'Ad Soyad',
+        title: document.getElementById('fTitle').value || 'Unvan',
+        email: document.getElementById('fEmail').value,
+        phone: document.getElementById('fPhone').value,
+        location: document.getElementById('fLocation').value,
+        links: document.getElementById('fLinks').value,
+        summary: document.getElementById('fSummary').value,
+        exp1Title: document.getElementById('fExp1Title').value,
+        exp1Company: document.getElementById('fExp1Company').value,
+        exp1Desc: document.getElementById('fExp1Desc').value,
+        exp2Title: document.getElementById('fExp2Title').value,
+        exp2Company: document.getElementById('fExp2Company').value,
+        exp2Desc: document.getElementById('fExp2Desc').value,
+        eduSchool: document.getElementById('fEduSchool').value,
+        eduDegree: document.getElementById('fEduDegree').value,
+        skills: document.getElementById('fSkills').value,
+        photo: localStorage.getItem('pratik_cv_photo') || ''
+    };
+
+    const layout = document.getElementById('fLayout') ? document.getElementById('fLayout').value : 'standard';
+    const paper = document.getElementById('cvPaper');
     
-    const email = document.getElementById('fEmail').value;
-    document.getElementById('cvEmail').innerHTML = email ? `📧 ${email}` : '';
+    // Yardımcı fonksiyonlar
+    const exp1HTML = data.exp1Title ? `<div style="margin-bottom: 15px;"><div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.exp1Title}</div><div style="font-size:0.95rem;color:var(--cv-primary);margin-bottom:5px;">${data.exp1Company}</div><p style="margin:0;font-size:0.95rem;color:#555;">${data.exp1Desc.replace(/\n/g, '<br>')}</p></div>` : '';
+    const exp2HTML = data.exp2Title ? `<div><div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.exp2Title}</div><div style="font-size:0.95rem;color:var(--cv-primary);margin-bottom:5px;">${data.exp2Company}</div><p style="margin:0;font-size:0.95rem;color:#555;">${data.exp2Desc.replace(/\n/g, '<br>')}</p></div>` : '';
     
-    const phone = document.getElementById('fPhone').value;
-    document.getElementById('cvPhone').innerHTML = phone ? `📱 ${phone}` : '';
+    if (layout === 'sidebar') {
+        paper.innerHTML = `
+        <div style="display:flex; min-height:1050px; background:white;">
+            <!-- Sol Sütun -->
+            <div style="width: 32%; background: var(--cv-primary); color: white; padding: 30px 20px; box-sizing:border-box;">
+                <div style="text-align:center; margin-bottom: 25px;">
+                    ${data.photo ? `<img src="${data.photo}" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid white; margin-bottom: 15px;">` : ''}
+                    <h1 style="margin: 0; font-size: 1.8rem; line-height: 1.2;">${data.name}</h1>
+                    <div style="font-size: 1.1rem; opacity: 0.9; margin-top: 5px;">${data.title}</div>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 5px; margin-bottom: 15px; font-size:1.2rem;">İletişim</h3>
+                    <div style="font-size: 0.95rem; line-height: 1.8; opacity: 0.9;">
+                        ${data.email ? `<div>📧 ${data.email}</div>` : ''}
+                        ${data.phone ? `<div>📱 ${data.phone}</div>` : ''}
+                        ${data.location ? `<div>📍 ${data.location}</div>` : ''}
+                        ${data.links ? `<div>🔗 ${data.links}</div>` : ''}
+                    </div>
+                </div>
+
+                ${data.skills ? `
+                <div>
+                    <h3 style="border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 5px; margin-bottom: 15px; font-size:1.2rem;">Yetenekler</h3>
+                    <p style="font-size: 0.95rem; line-height: 1.6; opacity: 0.9; margin:0;">${data.skills.replace(/\n/g, '<br>')}</p>
+                </div>
+                ` : ''}
+            </div>
+
+            <!-- Sağ Sütun -->
+            <div style="width: 68%; padding: 40px 35px; box-sizing:border-box;">
+                ${data.summary ? `
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: var(--cv-primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; margin-top:0;">Özet</h3>
+                    <p style="color: #475569; line-height: 1.6; margin:0; font-size:0.95rem;">${data.summary.replace(/\n/g, '<br>')}</p>
+                </div>
+                ` : ''}
+
+                ${(data.exp1Title || data.exp2Title) ? `
+                <div style="margin-bottom: 25px;">
+                    <h3 style="color: var(--cv-primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">İş Deneyimi</h3>
+                    ${exp1HTML}
+                    ${exp2HTML}
+                </div>
+                ` : ''}
+
+                ${data.eduSchool ? `
+                <div>
+                    <h3 style="color: var(--cv-primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">Eğitim</h3>
+                    <div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.eduSchool}</div>
+                    <div style="font-size:0.95rem;color:#64748b;">${data.eduDegree}</div>
+                </div>
+                ` : ''}
+            </div>
+        </div>
+        `;
+    } else {
+        // Standart Yapı (Üstten Başlıklı)
+        paper.innerHTML = `
+        <div style="padding: 40px; box-sizing:border-box; min-height:1050px; background:white;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--cv-primary); padding-bottom: 20px; margin-bottom: 20px;">
+                <div style="flex: 1;">
+                    <h1 style="margin: 0; color: var(--cv-primary); font-size: 2.2rem;">${data.name}</h1>
+                    <div style="color: #64748b; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">${data.title}</div>
+                    
+                    <div style="margin-top: 10px; font-size: 0.95rem; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
+                        ${data.email ? `<span>📧 ${data.email}</span>` : ''}
+                        ${data.phone ? `<span>📱 ${data.phone}</span>` : ''}
+                        ${data.location ? `<span>📍 ${data.location}</span>` : ''}
+                        ${data.links ? `<span>🔗 ${data.links}</span>` : ''}
+                    </div>
+                </div>
+                ${data.photo ? `
+                <div style="margin-left: 20px; flex-shrink: 0;">
+                    <img src="${data.photo}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cv-primary); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                </div>` : ''}
+            </div>
+
+            ${data.summary ? `
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; margin-top:0;">Özet</h3>
+                <p style="color: #475569; line-height: 1.6; margin:0; font-size:0.95rem;">${data.summary.replace(/\n/g, '<br>')}</p>
+            </div>
+            ` : ''}
+
+            ${(data.exp1Title || data.exp2Title) ? `
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">İş Deneyimi</h3>
+                ${exp1HTML}
+                ${exp2HTML}
+            </div>
+            ` : ''}
+
+            ${data.eduSchool ? `
+            <div style="margin-bottom: 25px;">
+                <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Eğitim</h3>
+                <div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.eduSchool}</div>
+                <div style="font-size:0.95rem;color:#64748b;">${data.eduDegree}</div>
+            </div>
+            ` : ''}
+
+            ${data.skills ? `
+            <div>
+                <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Yetenekler</h3>
+                <p style="color: #475569; line-height: 1.6; margin:0; font-size:0.95rem;">${data.skills.replace(/\n/g, '<br>')}</p>
+            </div>
+            ` : ''}
+        </div>
+        `;
+    }
     
-    const location = document.getElementById('fLocation').value;
-    document.getElementById('cvLocation').innerHTML = location ? `📍 ${location}` : '';
-    
-    const links = document.getElementById('fLinks').value;
-    document.getElementById('cvLinks').innerHTML = links ? `🔗 ${links}` : '';
-
-    // Özet
-    const summary = document.getElementById('fSummary').value;
-    document.getElementById('cvSummary').innerText = summary;
-    document.getElementById('summarySection').style.display = summary ? 'block' : 'none';
-
-    // Deneyim 1
-    const exp1Title = document.getElementById('fExp1Title').value;
-    document.getElementById('cvExp1Title').innerText = exp1Title;
-    document.getElementById('cvExp1Company').innerText = document.getElementById('fExp1Company').value;
-    document.getElementById('cvExp1Desc').innerText = document.getElementById('fExp1Desc').value;
-    document.getElementById('exp1Block').style.display = exp1Title ? 'block' : 'none';
-
-    // Deneyim 2
-    const exp2Title = document.getElementById('fExp2Title').value;
-    document.getElementById('cvExp2Title').innerText = exp2Title;
-    document.getElementById('cvExp2Company').innerText = document.getElementById('fExp2Company').value;
-    document.getElementById('cvExp2Desc').innerText = document.getElementById('fExp2Desc').value;
-    document.getElementById('exp2Block').style.display = exp2Title ? 'block' : 'none';
-
-    // Eğitim
-    const eduSchool = document.getElementById('fEduSchool').value;
-    document.getElementById('cvEduSchool').innerText = eduSchool;
-    document.getElementById('cvEduDegree').innerText = document.getElementById('fEduDegree').value;
-    document.getElementById('educationSection').style.display = eduSchool ? 'block' : 'none';
-
-    // Yetenekler
-    const skills = document.getElementById('fSkills').value;
-    document.getElementById('cvSkills').innerText = skills;
-    document.getElementById('skillsSection').style.display = skills ? 'block' : 'none';
+    // Layout ayarını kaydet
+    try { localStorage.setItem('pratik_cv_layout', layout); } catch(e) {}
 }
+
+const originalUpdateCV_new = updateCV;
+updateCV = function() {
+    originalUpdateCV_new();
+    clearTimeout(window.cvSaveTimer);
+    window.cvSaveTimer = setTimeout(saveCVDraft, 1500);
+};
 
 function saveCVDraft() {
     const data = {
@@ -421,7 +524,14 @@ const originalLoadCVDraft = window.loadCVDraft;
 window.loadCVDraft = function() {
     if(originalLoadCVDraft) originalLoadCVDraft();
     
+    
+    const savedLayout = localStorage.getItem('pratik_cv_layout');
+    if(savedLayout) {
+        const elL = document.getElementById('fLayout');
+        if(elL) { elL.value = savedLayout; }
+    }
     const savedTemplate = localStorage.getItem('pratik_cv_template');
+
     if(savedTemplate) {
         const el = document.getElementById('fTemplate');
         if(el) { el.value = savedTemplate; changeTemplate(); }
