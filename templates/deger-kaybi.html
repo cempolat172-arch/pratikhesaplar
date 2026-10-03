@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 700px; margin: 0 auto;">
+    <h1 style="color: var(--primary); margin-top: 0; font-size: 1.8rem;">🚗 Araç Değer Kaybı Hesaplama 2026</h1>
+    <p style="color: #64748b; font-size: 0.95rem;">Trafik kazası sonrası aracınızda oluşan maddi değer kaybını (Yargıtay kriterlerine yakınsadığı varsayılan formüllerle) tahmini olarak hesaplayın.</p>
+    
+    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+        <div class="form-group">
+            <label>Aracın Kaza Tarihindeki Rayiç (Piyasa) Bedeli (TL)</label>
+            <input type="number" id="rayicBedel" placeholder="Örn: 1000000">
+        </div>
+        <div class="form-group">
+            <label>Araç Kilometresi</label>
+            <input type="number" id="kilometre" placeholder="Örn: 45000">
+        </div>
+        <div class="form-group">
+            <label>Tramer / Hasar Onarım Tutarı (TL)</label>
+            <input type="number" id="hasarTutari" placeholder="Örn: 50000">
+        </div>
+        <div class="form-group">
+            <label>Sizin Kusur Oranınız (%)</label>
+            <select id="kusurOrani">
+                <option value="0">%0 (Tamamen Haklısınız)</option>
+                <option value="25">%25 Kusurlu</option>
+                <option value="50">%50 Kusurlu</option>
+                <option value="75">%75 Kusurlu</option>
+                <option value="100">%100 Kusurlu (Değer Kaybı Alamazsınız)</option>
+            </select>
+            <small style="color:#64748b; display:block; margin-top:5px;">Not: %100 kusurlu olan taraf değer kaybı talep edemez.</small>
+        </div>
+        <button onclick="hesaplaDegerKaybi()" style="width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s;">Değer Kaybını Hesapla</button>
+    </div>
+
+    <div id="sonucAlani" style="display: none; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 20px; border-radius: 10px; text-align: center;">
+        <h3 style="color: #065f46; margin-top: 0;">Tahmini Araç Değer Kaybı</h3>
+        <div id="degerKaybiSonuc" style="font-size: 2.5rem; font-weight: bold; color: #047857; margin: 10px 0;">0 TL</div>
+        <p style="font-size: 0.85rem; color: #065f46; opacity: 0.8;">Bu hesaplama bilgilendirme amaçlıdır. Kesin tutar Sigorta Tahkim Komisyonu veya mahkeme bilirkişileri tarafından belirlenir.</p>
+    </div>
+    
+    <div style="margin-top: 40px;">
+        <h2>Araç Değer Kaybı Nedir ve Nasıl Alınır?</h2>
+        <p>Araç değer kaybı, bir trafik kazası sonrasında hasar gören ve onarılan aracın, ikinci el piyasasındaki satış değerinde meydana gelen düşüştür. Kusursuz veya daha az kusurlu olan taraf, kusurlu tarafın trafik sigortasından bu bedeli talep edebilir.</p>
+        
+        <h3>Değer Kaybı Alma Şartları (2026)</h3>
+        <ul style="line-height: 1.6; color: #475569;">
+            <li>Kazada %100 (tam) kusurlu olmamanız gerekir.</li>
+            <li>Aracın hasar gören parçasının daha önce aynı yerden hasar almamış (boyanmamış/değişmemiş) olması gerekir.</li>
+            <li>Mini onarımlar (plastik tampon, cam, silecek değişimi) değer kaybına dahil edilmez.</li>
+            <li>Kazanın üzerinden 2 yıl (zaman aşımı süresi) geçmemiş olmalıdır.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+function hesaplaDegerKaybi() {
+    const rayic = parseFloat(document.getElementById('rayicBedel').value);
+    const km = parseFloat(document.getElementById('kilometre').value);
+    const hasar = parseFloat(document.getElementById('hasarTutari').value);
+    const kusur = parseFloat(document.getElementById('kusurOrani').value);
+    
+    if(!rayic || !hasar || isNaN(km)) {
+        alert("Lütfen tüm alanları doldurun.");
+        return;
+    }
+    
+    if(kusur === 100) {
+        document.getElementById('degerKaybiSonuc').innerText = "0 TL";
+        document.getElementById('sonucAlani').style.display = "block";
+        return;
+    }
+
+    // Basit ve gerçeğe yakınsadığı varsayılan algoritmik bir tahmin formülü
+    // Baz Kayıp: Hasarın belli bir yüzdesi + Rayiçin belli bir yüzdesi
+    let bazKayip = (hasar * 0.40) + (rayic * 0.02);
+    
+    // Kilometre Çarpanı (KM arttıkça değer kaybı azalır)
+    let kmCarpani = 1.0;
+    if(km > 150000) kmCarpani = 0.5;
+    else if(km > 100000) kmCarpani = 0.7;
+    else if(km > 50000) kmCarpani = 0.9;
+    else if(km <= 15000) kmCarpani = 1.2; // Sıfıra yakın araçta değer kaybı daha çok hissedilir
+    
+    let tahminiDegerKaybi = bazKayip * kmCarpani;
+    
+    // Kusur oranını düş (%0 kusursa tamamını alır, %50 ise yarısını alır)
+    let hakEdilenKayip = tahminiDegerKaybi * ((100 - kusur) / 100);
+    
+    // Tavan/Taban Limitleri (Maksimum hasar tutarını geçmemesi mantıklıdır)
+    if(hakEdilenKayip > hasar * 1.5) {
+        hakEdilenKayip = hasar * 1.5; 
+    }
+    
+    document.getElementById('degerKaybiSonuc').innerText = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 0 }).format(hakEdilenKayip) + " TL";
+    document.getElementById('sonucAlani').style.display = "block";
+}
+</script>
+{% endblock %}

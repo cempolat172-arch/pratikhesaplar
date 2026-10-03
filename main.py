@@ -243,7 +243,29 @@ async def cv_hazirlama(request: Request):
     )
 
 
-@app.api_route("/rehber", response_class=HTMLResponse, methods=["GET", "HEAD"])
+
+@app.api_route("/arac-deger-kaybi-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def deger_kaybi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="deger-kaybi.html",
+        context={
+            "title": "Araç Değer Kaybı Hesaplama 2026 | Pratik Hesaplar", 
+            "description": "Trafik kazası sonrası aracınızda oluşan değer kaybını, kusur oranına ve hasar tutarına göre anında hesaplayın."
+        }
+    )
+
+@app.api_route("/asgari-ucret-hesaplama-2026", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def asgari_ucret(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="asgari-ucret.html",
+        context={
+            "title": "Asgari Ücret Hesaplama 2026 | Net, Brüt ve İşveren Maliyeti", 
+            "description": "2026 yılı güncel asgari ücretinin brütten nete hesaplaması, SGK kesintileri ve toplam işveren maliyeti tablosu."
+        }
+    )
+
+@app.api_route("/rehber",
+ response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def rehber_index(request: Request):
     return templates.TemplateResponse(
         request=request, name="rehber-index.html",
