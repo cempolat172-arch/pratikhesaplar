@@ -130,16 +130,25 @@
     <div class="cv-preview-area">
         <button class="btn-print" onclick="printCV()">📥 PDF İndir / Yazdır</button>
         
-        <div class="cv-paper" id="cvPaper">
-            <h1 id="cvName">Ad Soyad</h1>
-            <div class="cv-title" id="cvTitle">Meslek / Unvan</div>
+        <div class="cv-paper" id="cvPaper" style="transition: all 0.3s; --cv-primary: #2563eb;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--cv-primary); padding-bottom: 20px; margin-bottom: 20px;" id="cvHeader">
+        <div style="flex: 1;">
+            <h1 id="cvName" style="margin: 0; color: var(--cv-primary); font-size: 2.2rem; transition: color 0.3s;">Ad Soyad</h1>
+            <div class="cv-title" id="cvTitle" style="color: #64748b; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">Meslek / Unvan</div>
             
-            <div class="cv-contact">
-                <span id="cvEmail">📧 ornek@email.com</span> |
-                <span id="cvPhone">📱 +90 555 123 4567</span> |
-                <span id="cvLocation">📍 İstanbul, Türkiye</span> |
+            <div class="cv-contact" style="margin-top: 10px; font-size: 0.9rem; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
+                <span id="cvEmail">📧 ornek@email.com</span>
+                <span id="cvPhone">📱 +90 555 123 4567</span>
+                <span id="cvLocation">📍 İstanbul, Türkiye</span>
                 <span id="cvLinks">🔗 linkedin.com/in/profil</span>
             </div>
+        </div>
+        <div id="cvPhotoContainer" style="display: none; margin-left: 20px; flex-shrink: 0;">
+            <img id="cvPhoto" src="" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cv-primary); box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+            
+
 
             <div id="summarySection">
                 <h3>Özet</h3>
@@ -373,6 +382,60 @@ function loadCVDraft() {
 }
 
 window.addEventListener('DOMContentLoaded', loadCVDraft);
+
+function loadPhoto(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('cvPhoto').src = e.target.result;
+            document.getElementById('cvPhotoContainer').style.display = 'block';
+            try { localStorage.setItem('pratik_cv_photo', e.target.result); } catch(err) {}
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+function changeTemplate() {
+    const val = document.getElementById('fTemplate').value;
+    const paper = document.getElementById('cvPaper');
+    
+    if(val === 'modern') {
+        paper.style.setProperty('--cv-primary', '#2563eb');
+        paper.style.fontFamily = 'system-ui, -apple-system, sans-serif';
+    } else if(val === 'classic') {
+        paper.style.setProperty('--cv-primary', '#0f172a');
+        paper.style.fontFamily = '"Times New Roman", Times, serif';
+    } else if(val === 'creative') {
+        paper.style.setProperty('--cv-primary', '#059669');
+        paper.style.fontFamily = '"Trebuchet MS", sans-serif';
+    } else if(val === 'elegant') {
+        paper.style.setProperty('--cv-primary', '#9f1239');
+        paper.style.fontFamily = 'Georgia, serif';
+    }
+    try { localStorage.setItem('pratik_cv_template', val); } catch(err) {}
+}
+
+// Hook into loadCVDraft to restore template and photo
+const originalLoadCVDraft = window.loadCVDraft;
+window.loadCVDraft = function() {
+    if(originalLoadCVDraft) originalLoadCVDraft();
+    
+    const savedTemplate = localStorage.getItem('pratik_cv_template');
+    if(savedTemplate) {
+        const el = document.getElementById('fTemplate');
+        if(el) { el.value = savedTemplate; changeTemplate(); }
+    } else {
+        changeTemplate();
+    }
+    
+    const savedPhoto = localStorage.getItem('pratik_cv_photo');
+    if(savedPhoto) {
+        document.getElementById('cvPhoto').src = savedPhoto;
+        document.getElementById('cvPhotoContainer').style.display = 'block';
+    }
+};
+
 
 // Wrap updateCV to include autosave
 const originalUpdateCV = updateCV;
