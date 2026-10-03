@@ -264,7 +264,19 @@ async def asgari_ucret(request: Request):
         }
     )
 
+
+@app.api_route("/kira-artis-orani-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def kira_artisi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="kira-artisi.html",
+        context={
+            "title": "Kira Artış Oranı Hesaplama 2026 | TEFE TÜFE Zammı Hesapla", 
+            "description": "TÜİK enflasyon (TÜFE 12 aylık ortalama) oranlarına göre konut ve işyeri kiranıza gelecek yasal zam miktarını anında hesaplayın."
+        }
+    )
+
 @app.api_route("/rehber",
+
  response_class=HTMLResponse, methods=["GET", "HEAD"])
 async def rehber_index(request: Request):
     return templates.TemplateResponse(
