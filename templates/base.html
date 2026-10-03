@@ -37,6 +37,43 @@
         tr:hover { background: #f8fafc; }
         .code-badge { background: #fee2e2; color: #991b1b; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-family: monospace; }
         
+        
+        /* Market Ticker CSS */
+        .market-ticker-wrap {
+            width: 100%;
+            background: #1e293b;
+            color: #f8fafc;
+            overflow: hidden;
+            box-sizing: border-box;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-bottom: 2px solid #38bdf8;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+        .market-ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 25s linear infinite;
+        }
+        .market-ticker:hover {
+            animation-play-state: paused;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+        .ticker-item {
+            display: inline-block;
+            margin-right: 30px;
+        }
+        .ticker-item .symbol { color: #94a3b8; margin-right: 5px; }
+        .ticker-item .price { color: #ffffff; margin-right: 5px; }
+        .ticker-item .up { color: #10b981; }
+        .ticker-item .down { color: #ef4444; }
+        .ticker-item .neutral { color: #cbd5e1; }
+
         /* SEO Metin ve FAQ (SSS) Stilleri */
         .seo-content { margin-top: 40px; text-align: left; color: #334155; font-size: 0.95rem; line-height: 1.6; border-top: 2px solid #f1f5f9; padding-top: 20px; }
         .seo-content h2, .seo-content h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.25rem; }
@@ -64,6 +101,12 @@
     </script>
 </head>
 <body>
+    <div class="market-ticker-wrap">
+       <div class="market-ticker" id="marketTicker">
+          <span>Canlı Piyasalar Yükleniyor...</span>
+       </div>
+    </div>
+
     <div class="container">
         <header>
             <a href="/"><h1>Pratik Hesaplar</h1></a>
@@ -104,5 +147,55 @@
     <script>
         {% block extra_js %}{% endblock %}
     </script>
+
+    <script>
+        async function loadMarketData() {
+            try {
+                const response = await fetch('https://finans.truncgil.com/today.json');
+                const data = await response.json();
+                
+                const getStatus = (changeStr) => {
+                    if(changeStr.includes('-')) return 'down';
+                    if(changeStr === '%0,00' || changeStr === '%0.00') return 'neutral';
+                    return 'up';
+                };
+                
+                const getArrow = (status) => {
+                    if(status === 'down') return '▼';
+                    if(status === 'up') return '▲';
+                    return '▬';
+                };
+                
+                const items = [
+                    { name: 'Dolar', symbol: 'USD/TRY', data: data.USD },
+                    { name: 'Euro', symbol: 'EUR/TRY', data: data.EUR },
+                    { name: 'Gram Altın', symbol: 'Gr', data: data['gram-altin'] },
+                    { name: 'Çeyrek Altın', symbol: 'Çeyrek', data: data['ceyrek-altin'] },
+                    { name: 'Sterlin', symbol: 'GBP/TRY', data: data.GBP },
+                    { name: 'Gümüş', symbol: 'Ag', data: data['gumus'] },
+                    // Sabit Benzin Fiyatı (Örnek Ortalama Gösterge)
+                    { name: 'Benzin (Ort)', symbol: '₺/LT', custom: true, price: '42.50', change: '%0,00', status: 'neutral' }
+                ];
+                
+                let html = '';
+                items.forEach(item => {
+                    if(item.custom) {
+                        html += `<div class="ticker-item"><span class="symbol">${item.name}:</span> <span class="price">${item.price}</span> <span class="${item.status}">${getArrow(item.status)} ${item.change}</span></div>`;
+                    } else if(item.data) {
+                        const status = getStatus(item.data.Değişim);
+                        const arrow = getArrow(status);
+                        html += `<div class="ticker-item"><span class="symbol">${item.name}:</span> <span class="price">${item.data.Satış}</span> <span class="${status}">${arrow} ${item.data.Değişim}</span></div>`;
+                    }
+                });
+                
+                document.getElementById('marketTicker').innerHTML = html;
+            } catch (error) {
+                console.error('Piyasa verileri çekilemedi:', error);
+                document.getElementById('marketTicker').innerHTML = '<span style="color:#94a3b8;">Canlı piyasa verileri şu an güncellenemiyor...</span>';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', loadMarketData);
+    </script>
+
 </body>
 </html>
