@@ -1,3 +1,7 @@
+import urllib.request
+import json
+import re
+from fastapi.responses import JSONResponse
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, FileResponse, PlainTextResponse
 from fastapi.templating import Jinja2Templates
@@ -252,6 +256,45 @@ async def rehber_cv(request: Request):
         request=request, name="rehber-cv.html",
         context={"title": "ATS Uyumlu CV Nasıl Hazırlanır? Ücretsiz Rehber", "description": "İnsan kaynakları programlarından (ATS) %100 geçen, modern ve profesyonel CV hazırlamanın altın kuralları."}
     )
+
+
+@app.api_route("/api/piyasa", methods=["GET", "HEAD"])
+async def api_piyasa():
+    import urllib.request
+    import json
+    import re
+    from fastapi.responses import JSONResponse
+
+    truncgil_data = {}
+    try:
+        req = urllib.request.Request('https://finans.truncgil.com/today.json', headers={'User-Agent': 'Mozilla/5.0'})
+        truncgil_data = json.loads(urllib.request.urlopen(req, timeout=5).read().decode('utf-8'))
+    except Exception as e:
+        pass
+
+    benzin, motorin, lpg = "84,50", "94,80", "41,20"
+    try:
+        req_fuel = urllib.request.Request('https://www.tppd.com.tr/istanbul-akaryakit-fiyatlari', headers={'User-Agent': 'Mozilla/5.0'})
+        html = urllib.request.urlopen(req_fuel, timeout=5).read().decode('utf-8')
+        
+        b_match = re.search(r'data-title="KURŞUNSUZ BENZİN \(TL/LT\)"[^>]*>\s*([\d,]+)', html)
+        m_match = re.search(r'data-title="MOTORİN \(TL/LT\)"[^>]*>\s*([\d,]+)', html)
+        l_match = re.search(r'data-title="GAZ"[^>]*>\s*([\d,]+)', html)
+        
+        if b_match: benzin = b_match.group(1)
+        if m_match: motorin = m_match.group(1)
+        if l_match: lpg = l_match.group(1)
+    except:
+        pass
+
+    return JSONResponse({
+        "truncgil": truncgil_data,
+        "fuel": {
+            "benzin": benzin,
+            "motorin": motorin,
+            "lpg": lpg
+        }
+    })
 
 @app.api_route("/sitemap.xml", response_class=FileResponse, methods=["GET", "HEAD"])
 async def sitemap():

@@ -151,8 +151,10 @@
     <script>
         async function loadMarketData() {
             try {
-                const response = await fetch('https://finans.truncgil.com/today.json');
-                const data = await response.json();
+                const response = await fetch('/api/piyasa');
+                const result = await response.json();
+                const data = result.truncgil;
+                const fuel = result.fuel;
                 
                 const getStatus = (changeStr) => {
                     if(changeStr.includes('-')) return 'down';
@@ -167,14 +169,13 @@
                 };
                 
                 const items = [
-                    { name: 'Dolar', symbol: 'USD/TRY', data: data.USD },
-                    { name: 'Euro', symbol: 'EUR/TRY', data: data.EUR },
+                    { name: 'Dolar', symbol: '$', data: data.USD },
+                    { name: 'Euro', symbol: '€', data: data.EUR },
                     { name: 'Gram Altın', symbol: 'Gr', data: data['gram-altin'] },
-                    { name: 'Çeyrek Altın', symbol: 'Çeyrek', data: data['ceyrek-altin'] },
-                    { name: 'Sterlin', symbol: 'GBP/TRY', data: data.GBP },
-                    { name: 'Gümüş', symbol: 'Ag', data: data['gumus'] },
-                    // Sabit Benzin Fiyatı (Örnek Ortalama Gösterge)
-                    { name: 'Benzin (Ort)', symbol: '₺/LT', custom: true, price: '42.50', change: '%0,00', status: 'neutral' }
+                    { name: 'Çeyrek', symbol: 'Çeyrek', data: data['ceyrek-altin'] },
+                    { name: 'Benzin', symbol: '₺/LT', custom: true, price: fuel.benzin, change: 'Anlık', status: 'neutral' },
+                    { name: 'Motorin', symbol: '₺/LT', custom: true, price: fuel.motorin, change: 'Anlık', status: 'neutral' },
+                    { name: 'LPG', symbol: '₺/LT', custom: true, price: fuel.lpg, change: 'Anlık', status: 'neutral' }
                 ];
                 
                 let html = '';
