@@ -62,7 +62,7 @@
 .form-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .form-section h3 { margin-top: 0; color: #38bdf8; font-size: 1.2rem; margin-bottom: 15px; }
 .form-control { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: white; margin-bottom: 12px; font-family: inherit; }
-.form-control::placeholder { color: #64748b; }
+.form-control::placeholder { color: #475569; }
 .btn-print { background: #10b981; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: bold; margin-bottom: 20px; transition: 0.3s; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2); }
 .btn-print:hover { background: #059669; }
 
@@ -134,7 +134,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--cv-primary); padding-bottom: 20px; margin-bottom: 20px;" id="cvHeader">
         <div style="flex: 1;">
             <h1 id="cvName" style="margin: 0; color: var(--cv-primary); font-size: 2.2rem; transition: color 0.3s;">Ad Soyad</h1>
-            <div class="cv-title" id="cvTitle" style="color: #64748b; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">Meslek / Unvan</div>
+            <div class="cv-title" id="cvTitle" style="color: #475569; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">Meslek / Unvan</div>
             
             <div class="cv-contact" style="margin-top: 10px; font-size: 0.9rem; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
                 <span id="cvEmail">📧 ornek@email.com</span>
@@ -241,12 +241,12 @@
         <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Sık Sorulan Sorular</h3>
         
         <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">CV hazırlamak tamamen ücretsiz mi?</button>
+            <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">CV hazırlamak tamamen ücretsiz mi?</button>
             <div class="faq-answer"><div class="faq-answer-inner">Evet, sitemiz üzerinden dilediğiniz kadar özgeçmiş oluşturabilir ve herhangi bir ücret ödemeden PDF olarak indirebilirsiniz.</div></div>
         </div>
         
         <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">Girdiğim kişisel bilgiler kaydediliyor mu?</button>
+            <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">Girdiğim kişisel bilgiler kaydediliyor mu?</button>
             <div class="faq-answer"><div class="faq-answer-inner">Hayır, tüm işlemler tamamen tarayıcınız üzerinden gerçekleştirilir; gizliliğiniz ve güvenliğiniz için kişisel verileriniz sunucularımızda saklanmaz.</div></div>
         </div>
     </div>
@@ -374,7 +374,7 @@ function updateCV() {
                 <div>
                     <h3 style="color: var(--cv-primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">Eğitim</h3>
                     <div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.eduSchool}</div>
-                    <div style="font-size:0.95rem;color:#64748b;">${data.eduDegree}</div>
+                    <div style="font-size:0.95rem;color:#475569;">${data.eduDegree}</div>
                 </div>
                 ` : ''}
             </div>
@@ -387,7 +387,7 @@ function updateCV() {
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--cv-primary); padding-bottom: 20px; margin-bottom: 20px;">
                 <div style="flex: 1;">
                     <h1 style="margin: 0; color: var(--cv-primary); font-size: 2.2rem;">${data.name}</h1>
-                    <div style="color: #64748b; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">${data.title}</div>
+                    <div style="color: #475569; font-size: 1.1rem; margin-top: 5px; font-weight: 500;">${data.title}</div>
                     
                     <div style="margin-top: 10px; font-size: 0.95rem; color: #475569; display: flex; flex-wrap: wrap; gap: 10px;">
                         ${data.email ? `<span>📧 ${data.email}</span>` : ''}
@@ -421,7 +421,7 @@ function updateCV() {
             <div style="margin-bottom: 25px;">
                 <h3 style="color: #1e293b; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Eğitim</h3>
                 <div style="font-weight:bold;font-size:1.1rem;color:#333;">${data.eduSchool}</div>
-                <div style="font-size:0.95rem;color:#64748b;">${data.eduDegree}</div>
+                <div style="font-size:0.95rem;color:#475569;">${data.eduDegree}</div>
             </div>
             ` : ''}
 

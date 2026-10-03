@@ -4,23 +4,23 @@
 {% block content %}
 <div class="card" style="max-width: 700px; margin: 0 auto;">
     <h1 style="color: var(--primary); margin-top: 0; font-size: 1.8rem;">🚗 Araç Değer Kaybı Hesaplama 2026</h1>
-    <p style="color: #64748b; font-size: 0.95rem;">Trafik kazası sonrası aracınızda oluşan maddi değer kaybını (Yargıtay kriterlerine yakınsadığı varsayılan formüllerle) tahmini olarak hesaplayın.</p>
+    <p style="color: #475569; font-size: 0.95rem;">Trafik kazası sonrası aracınızda oluşan maddi değer kaybını (Yargıtay kriterlerine yakınsadığı varsayılan formüllerle) tahmini olarak hesaplayın.</p>
     
     <div style="background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
         <div class="form-group">
-            <label>Aracın Kaza Tarihindeki Rayiç (Piyasa) Bedeli (TL)</label>
+            <label for="rayicBedel">Aracın Kaza Tarihindeki Rayiç (Piyasa) Bedeli (TL)</label>
             <input type="number" id="rayicBedel" placeholder="Örn: 1000000">
         </div>
         <div class="form-group">
-            <label>Araç Kilometresi</label>
+            <label for="kilometre">Araç Kilometresi</label>
             <input type="number" id="kilometre" placeholder="Örn: 45000">
         </div>
         <div class="form-group">
-            <label>Tramer / Hasar Onarım Tutarı (TL)</label>
+            <label for="hasarTutari">Tramer / Hasar Onarım Tutarı (TL)</label>
             <input type="number" id="hasarTutari" placeholder="Örn: 50000">
         </div>
         <div class="form-group">
-            <label>Sizin Kusur Oranınız (%)</label>
+            <label for="kusurOrani">Sizin Kusur Oranınız (%)</label>
             <select id="kusurOrani">
                 <option value="0">%0 (Tamamen Haklısınız)</option>
                 <option value="25">%25 Kusurlu</option>
@@ -28,7 +28,7 @@
                 <option value="75">%75 Kusurlu</option>
                 <option value="100">%100 Kusurlu (Değer Kaybı Alamazsınız)</option>
             </select>
-            <small style="color:#64748b; display:block; margin-top:5px;">Not: %100 kusurlu olan taraf değer kaybı talep edemez.</small>
+            <small style="color:#475569; display:block; margin-top:5px;">Not: %100 kusurlu olan taraf değer kaybı talep edemez.</small>
         </div>
         <button onclick="hesaplaDegerKaybi()" style="width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.3s;">Değer Kaybını Hesapla</button>
     </div>

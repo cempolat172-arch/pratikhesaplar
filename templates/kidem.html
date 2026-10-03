@@ -3,11 +3,11 @@
 {% block description %}Güncel kıdem tazminatı hesaplama aracı. Giydirilmiş brüt ücret üzerinden damga vergisi kesintili net kıdem tazminatınızı öğrenin.{% endblock %}
 {% block content %}
 <h2>Kıdem ve İhbar Tazminatı Hesaplama</h2>
-<div class="form-group"><label>Giydirilmiş Brüt Ücret (TL):</label><input type="number" id="kidemBrut" value="35000" oninput="hesaplaKidem()"></div>
+<div class="form-group"><label for="kidemBrut">Giydirilmiş Brüt Ücret (TL):</label><input type="number" id="kidemBrut" value="35000" oninput="hesaplaKidem()"></div>
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-    <div class="form-group"><label>Çalışılan Yıl:</label><input type="number" id="kidemYil" value="3" oninput="hesaplaKidem()"></div>
-    <div class="form-group"><label>Ay:</label><input type="number" id="kidemAy" value="4" oninput="hesaplaKidem()"></div>
-    <div class="form-group"><label>Gün:</label><input type="number" id="kidemGun" value="10" oninput="hesaplaKidem()"></div>
+    <div class="form-group"><label for="kidemYil">Çalışılan Yıl:</label><input type="number" id="kidemYil" value="3" oninput="hesaplaKidem()"></div>
+    <div class="form-group"><label for="kidemAy">Ay:</label><input type="number" id="kidemAy" value="4" oninput="hesaplaKidem()"></div>
+    <div class="form-group"><label for="kidemGun">Gün:</label><input type="number" id="kidemGun" value="10" oninput="hesaplaKidem()"></div>
 </div>
 <div class="results">
     <div class="result-item"><h3>Brüt Kıdem Tazminatı</h3><span id="resKidem">0,00 TL</span></div>
@@ -40,12 +40,12 @@
         <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Tazminat Hakları (SSS)</h3>
         
         <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">Kendi isteğimle işten çıkarsam (istifa edersem) kıdem tazminatı alabilir miyim?</button>
+            <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">Kendi isteğimle işten çıkarsam (istifa edersem) kıdem tazminatı alabilir miyim?</button>
             <div class="faq-answer"><div class="faq-answer-inner">Kural olarak istifa eden işçi tazminat alamaz. Ancak erkekler için zorunlu askerlik görevi, kadınlar için evlilik tarihinden itibaren 1 yıl içinde çıkış, veya emeklilik için yaş dışındaki prim gün sayısının doldurulması gibi istisnai durumlarda tazminat hakkı doğar.</div></div>
         </div>
         
         <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">İhbar tazminatı nedir, süreleri ne kadardır?</button>
+            <button class="faq-question" aria-expanded="false" onclick="toggleFAQ(this)">İhbar tazminatı nedir, süreleri ne kadardır?</button>
             <div class="faq-answer"><div class="faq-answer-inner">İşveren sizi işten çıkarmadan önce çalışma sürenize göre size haber vermek zorundadır (Örn: 6 aydan az çalışan için 2 hafta, 3 yıldan fazla çalışan için 8 hafta). Bu süreyi bekletmeden hemen işten çıkarırsa, o sürelerin ücretini size "ihbar tazminatı" olarak ödemek zorundadır.</div></div>
         </div>
     </div>

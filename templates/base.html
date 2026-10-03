@@ -25,7 +25,7 @@
         header { text-align: center; margin-bottom: 25px; }
         header h1 { color: var(--primary); margin-bottom: 5px; font-size: 2.2rem; }
         header a { text-decoration: none; color: inherit; }
-        header p { color: #64748b; font-size: 1.1rem; }
+        header p { color: #475569; font-size: 1.1rem; }
         
         .nav-links { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
         .nav-links a { background: #e2e8f0; color: #1e293b; text-decoration: none; padding: 8px 14px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; transition: all 0.2s; }
@@ -41,7 +41,7 @@
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
         
         .results { margin-top: 25px; background: #f1f5f9; padding: 20px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center; }
-        .result-item h3 { margin: 0 0 5px 0; font-size: 0.85rem; color: #64748b; }
+        .result-item h3 { margin: 0 0 5px 0; font-size: 0.85rem; color: #475569; }
         .result-item span { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
@@ -105,13 +105,20 @@
     </style>
     <!-- Google tag (gtag.js) -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB47NEEKRM"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-CB47NEEKRM');
+      window.addEventListener('load', function() {
+          setTimeout(function() {
+              var gtagScript = document.createElement('script');
+              gtagScript.async = true;
+              gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-CB47NEEKRM';
+              document.head.appendChild(gtagScript);
+              
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-CB47NEEKRM');
+          }, 1000); // Gecikmeli yukleme ile ana is parcacigini (main thread) tamamen rahatlatir
+      });
     </script>
 
     <!-- Dinamik Schema.org / AggregateRating (Yildizli Gorunum) -->
@@ -142,7 +149,7 @@
        </div>
     </div>
 
-    <div class="container">
+    <main class="container" role="main">
         <header>
             <a href="/"><h1>Pratik Hesaplar</h1></a>
             <p>pratikhesaplar.com - Türkiye'nin En Kapsamlı Dijital Araç ve Servis Portalı</p>
@@ -183,7 +190,7 @@
         <div class="card">
             {% block content %}{% endblock %}
         </div>
-    </div>
+    </main>
     <script>
         {% block extra_js %}{% endblock %}
     </script>
