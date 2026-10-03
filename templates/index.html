@@ -1,7 +1,124 @@
 {% extends "base.html" %}
-{% block title %}Pratik Hesaplar - Ana Sayfa{% endblock %}
-{% block description %}Türkiye'nin en kapsamlı online hesaplama ve cihaz arıza kodları portalı. Kredi, KDV, maaş, kıdem tazminatı hesaplama ve kombi/beyaz eşya arıza kodları.{% endblock %}
+{% block title %}Pratik Hesaplar - Ana Sayfa | Türkiye'nin Hesaplama Platformu{% endblock %}
+{% block description %}Türkiye'nin en kapsamlı online hesaplama, dijital araç ve cihaz arıza kodları portalı. Kredi, maaş, kıdem tazminatı, CV oluşturucu ve daha fazlası tamamen ücretsiz.{% endblock %}
+
 {% block content %}
-<h2>Pratikhesaplar.com'a Hoşgeldiniz!</h2>
-<p>Yukarıdaki menüden kullanmak istediğiniz aracı seçebilirsiniz.</p>
+<div style="text-align: center; margin-bottom: 40px;">
+    <h2 style="color: var(--primary); font-size: 2rem; margin-bottom: 10px;">Türkiye'nin En Kapsamlı Dijital Araç Platformu</h2>
+    <p style="color: #64748b; font-size: 1.1rem; max-width: 750px; margin: 0 auto; line-height: 1.6;">Finansal hesaplamalardan sağlık araçlarına, beyaz eşya arıza kodlarından profesyonel CV hazırlamaya kadar aradığınız tüm dijital araçlar tamamen ücretsiz, hızlı ve güvenilir bir şekilde elinizin altında.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 50px;">
+    <a href="/kredi-hesaplama" style="display: block; text-decoration: none; padding: 25px 20px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; text-align: center; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size: 2.8rem; margin-bottom: 15px;">💰</div>
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.2rem;">Finans Araçları</h3>
+        <p style="margin: 0; font-size: 0.9rem; color: #64748b; line-height: 1.5;">Kredi, KDV, Maaş, Kıdem Tazminatı, Enflasyon ve Yatırım hesaplamaları.</p>
+    </a>
+    
+    <a href="/hata-kodlari" style="display: block; text-decoration: none; padding: 25px 20px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; text-align: center; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size: 2.8rem; margin-bottom: 15px;">🛠️</div>
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.2rem;">Arıza Kodları</h3>
+        <p style="margin: 0; font-size: 0.9rem; color: #64748b; line-height: 1.5;">Tüm marka kombi, klima ve beyaz eşyaların detaylı arıza kodları ve çözümleri.</p>
+    </a>
+
+    <a href="/cv-hazirlama" style="display: block; text-decoration: none; padding: 25px 20px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; text-align: center; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size: 2.8rem; margin-bottom: 15px;">📄</div>
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.2rem;">Dijital Araçlar</h3>
+        <p style="margin: 0; font-size: 0.9rem; color: #64748b; line-height: 1.5;">Ücretsiz CV Oluşturucu, QR Kod Üretici, Şifre Oluşturucu ve Metin Sayacı.</p>
+    </a>
+    
+    <a href="/vki-hesaplama" style="display: block; text-decoration: none; padding: 25px 20px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; transition: all 0.3s; text-align: center; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size: 2.8rem; margin-bottom: 15px;">⚖️</div>
+        <h3 style="margin: 0 0 10px 0; color: var(--primary); font-size: 1.2rem;">Sağlık ve Yaşam</h3>
+        <p style="margin: 0; font-size: 0.9rem; color: #64748b; line-height: 1.5;">Vücut Kitle İndeksi (VKİ), Gebelik, Kalori, Su İhtiyacı ve Yaş Hesaplama.</p>
+    </a>
+</div>
+
+<div class="seo-content" style="background: #ffffff; text-align: left; padding-top: 10px; border-top: none;">
+    <h2>Online Hesaplama Araçları ile Hayatınızı Kolaylaştırın</h2>
+    <p>Gelişen dijital dünyada, günlük hayatımızda karşılaştığımız birçok matematiksel ve finansal işlemi manuel olarak yapmak hem vakit kaybına hem de hata yapma riskine yol açar. <strong>Pratikhesaplar.com</strong>, Türkiye'nin en yenilikçi ve hızlı <a href="/hesap-makinesi" style="color: var(--primary); text-decoration: none; font-weight: 500;">online hesaplama araçları</a> platformu olarak tasarlanmıştır. Karmaşık formüllerle uğraşmadan; tamamen ücretsiz, reklamlara boğulmamış ve sade arayüzümüz ile tüm işlemlerinizi saniyeler içinde halledebilirsiniz.</p>
+
+    <h3>Finans ve Bütçe Planlamasında Güvenilir Adresiniz</h3>
+    <p>Ekonomik planlama yaparken doğru verilere ulaşmak hayati önem taşır. Ev veya araç almayı düşünüyorsanız <a href="/kredi-hesaplama" style="color: var(--primary); text-decoration: none; font-weight: 500;">kredi hesaplama</a> aracımız ile aylık taksitlerinizi ve toplam geri ödemenizi anında görebilirsiniz. İş hayatınızdaki yasal haklarınızı öğrenmek için <a href="/kidem-tazminati-hesaplama" style="color: var(--primary); text-decoration: none; font-weight: 500;">kıdem tazminatı hesaplama</a> ve net-brüt dönüşümleri için <a href="/maas-hesaplama" style="color: var(--primary); text-decoration: none; font-weight: 500;">maaş hesaplama</a> sistemimizi güvenle kullanabilirsiniz. Ayrıca ticari işlemlerinizde hızlı sonuç almak adına KDV dahil ve KDV hariç tutarları hesaplayarak fatura süreçlerinizi hızlandırabilirsiniz.</p>
+
+    <h3>Kombi, Klima ve Beyaz Eşya Arıza Kodları (Çözüm Merkezi)</h3>
+    <p>Evinizdeki elektronik cihazların aniden bozulması can sıkıcı olabilir. Ancak ekranda beliren o karmaşık harf ve rakam kombinasyonları aslında cihazınızın size neyin yanlış gittiğini söyleme şeklidir. Türkiye'de en çok kullanılan Bosch, Demirdöküm, Baymak, Arçelik, Beko ve Vestel gibi markalara ait tüm <a href="/hata-kodlari" style="color: var(--primary); text-decoration: none; font-weight: 500;">arıza kodları (hata kodları)</a> veritabanımızda mevcuttur. Servis çağırmadan önce sorunun kaynağını öğrenip, basit hataları kendiniz giderebilir ve gereksiz servis ücretlerinden kurtulabilirsiniz.</p>
+
+    <h3>Profesyonel Dijital Araçlar ve Yaşam Asistanı</h3>
+    <p>Pratikhesaplar.com sadece rakamlarla değil, modern çağın dijital gereksinimleriyle de ilgilenir. İş arama sürecindeki profesyoneller için geliştirdiğimiz <strong>%100 ücretsiz, ATS uyumlu</strong> <a href="/cv-hazirlama" style="color: var(--primary); text-decoration: none; font-weight: 500;">CV hazırlama</a> aracı ile saniyeler içinde mükemmel bir özgeçmiş oluşturabilir, kredi kartı veya üyelik gerektirmeden PDF olarak indirebilirsiniz.</p> 
+    
+    <p>Güvenliğiniz için kırılması imkansız parolalar üreten <a href="/guvenli-sifre-olustur" style="color: var(--primary); text-decoration: none; font-weight: 500;">şifre oluşturucu</a>, dijital paylaşımlarınızı hızlandıran <a href="/qr-kod-olusturucu" style="color: var(--primary); text-decoration: none; font-weight: 500;">QR kod üretici</a> ve metin içeriklerinizin istatistiklerini veren kelime sayacı gibi ücretsiz dijital araçlarımız her an elinizin altındadır. Sağlıklı bir yaşam içinse boy kilo endeksi (VKİ), günlük kalori ve su ihtiyacı gibi sağlık hesaplayıcılarımız ile kendinize daha iyi bakabilirsiniz.</p>
+
+    <div class="faq-section" style="margin-top: 40px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
+        <h3 style="font-size: 1.2rem; color: #1e293b; border-bottom: none; margin-bottom: 15px;">Sık Sorulan Sorular</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Sitedeki hesaplama araçları ve CV oluşturucu ücretli mi?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Hayır, sitemizde bulunan finansal hesaplamalar, sağlık araçları, arıza kodları sorgulamaları ve CV hazırlama dahil tüm dijital araçlar <strong>tamamen ve koşulsuz şartsız ücretsizdir</strong>. Hiçbir zaman kredi kartı veya üyelik talep edilmez.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Verilerim sisteminize veya veritabanına kaydediliyor mu?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Kesinlikle hayır. Güvenliğinize ve gizliliğinize büyük önem veriyoruz. CV oluştururken, maaş veya kredi hesaplarken girdiğiniz tüm bilgiler sadece sizin tarayıcınızda (yerel cihazınızda) kalır. Sunucularımıza hiçbir kişisel veri gönderilmez veya kalıcı olarak saklanmaz.</div></div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggleFAQ(this)">Hata ve arıza kodları veritabanı güncel mi?</button>
+            <div class="faq-answer"><div class="faq-answer-inner">Evet, platformumuzdaki kombi, klima ve beyaz eşya hata kodları doğrudan markaların resmi servis kitapçıkları referans alınarak düzenli olarak güncellenmektedir.</div></div>
+        </div>
+    </div>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Pratik Hesaplar",
+  "url": "https://pratikhesaplar.com/",
+  "description": "Türkiye'nin en kapsamlı online hesaplama, dijital araç ve cihaz arıza kodları portalı.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://pratikhesaplar.com/hata-kodlari?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Sitedeki hesaplama araçları ve CV oluşturucu ücretli mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hayır, sitemizde bulunan finansal hesaplamalar, sağlık araçları, arıza kodları sorgulamaları ve CV hazırlama dahil tüm dijital araçlar tamamen ve koşulsuz şartsız ücretsizdir. Hiçbir zaman kredi kartı veya üyelik talep edilmez."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Verilerim sisteminize veya veritabanına kaydediliyor mu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kesinlikle hayır. Güvenliğinize ve gizliliğinize büyük önem veriyoruz. CV oluştururken, maaş veya kredi hesaplarken girdiğiniz tüm bilgiler sadece sizin tarayıcınızda (yerel cihazınızda) kalır. Sunucularımıza hiçbir kişisel veri gönderilmez veya kalıcı olarak saklanmaz."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hata ve arıza kodları veritabanı güncel mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, platformumuzdaki kombi, klima ve beyaz eşya hata kodları doğrudan markaların resmi servis kitapçıkları referans alınarak düzenli olarak güncellenmektedir."
+      }
+    }
+  ]
+}
+</script>
+{% endblock %}
+{% block extra_js %}
+function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    item.classList.toggle('active');
+}
 {% endblock %}
