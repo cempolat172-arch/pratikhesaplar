@@ -2,61 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://pratikhesaplar.com/</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/kredi-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/kdv-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/maas-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/kidem-tazminati-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/metrekare-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/yol-yakit-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/kalori-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/vki-hesaplama</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://pratikhesaplar.com/hata-kodlari</loc>
-    <lastmod>2026-09-26</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/cv-hazirlama</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/qr-kod-olusturucu</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/rehber</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/rehber/kidem-tazminati</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/rehber/kredi-hesaplama</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pratikhesaplar.com/rehber/cv-hazirlama-teknikleri</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

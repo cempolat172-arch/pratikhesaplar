@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title | default("Pratik Hesaplar - Türkiye'nin Dijital Araç Portalı") }}</title>
+        <title>{{ title | default("Pratik Hesaplar - Türkiye'nin Dijital Araç Portalı") }}</title>
     <meta name="description" content="{{ description | default("Pratikhesaplar.com ile kredi, KDV, maaş, kıdem tazminatı hesaplamalarınızı yapın ve cihaz arıza kodlarını öğrenin.") }}">
+    
+    <!-- SEO & Sosyal Medya (Open Graph / Twitter) Meta Etiketleri -->
+    <meta property="og:title" content="{{ title | default("Pratik Hesaplar - Türkiye'nin Dijital Araç Portalı") }}">
+    <meta property="og:description" content="{{ description | default("Pratikhesaplar.com ile kredi, KDV, maaş, kıdem tazminatı hesaplamalarınızı yapın ve cihaz arıza kodlarını öğrenin.") }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pratikhesaplar.com{{ request.url.path if request else '' }}">
+    <meta property="og:site_name" content="Pratik Hesaplar">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title | default("Pratik Hesaplar - Türkiye'nin Dijital Araç Portalı") }}">
+    <meta name="twitter:description" content="{{ description | default("Pratikhesaplar.com ile kredi, KDV, maaş, kıdem tazminatı hesaplamalarınızı yapın ve cihaz arıza kodlarını öğrenin.") }}">
+    
+    <!-- Canonical URL (Kopya İçerik Önlemi) -->
+    <link rel="canonical" href="https://pratikhesaplar.com{{ request.url.path if request else '' }}">
     <style>
         :root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --border: #cbd5e1; }
         body { font-family: system-ui, -apple-system, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
