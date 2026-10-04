@@ -307,6 +307,13 @@ async def rehber_cv(request: Request):
 
 
 
+@app.api_route("/rehber/2026-kira-artis-oranlari-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_kira(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-kira.html",
+        context={"title": "2026 Kira Artış Oranları: TÜFE Nasıl Hesaplanır? | Pratik Hesaplar", "description": "Kiralara getirilen %25 sınırının kalkmasıyla 2026 yılında kira zammı TÜFE oranına göre nasıl hesaplanacak? Ev sahibi ve kiracı hakları."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])

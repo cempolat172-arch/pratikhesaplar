@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="rehber-content" style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; color: #334155;">
+    <a href="/rehber" style="text-decoration: none; color: var(--primary); font-weight: 600;">← Rehberlere Dön</a>
+    <h1 style="color: #0f172a; margin-top: 20px; font-size: 2.2rem; line-height: 1.3;">2026 Kira Artış Oranları: TÜFE Zammı Nasıl Hesaplanır?</h1>
+    <span style="color: #94a3b8; font-size: 0.9rem; display: block; margin-bottom: 30px;">Son Güncelleme: 4 Ekim 2026 | Okuma Süresi: 4 Dakika</span>
+
+    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Kira Artış Oranı Hesaplama 2026" style="width: 100%; border-radius: 12px; margin-bottom: 30px; object-fit: cover; height: 350px;">
+
+    <p>Son yıllarda ev sahipleri ve kiracılar arasında en çok tartışılan konuların başında kira artış oranları geliyor. Özellikle hükümetin pandemi sonrası enflasyonla mücadele kapsamında devreye soktuğu konutlarda <strong>%25 kira artış sınırı</strong> uygulamasının tamamen sona ermesiyle birlikte, gözler yeniden TÜFE (Tüketici Fiyat Endeksi) oranlarına çevrildi. Peki 2026 yılında kira zammı yasal olarak nasıl hesaplanacak? Ev sahipleri en fazla ne kadar zam yapabilir? Bu makalemizde konunun hukuki ve finansal detaylarını inceliyoruz.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">1. Yüzde 25 Sınırı Bitti: Artık Kural Ne?</h2>
+    <p>Konut kiralarında uygulanan %25 zammı kuralı yasal süresini doldurarak yürürlükten kalktı. Türk Borçlar Kanunu’nun 344. maddesine geri dönüldü. Bu maddeye göre; taraflar arasında aksi bir anlaşma yoksa, yenilenen kira dönemlerinde uygulanacak kira bedeli, bir önceki kira yılının <strong>TÜFE (Tüketici Fiyat Endeksi) 12 aylık ortalamalara göre değişim oranını</strong> geçemez.</p>
+    <p>Yani işyerlerinde uzun zamandır uygulanan TÜFE kuralı, 2026 yılı itibarıyla tüm konut sözleşmeleri için de resmi sınır haline geldi.</p>
+
+    <div style="background: #f0fdf4; border-left: 5px solid #16a34a; padding: 20px; margin: 30px 0; border-radius: 8px;">
+        <h3 style="margin-top: 0; color: #166534; display: flex; align-items: center; gap: 10px;">
+            <span>💡</span> Hızlı Çözüm Arayanlara:
+        </h3>
+        <p style="margin-bottom: 15px; color: #15803d;">Mevcut kiranızı ve TÜK'in açıkladığı güncel oranı girerek yeni kiranızı sıfır hata ile anında hesaplamak ister misiniz?</p>
+        <a href="/kira-artis-orani-hesaplama" style="display: inline-block; background: #16a34a; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Ücretsiz Kira Zammı Hesapla ➔</a>
+    </div>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">2. TÜFE "Aylık" Değil, "12 Aylık Ortalama" Alınır</h2>
+    <p>Kira hesaplaması yaparken en sık yapılan hata, enflasyon oranının (TÜFE) yıllık veya aylık manşet oranının baz alınmasıdır. Haber bültenlerinde sıkça duyduğumuz "Yıllık enflasyon %40 oldu" şeklindeki rakamlar kira zammında kullanılamaz. TÜİK'in her ayın 3'ünde açıkladığı veriler içerisindeki <strong>"On iki aylık ortalamalara göre değişim oranı"</strong> sütununa bakılmalıdır.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">3. Ev Sahibi TÜFE'den Daha Fazla Zam İsteyebilir mi?</h2>
+    <p>Sözleşmenizin 5. yılı dolmadıysa, ev sahibiniz yasal olarak TÜFE'nin 12 aylık ortalamasından 1 kuruş bile fazla zam talep edemez. Ancak eğer aynı evde 5 tam yılı doldurduysanız, ev sahibi "Kira Tespit Davası" açarak bölgedeki emsal kiralara göre yeni bir fiyat belirlenmesini mahkemeden isteyebilir.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">4. Örnek Bir Kira Hesaplaması</h2>
+    <p>Mevcut kiranızın 20.000 TL olduğunu ve o ay açıklanan 12 aylık TÜFE ortalamasının %60 olduğunu varsayalım.</p>
+    <ul style="background: #f8fafc; padding: 20px 20px 20px 40px; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <li style="margin-bottom: 10px;">Mevcut Kira: 20.000 TL</li>
+        <li style="margin-bottom: 10px;">TÜFE Zammı Oranı: %60</li>
+        <li style="margin-bottom: 10px;">Zam Tutarı: 20.000 x 0.60 = 12.000 TL</li>
+        <li><strong>Yeni Kira Bedeli: 32.000 TL</strong></li>
+    </ul>
+
+    <p style="margin-top: 40px;">Kira artışı ve enflasyonla ilgili daha detaylı hukuki süreçler yaşanmaması adına, yeni kira bedelinizi banka üzerinden "2026 yılı Ekim ayı kira bedeli" gibi net açıklamalarla göndermeyi unutmayın.</p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pratikhesaplar.com/rehber/2026-kira-artis-oranlari-hesaplama"
+  },
+  "headline": "2026 Kira Artış Oranları: TÜFE Zammı Nasıl Hesaplanır?",
+  "description": "Konutlarda kiralara getirilen %25 sınırının kalkmasıyla 2026 yılında kira zammı TÜFE oranına göre nasıl hesaplanacak? Örnek hesaplamalar ve kiracı hakları.",
+  "image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",  
+  "author": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar Uzman Ekibi"
+  },  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pratikhesaplar.com/static/logo.png"
+    }
+  },
+  "datePublished": "2026-10-04"
+}
+</script>
+{% endblock %}
