@@ -314,6 +314,13 @@ async def rehber_kira(request: Request):
         context={"title": "2026 Kira Artış Oranları: TÜFE Nasıl Hesaplanır? | Pratik Hesaplar", "description": "Kiralara getirilen %25 sınırının kalkmasıyla 2026 yılında kira zammı TÜFE oranına göre nasıl hesaplanacak? Ev sahibi ve kiracı hakları."}
     )
 
+@app.api_route("/rehber/kazali-arac-deger-kaybi-hesaplama-sartlari-2026", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_deger_kaybi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-deger-kaybi.html",
+        context={"title": "%100 Kusurlu Taraf Araç Değer Kaybı Alabilir Mi? 2026 Şartları", "description": "Trafik kazası sonrası tramer hasar kaydı değer düşüklüğü hesaplama tablosu ve %100 kusurlu olma durumunda yasal haklar."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])
