@@ -347,6 +347,13 @@ async def gizlilik_politikasi(request: Request):
 async def iletisim(request: Request):
     return templates.TemplateResponse(request=request, name="iletisim.html", context={"title": "İletişim | Pratik Hesaplar", "description": "Bizimle iletişime geçmek, öneri ve taleplerinizi iletmek için iletişim sayfamızı kullanın."})
 
+@app.api_route("/format-donusturucu", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def format_donusturucu(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="donusturucu.html",
+        context={"title": "Hepsi Bir Arada Format Dönüştürücü | Pratik Hesaplar", "description": "Görseli WebP ve PDF yapma, CSV'yi JSON'a çevirme, metin ve Base64 şifreleme araçları tamamen ücretsiz."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])

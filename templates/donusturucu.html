@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="converter-container" style="max-width: 900px; margin: 0 auto; padding: 20px; font-family: sans-serif;">
+    <h1 style="text-align: center; color: var(--primary); margin-bottom: 30px;">Pratik Hepsi Bir Arada Dönüştürücü</h1>
+    
+    <!-- Sekme Butonları -->
+    <div class="tabs" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+        <button onclick="switchTab('image')" class="tab-btn active" style="padding: 10px 20px; cursor: pointer; border: none; background: #3498db; color: white; border-radius: 5px; font-weight: bold;">Görsel & WebP</button>
+        <button onclick="switchTab('pdf')" class="tab-btn" style="padding: 10px 20px; cursor: pointer; border: none; background: #e2e8f0; color: #333; border-radius: 5px; font-weight: bold;">Görsel to PDF</button>
+        <button onclick="switchTab('text')" class="tab-btn" style="padding: 10px 20px; cursor: pointer; border: none; background: #e2e8f0; color: #333; border-radius: 5px; font-weight: bold;">Metin & Kod</button>
+        <button onclick="switchTab('excel')" class="tab-btn" style="padding: 10px 20px; cursor: pointer; border: none; background: #e2e8f0; color: #333; border-radius: 5px; font-weight: bold;">CSV / JSON Veri</button>
+    </div>
+
+    <!-- 1. Görsel Dönüştürücü Paneli -->
+    <div id="image-panel" class="panel">
+        <div style="background: #f8fafc; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
+            <h3 style="color: var(--primary); margin-top: 0;">Görsel Boyutu Küçült & WebP Çevirici</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">JPG/PNG görsellerinizi yeni nesil WebP formatına çevirerek %80'e varan sıkıştırma sağlayın.</p>
+            <input type="file" id="imageInput" accept="image/*" style="margin: 20px 0; display: block; margin-left: auto; margin-right: auto;">
+            <button onclick="convertImage()" style="background: #10b981; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 1.1rem; font-weight: 600;">Dönüştür ve İndir</button>
+        </div>
+    </div>
+
+    <!-- 2. Görsel to PDF Paneli -->
+    <div id="pdf-panel" class="panel" style="display: none;">
+        <div style="background: #f8fafc; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
+            <h3 style="color: var(--primary); margin-top: 0;">Birden Fazla Görseli PDF Yap</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Fotoğrafları veya belgeleri seçin, hepsini tek bir PDF dosyasında birleştirelim.</p>
+            <input type="file" id="pdfImagesInput" accept="image/*" multiple style="margin: 20px 0; display: block; margin-left: auto; margin-right: auto;">
+            <button onclick="convertToPDF()" style="background: #ef4444; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 1.1rem; font-weight: 600;">PDF Olarak İndir</button>
+        </div>
+    </div>
+
+    <!-- 3. Metin & Kod Araçları Paneli -->
+    <div id="text-panel" class="panel" style="display: none;">
+        <div style="background: #f8fafc; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <h3 style="color: var(--primary); margin-top: 0; text-align: center;">Metin Düzenleyici ve Base64</h3>
+            <textarea id="textInput" placeholder="Metninizi buraya yazın veya yapıştırın..." style="width: 100%; height: 150px; padding: 15px; margin: 15px 0; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 1rem; resize: vertical; box-sizing: border-box;"></textarea>
+            
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center;">
+                <button onclick="textOps('upper')" style="padding: 10px 15px; cursor: pointer; border: 1px solid #cbd5e1; background: white; border-radius: 5px; font-weight: 600;">BÜYÜK HARF</button>
+                <button onclick="textOps('lower')" style="padding: 10px 15px; cursor: pointer; border: 1px solid #cbd5e1; background: white; border-radius: 5px; font-weight: 600;">küçük harf</button>
+                <button onclick="textOps('base64enc')" style="padding: 10px 15px; cursor: pointer; border: 1px solid #cbd5e1; background: #3b82f6; color: white; border-radius: 5px; font-weight: 600;">Base64 Şifrele</button>
+                <button onclick="textOps('base64dec')" style="padding: 10px 15px; cursor: pointer; border: 1px solid #cbd5e1; background: #f59e0b; color: white; border-radius: 5px; font-weight: 600;">Base64 Çöz</button>
+            </div>
+            <div id="textStats" style="font-weight: bold; color: #475569; text-align: center; font-size: 1.1rem; background: #e2e8f0; padding: 10px; border-radius: 5px;">Karakter: 0 | Kelime: 0</div>
+        </div>
+    </div>
+
+    <!-- 4. Excel / CSV / JSON Dönüştürücü Paneli -->
+    <div id="excel-panel" class="panel" style="display: none;">
+        <div style="background: #f8fafc; padding: 30px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: center;">
+            <h3 style="color: var(--primary); margin-top: 0;">CSV Tablo Verisi JSON Dönüştürücü</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Excel'den dışa aktardığınız virgülle ayrılmış (.csv) dosyalarını yazılımcılar için anında JSON formatına çevirin.</p>
+            <input type="file" id="csvInput" accept=".csv" style="margin: 20px 0; display: block; margin-left: auto; margin-right: auto;">
+            <button onclick="convertCSVtoJSON()" style="background: #8b5cf6; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 1.1rem; font-weight: 600;">JSON'a Çevir</button>
+            
+            <pre id="jsonOutput" style="background: #1e293b; color: #a5b4fc; padding: 20px; margin-top: 20px; max-height: 250px; overflow: auto; border-radius: 8px; text-align: left; font-size: 0.9rem; display: none;"></pre>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+{% endblock %}
+
+{% block extra_js %}
+function switchTab(tabId) {
+    document.querySelectorAll('.panel').forEach(p => p.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        b.style.background = '#e2e8f0';
+        b.style.color = '#333';
+    });
+    
+    document.getElementById(tabId + '-panel').style.display = 'block';
+    
+    const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+    if (activeBtn) {
+        activeBtn.style.background = '#3498db';
+        activeBtn.style.color = 'white';
+    }
+}
+
+function convertImage() {
+    const fileInput = document.getElementById('imageInput');
+    if (!fileInput.files[0]) return alert('Lütfen bir görsel seçin.');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            
+            const dataUrl = canvas.toDataURL('image/webp', 0.85); // 85% kalite
+            const link = document.createElement('a');
+            link.download = file.name.split('.')[0] + '_pratikhesaplar.webp';
+            link.href = dataUrl;
+            link.click();
+        }
+        img.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+}
+
+async function convertToPDF() {
+    if (!window.jspdf) {
+        alert("PDF kütüphanesi yükleniyor, lütfen 1 saniye bekleyip tekrar deneyin.");
+        return;
+    }
+    const { jsPDF } = window.jspdf;
+    const fileInput = document.getElementById('pdfImagesInput');
+    if (!fileInput.files.length) return alert('Lütfen en az bir görsel seçin.');
+    
+    const doc = new jsPDF();
+    
+    for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+        const dataUrl = await readFileAsDataURL(file);
+        
+        if (i > 0) doc.addPage();
+        
+        const imgProps = doc.getImageProperties(dataUrl);
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = doc.internal.pageSize.getHeight();
+        
+        // Gorseli sayfaya sigdirma (aspect ratio koruyarak)
+        const ratio = Math.min(pdfWidth / imgProps.width, pdfHeight / imgProps.height);
+        const finalWidth = imgProps.width * ratio;
+        const finalHeight = imgProps.height * ratio;
+        
+        const xOffset = (pdfWidth - finalWidth) / 2;
+        const yOffset = (pdfHeight - finalHeight) / 2;
+        
+        doc.addImage(dataUrl, 'JPEG', xOffset, yOffset, finalWidth, finalHeight);
+    }
+    doc.save('pratikhesaplar_birlestirilmis.pdf');
+}
+
+function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+function textOps(action) {
+    const ta = document.getElementById('textInput');
+    try {
+        if (action === 'upper') ta.value = ta.value.toUpperCase();
+        if (action === 'lower') ta.value = ta.value.toLocaleLowerCase('tr-TR');
+        if (action === 'base64enc') ta.value = btoa(unescape(encodeURIComponent(ta.value)));
+        if (action === 'base64dec') ta.value = decodeURIComponent(escape(atob(ta.value)));
+    } catch(e) {
+        alert("Geçersiz metin veya format (Özellikle Base64 çözme işleminde hata).");
+    }
+    updateStats();
+}
+
+document.getElementById('textInput').addEventListener('input', updateStats);
+function updateStats() {
+    const val = document.getElementById('textInput').value;
+    const chars = val.length;
+    const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+    document.getElementById('textStats').innerText = `Karakter: ${chars} | Kelime: ${words}`;
+}
+// Init stats
+updateStats();
+
+function convertCSVtoJSON() {
+    const fileInput = document.getElementById('csvInput');
+    const output = document.getElementById('jsonOutput');
+    if (!fileInput.files[0]) return alert('Lütfen bir CSV dosyası seçin.');
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split('\n');
+        const result = [];
+        
+        if(lines.length < 2) return alert("Geçersiz CSV (Satır bulunamadı)");
+        
+        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+        
+        for(let i=1; i<lines.length; i++) {
+            if(!lines[i].trim()) continue;
+            const obj = {};
+            // Basit virgul ayirici (icinde virgul olan stringleri tam parse edemez ama genelde is gorur)
+            const currentline = lines[i].split(',');
+            for(let j=0; j<headers.length; j++){
+                let val = currentline[j] ? currentline[j].trim() : "";
+                val = val.replace(/^"|"$/g, ''); // Tirnaklari temizle
+                obj[headers[j]] = val;
+            }
+            result.push(obj);
+        }
+        output.style.display = 'block';
+        output.innerText = JSON.stringify(result, null, 2);
+    }
+    reader.readAsText(fileInput.files[0], 'UTF-8');
+}
+{% endblock %}
