@@ -321,6 +321,13 @@ async def rehber_deger_kaybi(request: Request):
         context={"title": "%100 Kusurlu Taraf Araç Değer Kaybı Alabilir Mi? 2026 Şartları", "description": "Trafik kazası sonrası tramer hasar kaydı değer düşüklüğü hesaplama tablosu ve %100 kusurlu olma durumunda yasal haklar."}
     )
 
+@app.api_route("/rehber/2026-asgari-ucret-brutten-nete-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_asgari_ucret(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-asgari-ucret.html",
+        context={"title": "2026 Asgari Ücret Brüt ve Net Hesaplama | İşverene Maliyet", "description": "2026 yılı asgari ücretin brütten nete hesaplama tablosu, SGK kesintileri ve bir işçinin işverene toplam maliyetini detaylıca inceleyin."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])

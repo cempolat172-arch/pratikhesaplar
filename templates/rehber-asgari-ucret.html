@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="rehber-content" style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; color: #334155;">
+    <a href="/rehber" style="text-decoration: none; color: var(--primary); font-weight: 600;">← Rehberlere Dön</a>
+    <h1 style="color: #0f172a; margin-top: 20px; font-size: 2.2rem; line-height: 1.3;">2026 Asgari Ücret Brüt ve Net Hesaplama: İşverene Maliyeti Ne Kadar?</h1>
+    <span style="color: #94a3b8; font-size: 0.9rem; display: block; margin-bottom: 30px;">Son Güncelleme: 6 Ekim 2026 | Okuma Süresi: 3 Dakika</span>
+
+    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="2026 Asgari Ücret Brütten Nete Hesaplama" style="width: 100%; border-radius: 12px; margin-bottom: 30px; object-fit: cover; height: 350px;">
+
+    <p>Türkiye'de çalışan milyonlarca kişiyi ve işvereni doğrudan ilgilendiren <strong>2026 asgari ücret</strong> rakamları, sadece çalışanın eline geçen net parayı değil, aynı zamanda şirketlerin personel bütçelerini de kökten değiştiriyor. Bu rehberimizde, <strong>2026 brütten nete asgari ücret hesaplama</strong> formülünü, SGK kesintilerini ve bir işçinin devlete ödenen vergilerle birlikte <strong>işverene toplam maliyetini</strong> tüm şeffaflığıyla ele alıyoruz.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">1. Brütten Nete Asgari Ücret Nasıl Hesaplanır?</h2>
+    <p>Asgari ücretin brüt tutarı, çalışanın kazandığı ham rakamdır. Ancak bu rakam doğrudan çalışanın banka hesabına yatmaz. Yasal kesintiler yapıldıktan sonra elinize geçen tutara "Net Asgari Ücret" denir. Brüt ücretten işçi payı olarak şu kalemler kesilir:</p>
+    <ul style="background: #f8fafc; padding: 20px 20px 20px 40px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+        <li style="margin-bottom: 10px;"><strong>SGK İşçi Primi (%14):</strong> Sağlık ve emeklilik sigortası için brüt maaş üzerinden devlet tarafından kesilir.</li>
+        <li style="margin-bottom: 10px;"><strong>İşsizlik Sigortası İşçi Primi (%1):</strong> Olası bir işten çıkarma durumunda işsizlik maaşı fonuna aktarılır.</li>
+        <li style="margin-bottom: 10px;"><em>Not:</em> 2022 yılından beri asgari ücretlilerden Gelir Vergisi (%15) ve Damga Vergisi (%0.759) <u>alınmamaktadır.</u></li>
+    </ul>
+    <p>Yani brüt tutar üzerinden %15 (SGK + İşsizlik) kesinti yapıldığında kalan miktar, çalışanın eline geçen net ücrettir.</p>
+
+    <div style="background: #fffbeb; border-left: 5px solid #f59e0b; padding: 20px; margin: 30px 0; border-radius: 8px;">
+        <h3 style="margin-top: 0; color: #b45309; display: flex; align-items: center; gap: 10px;">
+            <span>💰</span> Maaşınızı ve Kesintileri Detaylı Görün:
+        </h3>
+        <p style="margin-bottom: 15px; color: #92400e;">Güncel asgari ücret üzerinden brütten nete veya netten brüte kendi maaşınızı kuruşu kuruşuna hesaplamak için robotumuzu kullanabilirsiniz.</p>
+        <a href="/asgari-ucret-hesaplama-2026" style="display: inline-block; background: #f59e0b; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">Ücretsiz Asgari Ücret / Maliyet Hesapla ➔</a>
+    </div>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">2. Asgari Ücretin İşverene Maliyeti (2026)</h2>
+    <p>Bir işçinin şirkete maliyeti, çalışanın eline geçen paradan ibaret değildir. Devlet, brüt asgari ücret üzerinden işverenden de ekstra primler tahsil eder. SGK prim borcunu düzenli ödeyen (teşvikli) bir işveren için <strong>işverene maliyet</strong> şu şekilde toplanır:</p>
+    <ul style="margin-bottom: 30px; line-height: 1.6; padding-left: 20px;">
+        <li>Brüt Asgari Ücret Tutarı</li>
+        <li>SGK İşveren Primi (Teşvikli %15.5, Teşviksiz %20.5)</li>
+        <li>İşsizlik Sigortası İşveren Payı (%2)</li>
+    </ul>
+    <p>Bu üç kalemin toplamı, "Asgari Ücretin İşverene Toplam Maliyeti" olarak muhasebeleştirilir.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">3. Asgari Geçim İndirimi (AGİ) Kalktı mı?</h2>
+    <p>İnternette en çok aratılan sorulardan biri de <em>"2026 evli ve çocuklu asgari ücret AGİ dahil ne kadar?"</em> sorusudur. Ancak bilmeniz gereken çok önemli bir yasal değişiklik var: Asgari ücretten gelir vergisi kesintisi kaldırıldığı için, bu verginin iadesi mantığına dayanan <strong>Asgari Geçim İndirimi (AGİ) sistemi tamamen kaldırılmıştır.</strong> Artık bekar, evli veya çocuklu fark etmeksizin tüm çalışanlara tek tip (standart) net asgari ücret ödenmektedir.</p>
+
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pratikhesaplar.com/rehber/2026-asgari-ucret-brutten-nete-hesaplama"
+  },
+  "headline": "2026 Asgari Ücret Brüt ve Net Hesaplama: İşverene Maliyeti Ne Kadar?",
+  "description": "2026 yılı asgari ücret brütten nete hesaplama yöntemi, işverene toplam maliyeti, SGK kesintileri ve AGİ uygulamasının son durumu hakkında rehber.",
+  "image": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",  
+  "author": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar Finans Ekibi"
+  },  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pratikhesaplar.com/static/logo.png"
+    }
+  },
+  "datePublished": "2026-10-06"
+}
+</script>
+{% endblock %}
