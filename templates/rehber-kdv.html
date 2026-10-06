@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="rehber-content" style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; color: #334155;">
+    <a href="/rehber" style="text-decoration: none; color: var(--primary); font-weight: 600;">← Rehberlere Dön</a>
+    <h1 style="color: #0f172a; margin-top: 20px; font-size: 2.2rem; line-height: 1.3;">2026 KDV Hesaplama Rehberi: İçyüzde Formülü, Tevkifat ve Matrah Bulma</h1>
+    <span style="color: #94a3b8; font-size: 0.9rem; display: block; margin-bottom: 30px;">Son Güncelleme: 6 Ekim 2026 | Okuma Süresi: 6 Dakika</span>
+
+    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="KDV Hesaplama 2026" style="width: 100%; border-radius: 12px; margin-bottom: 30px; object-fit: cover; height: 350px;">
+
+    <p>Ticaret hayatının merkezinde yer alan Katma Değer Vergisi (KDV), gerek bireysel tüketicilerin bütçesini gerekse şirketlerin muhasebe departmanlarını her gün ilgilendiren en temel dolaylı vergidir. Bir malı satın alırken veya satarken faturadaki vergi yükünü doğru belirlemek, işletmelerin kârlılık analizinde hayati rol oynar. 2026 yılı güncel vergi mevzuatına göre belirlenen oranlarla <strong>KDV hesaplama</strong> işlemlerinin detaylarını, KDV dahil fiyattan matrah bulmanın (içyüzde) sırlarını ve tevkifatlı fatura kesiminin tüm hukuki zeminini bu dev rehberimizde A'dan Z'ye inceliyoruz.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">1. KDV Dahil Fiyattan Matrah (Vergisiz Tutar) Nasıl Bulunur? (İçyüzde Formülü)</h2>
+    <p>Birçok işletme sahibi veya tüketici, elinde sadece "toplam ödenecek tutar" varken ürünün asıl (çıplak) fiyatını, yani vergisiz matrahını bulmakta zorlanır. Muhasebe dilinde buna <strong>içyüzde formülü</strong> adı verilir. <strong>KDV dahil fiyattan matrah bulma</strong> işlemi sanıldığının aksine, toplam tutardan vergi oranını direkt çıkarmakla yapılamaz. Bu çok yaygın bir matematiksel hatadır.</p>
+    <p>Doğru Formül Şudur: <em>Toplam Fiyat / (1 + KDV Oranı) = Matrah (Vergisiz Fiyat)</em></p>
+    <p><strong>Örnek Hesaplama:</strong> Elinizde 1.200 TL'lik (%20 KDV dahil) bir elektronik eşya faturası olduğunu varsayalım. Bu ürünün KDV hariç fiyatını bulmak için 1200 sayısından %20'yi direkt çıkarırsanız (1200 - 240 = 960 TL) yanlış sonuca ulaşırsınız. Doğru işlem; 1200 / 1.20 = 1.000 TL şeklinde olmalıdır. KDV tutarı ise (1200 - 1000) 200 TL olarak kayıtlara geçer.</p>
+
+    <div style="background: #f0fdfa; border-left: 5px solid #0d9488; padding: 25px; margin: 35px 0; border-radius: 8px;">
+        <h3 style="margin-top: 0; color: #115e59; display: flex; align-items: center; gap: 10px; font-size: 1.3rem;">
+            <span>🧮</span> Formüllerle Zaman Kaybetmeyin!
+        </h3>
+        <p style="margin-bottom: 15px; color: #0f766e; font-size: 1.05rem;">Fatura keserken hata yapma riskini sıfıra indirin. KDV dahil, KDV hariç ve güncel oranlarla tüm matrah hesaplamalarınızı saniyeler içinde otomatik yapmak için aracımızı kullanın.</p>
+        <a href="/kdv-hesaplama" style="display: inline-block; background: #0d9488; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: background 0.3s;">Ücretsiz KDV Hesaplama Robotu ➔</a>
+    </div>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">2. KDV Hariç Tutara Vergi Nasıl Eklenir?</h2>
+    <p>Satıcıların en çok kullandığı yöntemdir. Malın üretim maliyeti ve kâr marjı belirlendikten sonra ortaya çıkan "Matrah" değerine devletin belirlediği vergi oranı eklenerek nihai satış fiyatı (KDV Dahil fiyat) elde edilir. İşlem son derece basittir:</p>
+    <p><em>Matrah x (1 + KDV Oranı) = KDV Dahil Satış Fiyatı</em></p>
+    <p>Örneğin, vergisiz fiyatı 5.000 TL olan ve %10 KDV dilimine giren bir tekstil ürününün son tüketici fiyatını bulmak için: 5000 x 1.10 = 5.500 TL hesaplaması yapılır.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">3. 2026 Yılı Güncel KDV Oranları Hangi Ürünleri Kapsıyor?</h2>
+    <p>Türkiye'de Cumhurbaşkanlığı kararnameleri ve Maliye Bakanlığı tebliğleriyle belirlenen 3 temel KDV oranı bulunmaktadır. Fatura kesmeden önce satılan ürünün hangi dilimde yer aldığını bilmek yasal bir zorunluluktur.</p>
+    <ul style="background: #f8fafc; padding: 25px 25px 25px 45px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+        <li style="margin-bottom: 15px;"><strong>%1 KDV (İndirimli Oran):</strong> En temel tüketim maddelerini kapsar. Ekmek, buğday, un gibi temel gıda ürünleri ile net alanı 150 metrekareye kadar olan kentsel dönüşüm kapsamındaki konut teslimlerinde bu oran uygulanır.</li>
+        <li style="margin-bottom: 15px;"><strong>%10 KDV (Orta Dilim):</strong> Tekstil ürünleri, giyim eşyaları, çantalar, ayakkabılar, temel yeme-içme hizmetleri (lokanta, kafe, restoran vb.), otel konaklama hizmetleri ve sinema/tiyatro gibi kültürel faaliyet biletlerinde %10 vergi alınmaktadır.</li>
+        <li style="margin-bottom: 15px;"><strong>%20 KDV (Genel Oran):</strong> Yukarıdaki iki özel listede yer almayan tüm ticari mal ve hizmet teslimleri genel orana tabidir. Elektronik eşyalar, akıllı telefonlar, bilgisayarlar, mobilyalar, otomobiller, beyaz eşyalar, kozmetik ürünleri, temizlik malzemeleri (deterjan, sabun vb.) ve her türlü danışmanlık/yazılım hizmetleri %20 KDV ile faturalandırılır.</li>
+    </ul>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">4. Tevkifatlı Fatura ve KDV Tevkifatı Hesaplama Nedir?</h2>
+    <p>Özellikle B2B (şirketten şirkete) ticarette ve devlet ihalelerinde karşımıza çıkan <strong>Tevkifat (Kesinti)</strong> kurumu, vergi güvenliğini sağlamak için Maliye tarafından geliştirilmiş bir sistemdir. Normal şartlarda satıcı KDV'nin tamamını alıcıdan tahsil edip devlete öder. Ancak tevkifatlı işlemlerde devlet, "satıcının vergiyi ödememe ihtimaline karşı" alıcıya sorumluluk yükler.</p>
+    <p><strong>Tevkifatlı KDV hesaplama</strong> işleminde vergi; 2/10, 3/10, 5/10, 7/10 veya 9/10 gibi yasal oranlarla satıcı ve alıcı arasında bölüşülür. Örneğin, temizlik hizmetlerinde genellikle 7/10 tevkifat uygulanır. 1.000 TL matrah + 200 TL KDV (%20) faturasında, alıcı KDV'nin %70'ini (140 TL) satıcıya ödemez, doğrudan satıcı adına vergi dairesine (2 No'lu KDV beyannamesiyle) öder. Kalan 30'luk kısım (60 TL) ise satıcıya ödenir. Bu sistem sayesinde devlet vergi kaybının önüne geçmiş olur.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">5. İşletmeler İçin İndirilecek ve Hesaplanan KDV Farkı</h2>
+    <p>Kurumlar Vergisi veya Gelir Vergisi mükellefi olan işletmeler, "Ben bu kadar çok KDV ödemek zorunda mıyım?" diye sıkça sorarlar. Katma Değer Vergisi, işletmenin cebinden çıkan bir para (gider) değildir; işletme sadece devlet adına bu parayı tüketiciden emanet olarak tahsil eder.</p>
+    <p>Şirketler, ay sonlarında <strong>Hesaplanan KDV</strong> (Yaptıkları satışlardan tahsil ettikleri KDV) ile <strong>İndirilecek KDV</strong> (Gider ve hammadde alırken ödedikleri KDV) tutarlarını mahsup ederler. Eğer Hesaplanan KDV daha yüksekse, aradaki fark "Ödenecek KDV" olarak vergi dairesine yatırılır. Şirketin gider faturası KDV'si daha yüksekse, bu tutar bir sonraki aya "Devreden KDV" olarak aktarılır.</p>
+    
+    <p style="margin-top: 30px;">Sonuç olarak; muhasebesel hatalardan, usulsüzlük cezalarından ve hatalı fatura kesimlerinden korunmak için KDV dahil/hariç hesaplamalarında ve oran seçimlerinde azami dikkat gösterilmeli, ihtiyaç duyulduğunda online hesaplama araçları kullanılarak işlemler çift taraflı doğrulanmalıdır.</p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pratikhesaplar.com/rehber/2026-kdv-hesaplama-tevkifat-ve-matrah-bulma"
+  },
+  "headline": "2026 KDV Hesaplama Rehberi: İçyüzde Formülü, Tevkifat ve Matrah Bulma",
+  "description": "500+ kelimelik dev rehber: KDV dahil fiyattan matrah bulma (içyüzde formülü), tevkifatlı fatura kesimi, indirilecek KDV ve güncel %1, %10, %20 oranları.",
+  "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",  
+  "author": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar Muhasebe Ekibi"
+  },  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pratikhesaplar.com/static/logo.png"
+    }
+  },
+  "datePublished": "2026-10-06"
+}
+</script>
+{% endblock %}

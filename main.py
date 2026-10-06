@@ -328,6 +328,13 @@ async def rehber_asgari_ucret(request: Request):
         context={"title": "2026 Asgari Ücret Brüt ve Net Hesaplama | İşverene Maliyet", "description": "2026 yılı asgari ücretin brütten nete hesaplama tablosu, SGK kesintileri ve bir işçinin işverene toplam maliyetini detaylıca inceleyin."}
     )
 
+@app.api_route("/rehber/2026-kdv-hesaplama-tevkifat-ve-matrah-bulma", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_kdv(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-kdv.html",
+        context={"title": "2026 KDV Hesaplama Rehberi: Dahil, Hariç Matrah Bulma ve Tevkifat", "description": "KDV dahil fiyattan matrah bulma (içyüzde formülü), tevkifatlı fatura kesimi ve 2026 güncel %1, %10, %20 oranları hakkında dev rehber."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])
