@@ -84,9 +84,13 @@ function switchTab(tabId) {
 
 function convertImage() {
     const fileInput = document.getElementById('imageInput');
-    if (!fileInput.files[0]) return alert('Lütfen bir görsel seçin.');
+    if (fileInput.files.length === 0) {
+        alert('Lütfen bir görsel seçin!');
+        return;
+    }
     const file = fileInput.files[0];
     const reader = new FileReader();
+    
     reader.onload = function(e) {
         const img = new Image();
         img.onload = function() {
@@ -96,11 +100,15 @@ function convertImage() {
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0);
             
-            const dataUrl = canvas.toDataURL('image/webp', 0.85); // 85% kalite
-            const link = document.createElement('a');
-            link.download = file.name.split('.')[0] + '_pratikhesaplar.webp';
-            link.href = dataUrl;
-            link.click();
+            // WebP formatına çevir ve indir
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'donusturulmus-goruntu.webp';
+                a.click();
+                URL.revokeObjectURL(url); // Clean up memory
+            }, 'image/webp', 0.8);
         }
         img.src = e.target.result;
     }
@@ -150,15 +158,15 @@ function readFileAsDataURL(file) {
     });
 }
 
-function textOps(action) {
+function textOps(type) {
     const ta = document.getElementById('textInput');
     try {
-        if (action === 'upper') ta.value = ta.value.toUpperCase();
-        if (action === 'lower') ta.value = ta.value.toLocaleLowerCase('tr-TR');
-        if (action === 'base64enc') ta.value = btoa(unescape(encodeURIComponent(ta.value)));
-        if (action === 'base64dec') ta.value = decodeURIComponent(escape(atob(ta.value)));
+        if (type === 'upper') ta.value = ta.value.toLocaleUpperCase('tr-TR');
+        if (type === 'lower') ta.value = ta.value.toLocaleLowerCase('tr-TR');
+        if (type === 'base64enc') ta.value = btoa(unescape(encodeURIComponent(ta.value)));
+        if (type === 'base64dec') ta.value = decodeURIComponent(escape(atob(ta.value)));
     } catch(e) {
-        alert("Geçersiz metin veya format (Özellikle Base64 çözme işleminde hata).");
+        alert("Geçersiz metin veya format.");
     }
     updateStats();
 }
