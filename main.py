@@ -335,6 +335,18 @@ async def rehber_kdv(request: Request):
         context={"title": "2026 KDV Hesaplama Rehberi: Dahil, Hariç Matrah Bulma ve Tevkifat", "description": "KDV dahil fiyattan matrah bulma (içyüzde formülü), tevkifatlı fatura kesimi ve 2026 güncel %1, %10, %20 oranları hakkında dev rehber."}
     )
 
+@app.api_route("/hakkimizda", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def hakkimizda(request: Request):
+    return templates.TemplateResponse(request=request, name="hakkimizda.html", context={"title": "Hakkımızda | Pratik Hesaplar", "description": "Pratik Hesaplar platformunun vizyonu ve amacı hakkında bilgi edinin."})
+
+@app.api_route("/gizlilik-politikasi", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def gizlilik_politikasi(request: Request):
+    return templates.TemplateResponse(request=request, name="gizlilik-politikasi.html", context={"title": "Gizlilik Politikası | Pratik Hesaplar", "description": "Pratikhesaplar.com gizlilik politikası, çerez kullanımı ve kullanıcı veri güvenliği şartları."})
+
+@app.api_route("/iletisim", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def iletisim(request: Request):
+    return templates.TemplateResponse(request=request, name="iletisim.html", context={"title": "İletişim | Pratik Hesaplar", "description": "Bizimle iletişime geçmek, öneri ve taleplerinizi iletmek için iletişim sayfamızı kullanın."})
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])

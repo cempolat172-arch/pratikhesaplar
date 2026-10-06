@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="rehber-content" style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; color: #334155;">
+    <h1 style="color: var(--primary); font-size: 2.2rem; margin-bottom: 20px;">İletişim</h1>
+    <p>Pratikhesaplar.com ile ilgili her türlü öneri, görüş, şikayet veya iş birliği talebiniz için bizimle iletişime geçebilirsiniz. Yeni bir hesaplama aracı eklememizi isterseniz, lütfen fikrinizi bizimle paylaşmaktan çekinmeyin.</p>
+    
+    <div style="background: #f8fafc; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 30px;">
+        <h2 style="color: var(--primary); margin-top: 0; font-size: 1.4rem;">İletişim Bilgileri</h2>
+        
+        <div style="margin-top: 20px;">
+            <p style="margin-bottom: 10px;"><strong>E-Posta:</strong> <a href="mailto:info@pratikhesaplar.com" style="color: #3b82f6; text-decoration: none;">info@pratikhesaplar.com</a></p>
+            <p style="margin-bottom: 10px;"><strong>Çalışma Saatleri:</strong> Hafta içi 09:00 - 18:00</p>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 0.95rem; color: #64748b;">Not: Gönderilen e-postalara genellikle 24 ile 48 saat içerisinde geri dönüş yapılmaktadır. Hesaplama sonuçlarıyla ilgili bireysel mali ve hukuki danışmanlık hizmetimiz bulunmamaktadır, uzman bir avukat veya mali müşavirden destek almanızı öneririz.</p>
+    </div>
+</div>
+{% endblock %}
