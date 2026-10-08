@@ -354,6 +354,13 @@ async def format_donusturucu(request: Request):
         context={"title": "Hepsi Bir Arada Format Dönüştürücü | Pratik Hesaplar", "description": "Görseli WebP ve PDF yapma, CSV'yi JSON'a çevirme, metin ve Base64 şifreleme araçları tamamen ücretsiz."}
     )
 
+@app.api_route("/rehber/2027-asgari-ucret-ne-kadar-olacak", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_asgari_ucret_2027(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-asgari-ucret-2027.html",
+        context={"title": "2027 Asgari Ücret Ne Kadar Olacak? | Tahminler ve Beklentiler", "description": "Ekonomistlerin 2027 yılı net ve brüt asgari ücret tahminleri, olası zam oranları, enflasyon farkı ve işverene maliyet beklentileri dev rehberimizde."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])
