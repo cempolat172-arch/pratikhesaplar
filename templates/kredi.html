@@ -11,6 +11,81 @@
     <div class="result-item"><h3>Toplam Ödeme</h3><span id="resToplamOdeme">0,00 TL</span></div>
 </div>
 
+<!-- Banka Faiz Oranları Tablosu -->
+<div class="bank-rates-table" style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+    <h3 style="font-size: 1.2rem; color: var(--primary); margin-top: 0; margin-bottom: 5px;">Bankaların Güncel Kredi Faiz Oranları (Ortalama)</h3>
+    <p style="font-size: 0.85rem; color: #64748b; margin-top: 0; margin-bottom: 15px;">* Tablodaki veriler bilgi amaçlıdır, bankaların kendi politikalarına ve kredi notunuza göre değişiklik gösterebilir. En güncel oranlar için ilgili bankanın resmi sitesini ziyaret ediniz.</p>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+                <tr>
+                    <th style="padding: 12px; background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">Banka</th>
+                    <th style="padding: 12px; background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">İhtiyaç Kredisi</th>
+                    <th style="padding: 12px; background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">Taşıt Kredisi</th>
+                    <th style="padding: 12px; background: #f8fafc; border-bottom: 2px solid #cbd5e1; color: #334155;">Konut Kredisi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Ziraat Bankası</td>
+                    <td style="padding: 12px;">% 4.24</td>
+                    <td style="padding: 12px;">% 4.05</td>
+                    <td style="padding: 12px;">% 3.89</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Halkbank</td>
+                    <td style="padding: 12px;">% 4.29</td>
+                    <td style="padding: 12px;">% 4.09</td>
+                    <td style="padding: 12px;">% 3.90</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">VakıfBank</td>
+                    <td style="padding: 12px;">% 4.29</td>
+                    <td style="padding: 12px;">% 4.05</td>
+                    <td style="padding: 12px;">% 3.89</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Garanti BBVA</td>
+                    <td style="padding: 12px;">% 3.99</td>
+                    <td style="padding: 12px;">% 4.49</td>
+                    <td style="padding: 12px;">% 3.69</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">İş Bankası</td>
+                    <td style="padding: 12px;">% 3.80</td>
+                    <td style="padding: 12px;">% 3.99</td>
+                    <td style="padding: 12px;">% 3.15</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Akbank</td>
+                    <td style="padding: 12px;">% 3.99</td>
+                    <td style="padding: 12px;">% 3.99</td>
+                    <td style="padding: 12px;">% 3.05</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Yapı Kredi</td>
+                    <td style="padding: 12px;">% 4.39</td>
+                    <td style="padding: 12px;">% 4.59</td>
+                    <td style="padding: 12px;">% 3.59</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0; background: #f8fafc;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">QNB</td>
+                    <td style="padding: 12px;">% 3.54</td>
+                    <td style="padding: 12px;">% 3.99</td>
+                    <td style="padding: 12px;">% 3.59</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                    <td style="padding: 12px; font-weight: 600; color: #1e293b;">Enpara.com</td>
+                    <td style="padding: 12px;">% 3.89</td>
+                    <td style="padding: 12px;">-</td>
+                    <td style="padding: 12px;">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <!-- SEO ve Rehber İçerik Alanı -->
 <div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
     <h2 style="font-size: 1.3rem; margin-top: 0;">Kredi Hesaplama Aracı ile Aylık Taksit ve Faiz Maliyeti Analizi</h2>
@@ -98,17 +173,3 @@ function toggleFAQ(btn) {
 
 window.onload = hesaplaKredi;
 {% endblock %}
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const tutar = document.getElementById('krediTutari').value;
-            const vade = document.getElementById('krediVadesi').value;
-            if (tutar && vade) {
-                // Varsayilan bir faiz girip otomatik hesaplat
-                if (!document.getElementById('krediFaizi').value) {
-                    document.getElementById('krediFaizi').value = '3.50';
-                }
-                hesapla();
-            }
-        });
-    </script>
