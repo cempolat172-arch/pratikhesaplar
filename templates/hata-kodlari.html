@@ -2,18 +2,24 @@
 {% block title %}Kombi, Klima ve Beyaz Eşya Arıza Kodları - Pratik Hesaplar{% endblock %}
 {% block description %}Vaillant, Demirdöküm, Bosch kombi; Arçelik, Beko çamaşır ve bulaşık makinesi ile klima ve buzdolabı arıza kodları sözlüğü.{% endblock %}
 {% block content %}
-<h2>Genişletilmiş Cihaz Arıza ve Hata Kodları Arşivi</h2>
-<div class="form-group">
-    <label>Cihaz / Marka Grubu:</label>
-    <select id="cihazSecim" onchange="filtreleAriza()">
-        <option value="kombi">🔥 Kombi Arıza Kodları (Tüm Markalar)</option>
-        <option value="camasir">👕 Çamaşır Makinesi Arıza Kodları</option>
-        <option value="bulasik">🍽️ Bulaşık Makinesi Arıza Kodları</option>
-        <option value="klima">❄️ Klima Arıza Kodları</option>
-        <option value="Buzdolabi">🧊 Buzdolabı Arıza Kodları</option>
-    </select>
+
+<div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 40px 20px; border-radius: 16px; text-align: center; color: white; margin-bottom: 30px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+    <h2 style="margin-top: 0; color: white; font-size: 2rem; margin-bottom: 10px;">Arıza Kodu Arama Motoru</h2>
+    <p style="color: #94a3b8; font-size: 1.1rem; margin-bottom: 25px;">Kombiniz veya beyaz eşyanız arıza mı verdi? Çözümü bulmak için kodu veya sorunu yazın.</p>
+    
+    <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; max-width: 800px; margin: 0 auto;">
+        <select id="cihazSecim" onchange="filtreleAriza()" style="flex: 1; min-width: 200px; padding: 15px 20px; font-size: 1.1rem; border-radius: 12px; border: none; background: white; color: #1e293b; font-weight: 600; cursor: pointer;">
+            <option value="kombi">🔥 Kombi Arızaları</option>
+            <option value="camasir">👕 Çamaşır Makinesi</option>
+            <option value="bulasik">🍽️ Bulaşık Makinesi</option>
+            <option value="klima">❄️ Klima Arızaları</option>
+            <option value="Buzdolabi">🧊 Buzdolabı</option>
+        </select>
+        
+        <input type="text" id="arizaAra" placeholder="🔍 Örn: F01, E3, Demirdöküm, su akıtıyor..." oninput="filtreleAriza()" style="flex: 2; min-width: 250px; padding: 15px 20px; font-size: 1.1rem; border-radius: 12px; border: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);">
+    </div>
 </div>
-<div class="form-group"><label>Kod veya Açıklama Ara:</label><input type="text" id="arizaAra" placeholder="Örn: F01, E3, Su akıtma, sensör..." oninput="filtreleAriza()"></div>
+
 <div style="overflow-x: auto; max-height: 500px; overflow-y: auto;">
     <table>
         <thead><tr><th>Kod</th><th>Cihaz</th><th>Tanım / Anlamı</th><th>Olası Çözüm</th></tr></thead>
