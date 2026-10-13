@@ -368,6 +368,13 @@ async def rehber_emekli_maasi_2027(request: Request):
         context={"title": "2027 Emekli Maaşı Ne Kadar Olacak? | SSK, Bağ-Kur Zam Oranları", "description": "2027 en düşük emekli maaşı ne kadar olacak? SSK, Bağ-Kur ve memur emeklileri için 6 aylık enflasyon farkı, kök maaş ve refah payı hesaplamaları dev rehberimizde."}
     )
 
+@app.api_route("/rehber/2027-yeniden-degerleme-orani-mtv-pasaport-ehliyet-zam-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_ydo_mtv_2027(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-ydo-mtv-2027.html",
+        context={"title": "2027 Yeniden Değerleme Oranı: MTV, Pasaport, Ehliyet Harç Zamları", "description": "2027 yeniden değerleme oranı (YDO) ne kadar olacak? MTV, pasaport, ehliyet harçları, IMEI kayıt ücreti ve trafik cezaları zam hesaplama tablosu dev rehberimizde."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])
