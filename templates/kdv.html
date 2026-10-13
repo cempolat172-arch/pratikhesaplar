@@ -5,10 +5,23 @@
 <h2>KDV Hesaplama</h2>
 <div class="form-group"><label>Tutar (TL):</label><input type="number" id="kdvTutar" placeholder="1000" value="1000" oninput="hesaplaKDV()"></div>
 <div class="form-group"><label>Oran:</label><select id="kdvOrani" onchange="hesaplaKDV()"><option value="20" selected>%20</option><option value="10">%10</option><option value="1">%1</option></select></div>
-<div class="form-group"><label>Hesaplama Türü:</label><select id="kdvTip" onchange="hesaplaKDV()"><option value="haric">KDV Hariç Tutar -> KDV Dahil</option><option value="dahil">KDV Dahil Tutar -> KDV Hariç</option></select></div>
-<div class="results">
-    <div class="result-item"><h3>KDV Tutarı</h3><span id="resKDVTutari">0,00 TL</span></div>
-    <div class="result-item"><h3>Toplam Tutar</h3><span id="resKDVToplam">0,00 TL</span></div>
+<div class="form-group"><label>Hesaplama Türü:</label><select id="kdvTip" onchange="hesaplaKDV()"><option value="haric">KDV Hariç Tutar -> KDV Dahil</option><option value="dahil">KDV Dahil Tutar -> KDV Hariç (Matrah Bulma)</option></select></div>
+<div class="form-group"><label>Tevkifat Oranı (Opsiyonel):</label>
+<select id="kdvTevkifat" onchange="hesaplaKDV()">
+    <option value="0" selected>Tevkifat Yok (Standart Fatura)</option>
+    <option value="2/10">2/10 Tevkifat</option>
+    <option value="3/10">3/10 Tevkifat</option>
+    <option value="4/10">4/10 Tevkifat</option>
+    <option value="5/10">5/10 Tevkifat</option>
+    <option value="7/10">7/10 Tevkifat</option>
+    <option value="9/10">9/10 Tevkifat</option>
+</select></div>
+<div class="results" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+    <div class="result-item"><h3>Matrah (Vergisiz Tutar)</h3><span id="resMatrah">0,00 TL</span></div>
+    <div class="result-item"><h3>Hesaplanan KDV Tutarı</h3><span id="resKDVTutari">0,00 TL</span></div>
+    <div class="result-item" id="tevkifatAlani" style="display: none;"><h3>Tevkifat Tutarı (Kesinti)</h3><span id="resTevkifatTutari" style="color: #dc2626;">0,00 TL</span></div>
+    <div class="result-item" id="tahsilKdvAlani" style="display: none;"><h3>Tahsil Edilecek KDV</h3><span id="resTahsilKdv">0,00 TL</span></div>
+    <div class="result-item" style="grid-column: 1 / -1;"><h3>Toplam Ödenecek / Fatura Tutarı</h3><span id="resKDVToplam" style="color: var(--primary); font-size: 1.4rem;">0,00 TL</span></div>
 </div>
 
 <div class="seo-content" style="background: #f8fafc; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
@@ -100,13 +113,46 @@ function hesaplaKDV() {
     let t = parseFloat(document.getElementById('kdvTutar').value) || 0;
     let o = parseFloat(document.getElementById('kdvOrani').value) / 100;
     let tip = document.getElementById('kdvTip').value;
-    let kdv = tip === 'haric' ? t * o : t - (t / (1 + o));
-    let toplam = tip === 'haric' ? t + kdv : t - kdv;
+    let tevkifatStr = document.getElementById('kdvTevkifat').value;
     
-    if (tip === 'dahil') { toplam = t; } else { toplam = t + kdv; }
-
-    document.getElementById('resKDVTutari').innerText = kdv.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
-    document.getElementById('resKDVToplam').innerText = toplam.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    let matrah = 0;
+    let toplamKdv = 0;
+    let toplamTutar = 0;
+    
+    if (tip === 'haric') {
+        matrah = t;
+        toplamKdv = matrah * o;
+        toplamTutar = matrah + toplamKdv;
+    } else {
+        matrah = t / (1 + o);
+        toplamKdv = t - matrah;
+        toplamTutar = t;
+    }
+    
+    let tevkifatOrani = 0;
+    if (tevkifatStr !== '0') {
+        let parts = tevkifatStr.split('/');
+        tevkifatOrani = parseFloat(parts[0]) / parseFloat(parts[1]);
+    }
+    
+    let tevkifatTutari = toplamKdv * tevkifatOrani;
+    let tahsilEdilecekKdv = toplamKdv - tevkifatTutari;
+    let alicininOdeyecegi = matrah + tahsilEdilecekKdv;
+    
+    document.getElementById('resMatrah').innerText = matrah.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    document.getElementById('resKDVTutari').innerText = toplamKdv.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    
+    if (tevkifatOrani > 0) {
+        document.getElementById('tevkifatAlani').style.display = 'block';
+        document.getElementById('tahsilKdvAlani').style.display = 'block';
+        document.getElementById('resTevkifatTutari').innerText = tevkifatTutari.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+        document.getElementById('resTahsilKdv').innerText = tahsilEdilecekKdv.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+        document.getElementById('resKDVToplam').innerText = alicininOdeyecegi.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL (Tahsil Edilecek)';
+    } else {
+        document.getElementById('tevkifatAlani').style.display = 'none';
+        document.getElementById('tahsilKdvAlani').style.display = 'none';
+        document.getElementById('resKDVToplam').innerText = toplamTutar.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' TL';
+    }
 }
 window.onload = hesaplaKDV;
 {% endblock %}
