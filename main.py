@@ -30,8 +30,8 @@ async def kredi(request: Request, tutar: str = "", vade: str = ""):
         title = f"{tutar} TL {vade} Ay Kredi Hesaplama {year} | Pratik Hesaplar"
         desc = f"{year} yılı güncel faiz oranlarıyla {tutar} TL tutarındaki kredinin {vade} ay vadeli taksit ve geri ödeme tablosunu anında hesaplayın."
     else:
-        title = f"Kredi Hesaplama Aracı {year} | İhtiyaç, Taşıt ve Konut Kredisi - Pratik Hesaplar"
-        desc = f"{year} yılı güncel faiz oranlarıyla hızlı kredi hesaplama yapın. İstediğiniz vade oranlarına göre aylık taksit miktarını ve toplam geri ödeme tutarını anında öğrenin."
+        title = f"İhtiyaç Kredisi Erken Kapama İndirimi & Taksit Hesaplama {year} | Pratik Hesaplar"
+        desc = f"{year} güncel banka faizleriyle ihtiyaç, konut ve taşıt kredisi taksit hesaplama. Erken kapama faiz indirimi ve toplam maliyet tablosu."
         
     return templates.TemplateResponse(
         request=request, 
@@ -51,8 +51,8 @@ async def kdv(request: Request):
         request=request, 
         name="kdv.html",
         context={
-            "title": "KDV Hesaplama 2026 | KDV Dahil ve Hariç Hesaplama - Pratik Hesaplar",
-            "description": "%1, %10 ve %20 güncel KDV oranları ile KDV dahil ve KDV hariç tutarları saniyeler içinde hesaplayın. Pratik ve net hesaplama aracı."
+            "title": "KDV Dahil Fiyattan Matrah Bulma (İçyüzde) & Tevkifatlı KDV Hesaplama 2026",
+            "description": "Faturada KDV dahil fiyattan vergisiz matrahı bulma (içyüzde formülü), tevkifatlı fatura hesaplama ve %1, %10, %20 güncel KDV oranları."
         }
     )
 
@@ -62,8 +62,8 @@ async def maas(request: Request):
         request=request, 
         name="maas.html",
         context={
-            "title": "Maaş Hesaplama | Brütten Nete Detaylı Maaş - Pratik Hesaplar",
-            "description": "Brüt maaşınızı girin; SGK işçi payı, işsizlik sigortası, gelir ve damga vergisi kesintilerini düşerek net ele geçen maaşınızı detaylıca hesaplayın."
+            "title": "2026 Brütten Nete Asgari Ücret ve Maaş Hesaplama | SGK ve Vergi Kesintileri",
+            "description": "2026 brütten nete asgari ücret ve maaş hesaplama aracı. SGK primi, gelir vergisi dilimleri ve damga vergisi kesintileri ile net maaş tablosu."
         }
     )
 
@@ -73,8 +73,8 @@ async def kidem(request: Request):
         request=request, 
         name="kidem.html",
         context={
-            "title": "Kıdem Tazminatı Hesaplama | Brüt ve Net Tazminat Hesapla - Pratik Hesaplar",
-            "description": "Çalıştığınız yıl, ay ve gün sayısına göre kıdem ve ihbar tazminatınızı anında hesaplayın. Damga vergisi kesintili net tazminat tutarınızı öğrenin."
+            "title": "İstifa Eden İşçi Kıdem Tazminatı ve İhbar Tazminatı Hesaplama 2026",
+            "description": "İstifa eden işçi kıdem tazminatı hesaplama ve askerlik, evlilik nedeniyle işten ayrılma tazminat hesaplama formülü 2026."
         }
     )
 
@@ -95,8 +95,8 @@ async def yakit(request: Request):
         request=request, 
         name="yakit.html",
         context={
-            "title": "Yol ve Yakıt Hesaplama | Yakıt Tüketim Maliyeti - Pratik Hesaplar",
-            "description": "Seyahatleriniz için yol ve yakıt maliyeti hesaplama aracı. Gideceğiniz mesafe ve aracınızın tüketimine göre toplam seyahat masrafınızı hesaplayın."
+            "title": "100 Km'de Kaç Litre Yakar Hesaplama | Güncel Yol Yakıt Maliyeti 2026",
+            "description": "Aracım 100 km'de kaç litre yakar hesaplama aracı. Benzin, motorin ve LPG litre fiyatlarıyla seyahat yakıt tüketimi düşürme maliyet tablosu."
         }
     )
 
