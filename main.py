@@ -375,6 +375,20 @@ async def rehber_ydo_mtv_2027(request: Request):
         context={"title": "2027 Yeniden Değerleme Oranı: MTV, Pasaport, Ehliyet Harç Zamları", "description": "2027 yeniden değerleme oranı (YDO) ne kadar olacak? MTV, pasaport, ehliyet harçları, IMEI kayıt ücreti ve trafik cezaları zam hesaplama tablosu dev rehberimizde."}
     )
 
+@app.api_route("/rehber/kredi-erken-kapatilirsa-ne-kadar-faiz-indirimi-olur", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_kredi_erken_kapama(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-kredi-erken-kapama.html",
+        context={"title": "Banka Kredisi Erken Kapatılırsa Ne Kadar Faiz İndirimi Olur? | 2026", "description": "İhtiyaç kredisi erken kapama indirimi hesaplama formülü, silinen faiz miktarı ve yasal erken ödeme tazminatı tablosu dev rehberimizde."}
+    )
+
+@app.api_route("/rehber/aracim-100-km-kac-litre-yakar-yakit-tuketimi-hesaplama", response_class=HTMLResponse, methods=["GET", "HEAD"])
+async def rehber_yakit_tuketimi(request: Request):
+    return templates.TemplateResponse(
+        request=request, name="rehber-yakit-tuketimi.html",
+        context={"title": "Aracım 100 Km'de Kaç Litre Yakar? Yakıt Tüketimi Hesaplama 2026", "description": "100 km'de kaç litre yakar hesaplama yöntemi, kilometre başına yakıt maliyeti çıkarma ve yakıt tüketimini düşürmenin altın kuralları."}
+    )
+
 haber_cache = {"data": None, "time": 0}
 
 @app.api_route("/api/haberler", methods=["GET"])

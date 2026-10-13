@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block content %}
+<div class="rehber-content" style="max-width: 800px; margin: 0 auto; text-align: left; line-height: 1.8; color: #334155;">
+    <a href="/rehber" style="text-decoration: none; color: var(--primary); font-weight: 600;">← Rehberlere Dön</a>
+    <h1 style="color: #0f172a; margin-top: 20px; font-size: 2.2rem; line-height: 1.3;">Aracım 100 Km'de Kaç Litre Yakar? Yakıt Tüketimi Hesaplama ve Tasarruf Tüyoları</h1>
+    <span style="color: #94a3b8; font-size: 0.9rem; display: block; margin-bottom: 30px;">Son Güncelleme: 13 Ekim 2026 | Okuma Süresi: 6 Dakika</span>
+
+    <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="100 Kmde Kaç Litre Yakar Yakıt Tüketimi Hesaplama" style="width: 100%; border-radius: 12px; margin-bottom: 30px; object-fit: cover; height: 350px;">
+
+    <p>Akaryakıt pompa fiyatlarının değişkenlik gösterdiği günümüzde araç sahiplerinin bütçesini doğrudan etkileyen en temel faktör tüketim maliyetidir. İster şehirlerarası uzun yola çıkın, ister günlük işe gidip gelin; her sürücünün kafasını kurcalayan en popüler soru <strong>"100 km'de kaç litre yakar hesaplama nasıl yapılır?"</strong> olmaktadır. Fabrika verileriyle gerçek yol koşulları arasındaki farklar, kilometre başına yakılan kuruş tutarı ve <strong>yakıt tüketimi düşürme yolları</strong> hakkında bilmeniz gereken tüm detayları bu rehberde derledik.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">1. 100 Km'de Kaç Litre Yakar Hesaplama (Depo Doldurma Formülü)</h2>
+    <p>Aracınızın yol bilgisayarına güvenmek yerine en kesin ve hatasız sonucu veren yöntem <strong>depoyu fulleme (pompa ölçümü)</strong> metodudur. Bu yöntem şu üç basit adımla yapılır:</p>
+    <ul style="background: #f8fafc; padding: 25px 25px 25px 45px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+        <li style="margin-bottom: 12px;"><strong>Adım 1:</strong> Akaryakıt istasyonuna gidip tabanca atana kadar depoyu tamamen doldurun ve aracınızın günlük kilometre sayacını (Trip A) sıfırlayın.</li>
+        <li style="margin-bottom: 12px;"><strong>Adım 2:</strong> Normal sürüş tarzınızla en az 150-200 kilometre yol yapın (Örn: 250 km).</li>
+        <li style="margin-bottom: 12px;"><strong>Adım 3:</strong> Tekrar aynı istasyona gidip depoyu yeniden tabanca atana kadar doldurun. Fişte yazan alınan litre miktarını not edin (Örn: 15 Litre).</li>
+    </ul>
+    <p><strong>Temel Formül:</strong> <em>(Alınan Yakıt Litresi ÷ Kat Edilen Kilometre) × 100 = 100 Km'deki Tüketim</em></p>
+    <p>Yukarıdaki örneğe göre: <em>(15 ÷ 250) × 100 = <strong>6.0 Litre / 100 Km</strong></em> tüketim değerine ulaşırsınız.</p>
+
+    <div style="background: #eff6ff; border-left: 5px solid #3b82f6; padding: 25px; margin: 35px 0; border-radius: 8px;">
+        <h3 style="margin-top: 0; color: #1e3a8a; display: flex; align-items: center; gap: 10px; font-size: 1.3rem;">
+            <span>⛽</span> Yol Masrafınızı Canlı Fiyatlarla Hesaplayın
+        </h3>
+        <p style="margin-bottom: 15px; color: #1d4ed8; font-size: 1.05rem;">Gideceğiniz mesafeyi ve aracınızın yakıt türünü seçerek güncel akaryakıt pompa fiyatlarıyla yolculuk maliyetinizi anında kuruşu kuruşuna öğrenin.</p>
+        <a href="/yol-yakit-hesaplama" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: background 0.3s;">Canlı Yol / Yakıt Hesaplama Robotu ➔</a>
+    </div>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">2. Kilometrede Kaç Kuruş / Lira Yakar?</h2>
+    <p>100 km'deki litre değerini bulduktan sonra <strong>kilometrede kaç kuruş yakar hesaplama</strong> işlemine geçebilirsiniz. Bunun için yapmanız gereken tek şey, litre tüketimini güncel pompa fiyatıyla çarpıp 100'e bölmektir.</p>
+    <p>Örneğin; litresi 45 TL olan benzini kullanan ve 100 km'de 6.5 litre yakan bir otomobil için:</p>
+    <p><em>(6.5 × 45) ÷ 100 = <strong>2,92 TL / Kilometre</strong></em> maliyet ortaya çıkar. Yani aracınız her 1 kilometrelik yolda yaklaşık 2 lira 92 kuruş yakmaktadır.</p>
+
+    <h2 style="color: var(--primary); margin-top: 40px; font-size: 1.6rem;">3. Araç Yakıt Tüketimi Düşürme Yolları (Altın Kurallar)</h2>
+    <p>Yakıt maliyetlerini %15 ile %25 arasında aşağı çekmek tamamen sürücünün elindedir. İşte uzmanların kanıtlanmış yakıt tasarrufu tüyoları:</p>
+    <ul style="background: #f8fafc; padding: 25px 25px 25px 45px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+        <li style="margin-bottom: 12px;"><strong>Doğru Lastik Basıncı:</strong> Fabrika değerinin 2-3 PSI altında olan lastikler yuvarlanma direncini artırır ve fazladan %3-%5 yakıt harcatır.</li>
+        <li style="margin-bottom: 12px;"><strong>Kademeli Hızlanma ve Sabit Sürüş:</strong> Ani kalkışlar ve ani frenler yakıtı adeta içer. Şehirlerarası yollarda sabit hızda (hız sabitleyici) seyretmek büyük tasarruf sağlar.</li>
+        <li style="margin-bottom: 12px;"><strong>Cam mı Klima mı?:</strong> Düşük hızlarda (şehir içi 50 km altı) cam açmak daha ekonomiktir. Ancak 80-90 km'nin üzerindeki hızlarda açık cam aerodinamik sürtünmeyi artırır; bu hızlarda klimayı açmak cam açmaktan daha az yaktırır.</li>
+        <li style="margin-bottom: 12px;"><strong>Gereksiz Ağırlıkları Boşaltın:</strong> Bagajda taşınan her fazladan 50 kg yük tüketimi hissedilir derecede artırır.</li>
+        <li style="margin-bottom: 12px;"><strong>Hava Filtresi Bakımı:</strong> Tıkalı bir hava filtresi motora yeterli oksijen gitmesini engeller, yanma verimini düşürür ve zengin karışım nedeniyle fazla yakıt tükettirir.</li>
+    </ul>
+
+    <p style="margin-top: 30px; font-weight: 500;"><em>Özetle;</em> Şehir içi ve uzun yol seyahatlerinizde sürpriz masraflarla karşılaşmamak için Pratikhesaplar.com üzerindeki <strong>Yol ve Yakıt Hesaplama Aracı</strong>'nı kullanarak bütçenizi en baştan planlayabilirsiniz.</p>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pratikhesaplar.com/rehber/aracim-100-km-kac-litre-yakar-yakit-tuketimi-hesaplama"
+  },
+  "headline": "Aracım 100 Km'de Kaç Litre Yakar? Yakıt Tüketimi Hesaplama ve Tasarruf Tüyoları",
+  "description": "600+ kelimelik analiz: 100 km'de kaç litre yakar hesaplama formülü, kilometre başına yakıt masrafı çıkarma ve yakıt tüketimini düşürmenin kanıtlanmış yolları.",
+  "image": "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",  
+  "author": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar Otomotiv Masası"
+  },  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pratik Hesaplar",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pratikhesaplar.com/static/logo.png"
+    }
+  },
+  "datePublished": "2026-10-13"
+}
+</script>
+{% endblock %}
